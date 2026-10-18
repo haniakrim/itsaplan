@@ -255,7 +255,10 @@ describe('invites', () => {
       expect(res.status).toBe(201);
       expect(res.data?.emailQueued).toBe(true);
       const sent = received.find((m) => m.to.some((to) => to.includes('newcomer@example.com')));
-      expect(sent?.body).toContain(`/invite/${res.data!.token}`);
+      // The mail is quoted-printable: long lines are folded with a "=" soft break, which
+      // can land inside the token. Unfold them before looking for the link.
+      const text = sent?.body.replace(/=\r?\n/g, '');
+      expect(text).toContain(`/invite/${res.data!.token}`);
     });
 
     it('still creates the link when no email provider is configured', async () => {
