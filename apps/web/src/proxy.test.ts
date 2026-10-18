@@ -118,6 +118,11 @@ describe('proxy with API_PROXY_TARGET', () => {
     assert.equal(rewrite(res), 'http://127.0.0.1:4001/projects/acme.OHP/views');
   });
 
+  it('passes the api discovery documents an MCP client fetches', () => {
+    const res = request('/.well-known/oauth-protected-resource/mcp', {});
+    assert.equal(rewrite(res), 'http://127.0.0.1:4001/.well-known/oauth-protected-resource/mcp');
+  });
+
   it('always passes the auth handler, navigations included', () => {
     const res = request('/api/auth/callback/oidc', { 'sec-fetch-dest': 'document' });
     assert.equal(rewrite(res), 'http://127.0.0.1:4001/api/auth/callback/oidc');

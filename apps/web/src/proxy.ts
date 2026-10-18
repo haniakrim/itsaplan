@@ -136,6 +136,8 @@ export const config = {
   // API_PROXY_TARGET is not left to the static-file exclusion.
   matcher: [
     '/protected-media/:path*',
+    // OAuth and MCP discovery documents of the api; a dotted path the entry below skips.
+    '/.well-known/:path*',
     '/((?!_next/static|_next/image|favicon.ico|.*\\.).*)',
     {
       source: '/((?!_next/).*)',
