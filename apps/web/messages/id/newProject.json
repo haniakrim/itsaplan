@@ -40,7 +40,8 @@
     "configuration": "Konfigurasi",
     "webhooks": "Webhook",
     "agents": "Agen",
-    "schedules": "Jadwal"
+    "schedules": "Jadwal",
+    "groups": "Grup"
   },
   "title": "Proyek baru",
   "copyTitle": "Salin proyek \"{name}\"",

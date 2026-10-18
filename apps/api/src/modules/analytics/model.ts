@@ -129,6 +129,7 @@ export const breakdownQuery = t.Object({
     t.Literal('priority'),
     t.Literal('type'),
     t.Literal('assignee'),
+    t.Literal('assigneeGroup'),
     t.Literal('delegate'),
   ]),
 });

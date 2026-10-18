@@ -33,6 +33,9 @@ checklists and their items.
 search_issues and list_issues are for finding issues by text or by field, not for
 resolving an identifier.
 
+list_issues takes assignedTo: "me" for your own issues and "meOrMyGroups" to include
+the issues assigned to a group you belong to.
+
 ## You
 
 Your key acts as one user. When a request says "me", "my" or "mine", call

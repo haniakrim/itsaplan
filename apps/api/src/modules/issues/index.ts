@@ -426,7 +426,7 @@ export const issueRoutes = new Elysia({ name: 'issues', detail: { tags: ['Issues
   // 'true'.
   .get(
     '/projects/:projectKey/issues',
-    async ({ project, query }) => {
+    async ({ project, query, user }) => {
       const labelIds = query.labelIds
         ? query.labelIds.split(',').map(Number).filter(Number.isFinite)
         : undefined;
@@ -448,6 +448,7 @@ export const issueRoutes = new Elysia({ name: 'issues', detail: { tags: ['Issues
           parentId: posId(query.parentId),
           assigneeUserId: str(query.assigneeUserId),
           assigneeGroupId: posId(query.assigneeGroupId),
+          assignedTo: query.assignedTo,
           delegateUserId: str(query.delegateUserId),
           priority: str(query.priority),
           labelIds: labelIds && labelIds.length ? labelIds : undefined,
@@ -455,7 +456,10 @@ export const issueRoutes = new Elysia({ name: 'issues', detail: { tags: ['Issues
           dueTo: str(query.dueTo),
           limit,
         },
-        { includeArchived: query.includeArchived === 'true' },
+        {
+          includeArchived: query.includeArchived === 'true',
+          viewerId: query.assignedTo ? requireUser(user).id : undefined,
+        },
       );
     },
     {

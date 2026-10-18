@@ -40,7 +40,8 @@
     "configuration": "Конфигурация",
     "webhooks": "Вебхуки",
     "agents": "Агенты",
-    "schedules": "Расписания"
+    "schedules": "Расписания",
+    "groups": "Группы"
   },
   "title": "Новый проект",
   "copyTitle": "Копировать проект «{name}»",

@@ -36,7 +36,8 @@
     "groupLabels": "Etiquetas",
     "groupCustom": "Campos personalizados",
     "empty": "Vacío",
-    "openInNewTab": "Abrir en una pestaña nueva"
+    "openInNewTab": "Abrir en una pestaña nueva",
+    "assigneeGroup": "Grupo asignado"
   },
   "menu": {
     "preview": "Previsualizar",
@@ -462,7 +463,10 @@
     "noMember": "No definido",
     "pickMember": "Elegir a alguien…",
     "noCandidates": "No hay nadie que elegir.",
-    "groups": "Grupos"
+    "groups": "Grupos",
+    "assigneeGroup": "Grupo asignado",
+    "changeGroup": "Asignar a un grupo…",
+    "noGroup": "Sin grupo"
   },
   "watchers": {
     "watch": "Seguir",
@@ -479,6 +483,7 @@
     "cleared": "Vacío",
     "noAssignee": "Sin asignar",
     "noType": "Sin tipo",
-    "noLabels": "Ninguna"
+    "noLabels": "Ninguna",
+    "noAssigneeGroup": "Sin grupo"
   }
 }

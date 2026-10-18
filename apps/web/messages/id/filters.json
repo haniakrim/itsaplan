@@ -41,7 +41,8 @@
     "startDate": "Tanggal mulai",
     "created": "Dibuat",
     "updated": "Diperbarui",
-    "assigneeGroup": "Grup penerima tugas"
+    "assigneeGroup": "Grup penerima tugas",
+    "assignedTo": "Ditugaskan ke"
   },
   "unset": {
     "assignee": "Tanpa penerima tugas",
@@ -51,5 +52,10 @@
     "cycle": "Tanpa cycle",
     "member": "Tanpa nilai",
     "assigneeGroup": "Tanpa grup"
+  },
+  "mine": {
+    "me": "Saya",
+    "myGroups": "Grup saya",
+    "meOrMyGroups": "Saya atau grup saya"
   }
 }

@@ -49,6 +49,7 @@ export default function CycleIssuesBoard({ cycle }: { cycle: Cycle }) {
         ...defaultsFromFilters(board.filters, {
           cycles: project.plannedCycles,
           initiatives: initiativeOptions,
+          viewerUserId: project.viewer.userId,
         }),
         ...(cycle.status === 'completed' ? defaults : { cycleId, ...defaults }),
       }),

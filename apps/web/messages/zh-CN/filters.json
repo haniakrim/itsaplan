@@ -41,7 +41,8 @@
     "startDate": "开始日期",
     "created": "创建时间",
     "updated": "更新时间",
-    "assigneeGroup": "负责组"
+    "assigneeGroup": "负责组",
+    "assignedTo": "指派给"
   },
   "unset": {
     "assignee": "无负责人",
@@ -51,5 +52,10 @@
     "cycle": "无周期",
     "member": "无值",
     "assigneeGroup": "无分组"
+  },
+  "mine": {
+    "me": "我",
+    "myGroups": "我的分组",
+    "meOrMyGroups": "我或我的分组"
   }
 }

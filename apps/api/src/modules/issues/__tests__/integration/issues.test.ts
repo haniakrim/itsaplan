@@ -1271,6 +1271,40 @@ describe('issues', () => {
       expect(res.data!.every((i) => i.columnId === columnId)).toBe(true);
     });
 
+    it('assignedTo me / meOrMyGroups resolves per caller', async () => {
+      const { asOwner, ownerUserId, columnId } = await setupProject();
+      const scope = asOwner.projects({ projectKey: 'MKT' });
+      const joiner = await signUpTestUser();
+      const invite = await scope.invites.post({ email: joiner.email, role: 'member' });
+      const asJoiner = authedApi(joiner.cookie);
+      await asJoiner.invites({ token: invite.data!.token }).accept.post();
+      const mine = (await scope.groups.post({ name: 'Mine', memberIds: [ownerUserId] })).data!;
+      const theirs = (await scope.groups.post({ name: 'Theirs', memberIds: [joiner.userId] }))
+        .data!;
+
+      const direct = (await createIssue(asOwner, columnId, { assigneeUserId: ownerUserId })).data!;
+      const viaGroup = (await createIssue(asOwner, columnId, { assigneeGroupId: mine.id })).data!;
+      const other = (await createIssue(asOwner, columnId, { assigneeGroupId: theirs.id })).data!;
+      const nobody = (await createIssue(asOwner, columnId)).data!;
+      const joinerDirect = (await createIssue(asOwner, columnId, { assigneeUserId: joiner.userId }))
+        .data!;
+
+      const ids = async (client: Api, assignedTo: string) =>
+        ((await list(client, { assignedTo })).data ?? []).map((i) => i.id).sort();
+
+      expect(await ids(asOwner, 'me')).toEqual([direct.id]);
+      expect(await ids(asOwner, 'meOrMyGroups')).toEqual([direct.id, viaGroup.id].sort());
+      expect(await ids(asJoiner, 'me')).toEqual([joinerDirect.id]);
+      expect(await ids(asJoiner, 'meOrMyGroups')).toEqual([other.id, joinerDirect.id].sort());
+      expect([direct, viaGroup, other, nobody, joinerDirect]).toHaveLength(5);
+    });
+
+    it('rejects an unknown assignedTo value with 400', async () => {
+      const { asOwner } = await setupProject();
+      const res = await list(asOwner, { assignedTo: 'everyone' });
+      expect(res.status).toBe(400);
+    });
+
     it('applies the labelIds filter with AND semantics', async () => {
       const { asOwner, columnId } = await setupProject();
       const a = (await asOwner.projects({ projectKey: 'MKT' }).labels.post({ name: 'a' })).data!;

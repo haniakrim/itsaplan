@@ -68,7 +68,12 @@ describe('workspace access', () => {
       expect.objectContaining({ key: 'MKT', role: 'owner', via: 'workspace' }),
     ]);
     const board = await asOwner.projects({ projectKey: 'MKT' }).get();
-    expect(board.data!.viewer).toEqual({ role: 'owner', teamRole: 'owner', via: 'workspace' });
+    expect(board.data!.viewer).toMatchObject({
+      userId: expect.any(String),
+      role: 'owner',
+      teamRole: 'owner',
+      via: 'workspace',
+    });
     expect((await createIssue(asOwner, columnId)).status).toBe(201);
 
     const teams = (await asOwner.teams.get()).data!;

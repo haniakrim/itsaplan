@@ -14,7 +14,8 @@ export type BuiltinFilterField =
   | 'status' // the issue's column id
   | 'statusType' // the column's state type (backlog/unstarted/…)
   | 'assignee' // assignee id, or null for "no assignee"
-  | 'assigneeGroup' // assignee group id, or null for "no group"
+  | 'assigneeGroup' // assignee group id, 'mine' (a group the viewer belongs to), or null for "no group"
+  | 'assignedTo' // 'me' (assigned to the viewer) or 'meOrMyGroups' (also to one of the viewer's groups)
   | 'delegate' // delegate agent id, or null for "no delegate"
   | 'priority' // priority string, or null for "no priority"
   | 'type' // issue type id, or null for "no type"
@@ -48,6 +49,25 @@ export interface FilterCondition {
 
 export interface FilterSet {
   conditions: FilterCondition[];
+}
+
+// The person a filter is evaluated for. Values that stand for "me" resolve against it:
+// 'me' on assignee, 'mine' on assigneeGroup, 'me' and 'meOrMyGroups' on assignedTo.
+export interface FilterViewer {
+  userId: string;
+  groupIds: number[];
+}
+
+export const ASSIGNED_TO_ME = 'me';
+export const ASSIGNED_TO_MY_GROUPS = 'meOrMyGroups';
+export const MY_GROUPS = 'mine';
+
+export function filterViewer(project: ProjectDetail): FilterViewer {
+  const userId = project.viewer?.userId ?? '';
+  const groupIds = userId
+    ? (project.groups ?? []).filter((g) => g.memberIds.includes(userId)).map((g) => g.id)
+    : [];
+  return { userId, groupIds };
 }
 
 export const EMPTY_FILTER_SET: FilterSet = { conditions: [] };
@@ -101,16 +121,25 @@ function builtinSetValues(
   issue: Issue,
   field: BuiltinFilterField,
   columnStateType: Map<number, StateType>,
+  viewer: FilterViewer,
 ): FilterValue[] {
+  const mine = !!viewer.userId && issue.assigneeUserId === viewer.userId;
+  const inMyGroup =
+    issue.assigneeGroupId != null && viewer.groupIds.includes(issue.assigneeGroupId);
   switch (field) {
     case 'status':
       return [issue.columnId];
     case 'statusType':
       return [columnStateType.get(issue.columnId) ?? null];
     case 'assignee':
-      return [issue.assigneeUserId];
+      return mine ? [issue.assigneeUserId, ASSIGNED_TO_ME] : [issue.assigneeUserId];
     case 'assigneeGroup':
-      return [issue.assigneeGroupId];
+      return inMyGroup ? [issue.assigneeGroupId, MY_GROUPS] : [issue.assigneeGroupId];
+    case 'assignedTo':
+      return [
+        ...(mine ? [ASSIGNED_TO_ME] : []),
+        ...(mine || inMyGroup ? [ASSIGNED_TO_MY_GROUPS] : []),
+      ];
     case 'delegate':
       return [issue.delegateUserId];
     case 'priority':
@@ -174,6 +203,7 @@ function matchCondition(
   issue: Issue,
   cond: FilterCondition,
   columnStateType: Map<number, StateType>,
+  viewer: FilterViewer,
 ): boolean {
   const cfId = parseCustomFieldKey(cond.field);
   const isDate = cfId == null && DATE_FIELDS.includes(cond.field as BuiltinFilterField);
@@ -197,7 +227,7 @@ function matchCondition(
     else if (isDate) present = builtinDate(issue, cond.field as BuiltinFilterField) != null;
     else
       present = hasValue(
-        builtinSetValues(issue, cond.field as BuiltinFilterField, columnStateType),
+        builtinSetValues(issue, cond.field as BuiltinFilterField, columnStateType, viewer),
       );
     return cond.op === 'is_set' ? present : !present;
   }
@@ -215,7 +245,7 @@ function matchCondition(
   const issueValues =
     cfId != null
       ? customFieldValues(issue, cfId)
-      : builtinSetValues(issue, cond.field as BuiltinFilterField, columnStateType);
+      : builtinSetValues(issue, cond.field as BuiltinFilterField, columnStateType, viewer);
   const overlaps = cond.values.some((cv) => issueValues.includes(cv));
   return cond.op === 'is' ? overlaps : !overlaps;
 }
@@ -231,7 +261,10 @@ export function applyFilters<T extends Issue>(
   if (!isActiveFilterSet(filters)) return issues;
   const columnStateType = new Map(project.columns.map((c) => [c.id, c.stateType]));
   const active = filters!.conditions.filter(isEffectiveCondition);
-  return issues.filter((t) => active.every((cond) => matchCondition(t, cond, columnStateType)));
+  const viewer = filterViewer(project);
+  return issues.filter((t) =>
+    active.every((cond) => matchCondition(t, cond, columnStateType, viewer)),
+  );
 }
 
 // Whether one issue satisfies every effective condition in the set. An empty or
@@ -245,7 +278,8 @@ export function matchesFilterSet(
 ): boolean {
   if (!isActiveFilterSet(filters)) return true;
   const columnStateType = new Map(project.columns.map((c) => [c.id, c.stateType]));
+  const viewer = filterViewer(project);
   return filters!.conditions
     .filter(isEffectiveCondition)
-    .every((cond) => matchCondition(issue, cond, columnStateType));
+    .every((cond) => matchCondition(issue, cond, columnStateType, viewer));
 }

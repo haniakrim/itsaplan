@@ -12,6 +12,7 @@ type FilterField =
   | 'statusType'
   | 'assignee'
   | 'assigneeGroup'
+  | 'assignedTo'
   | 'delegate'
   | 'priority'
   | 'type'
@@ -36,6 +37,15 @@ interface FilterCondition {
 
 interface FilterSet {
   conditions: FilterCondition[];
+}
+
+// The person a filter is evaluated for, so values that stand for "me" resolve per viewer:
+// 'me' on the assignee field, 'mine' on the assignee group field (a group the viewer
+// belongs to) and 'me' / 'meOrMyGroups' on assignedTo. Without a viewer (a public share)
+// none of them matches.
+export interface FilterViewer {
+  userId: string;
+  groupIds: number[];
 }
 
 const DATE_FIELDS: FilterField[] = ['dueDate', 'startDate', 'created', 'updated'];
@@ -77,16 +87,22 @@ function builtinSetValues(
   issue: IssueRow,
   field: FilterField,
   columnStateType: Map<number, string>,
+  viewer?: FilterViewer,
 ): FilterValue[] {
+  const mine = !!viewer && issue.assigneeUserId === viewer.userId;
+  const inMyGroup =
+    !!viewer && issue.assigneeGroupId != null && viewer.groupIds.includes(issue.assigneeGroupId);
   switch (field) {
     case 'status':
       return [issue.columnId];
     case 'statusType':
       return [columnStateType.get(issue.columnId) ?? null];
     case 'assignee':
-      return [issue.assigneeUserId];
+      return mine ? [issue.assigneeUserId, 'me'] : [issue.assigneeUserId];
     case 'assigneeGroup':
-      return [issue.assigneeGroupId];
+      return inMyGroup ? [issue.assigneeGroupId, 'mine'] : [issue.assigneeGroupId];
+    case 'assignedTo':
+      return [...(mine ? ['me'] : []), ...(mine || inMyGroup ? ['meOrMyGroups'] : [])];
     case 'delegate':
       return [issue.delegateUserId];
     case 'priority':
@@ -141,6 +157,7 @@ function matchCondition(
   issue: IssueRow,
   cond: FilterCondition,
   columnStateType: Map<number, string>,
+  viewer?: FilterViewer,
 ): boolean {
   const cfId = parseCustomFieldKey(cond.field);
   const isDate = cfId == null && DATE_FIELDS.includes(cond.field as FilterField);
@@ -160,7 +177,10 @@ function matchCondition(
     let present: boolean;
     if (cfId != null) present = hasValue(customFieldValues(issue, cfId));
     else if (isDate) present = builtinDate(issue, cond.field as FilterField) != null;
-    else present = hasValue(builtinSetValues(issue, cond.field as FilterField, columnStateType));
+    else
+      present = hasValue(
+        builtinSetValues(issue, cond.field as FilterField, columnStateType, viewer),
+      );
     return cond.op === 'is_set' ? present : !present;
   }
 
@@ -175,7 +195,7 @@ function matchCondition(
   const issueValues =
     cfId != null
       ? customFieldValues(issue, cfId)
-      : builtinSetValues(issue, cond.field as FilterField, columnStateType);
+      : builtinSetValues(issue, cond.field as FilterField, columnStateType, viewer);
   const overlaps = cond.values.some((cv) => issueValues.includes(cv));
   return cond.op === 'is' ? overlaps : !overlaps;
 }
@@ -184,11 +204,12 @@ export function applyFilters(
   issues: IssueRow[],
   rawFilters: unknown,
   columns: ColumnRow[],
+  viewer?: FilterViewer,
 ): IssueRow[] {
   const active = toFilterSet(rawFilters).conditions.filter(isEffectiveCondition);
   if (active.length === 0) return issues;
   const columnStateType = new Map(columns.map((c) => [c.id, c.stateType]));
   return issues.filter((issue) =>
-    active.every((cond) => matchCondition(issue, cond, columnStateType)),
+    active.every((cond) => matchCondition(issue, cond, columnStateType, viewer)),
   );
 }

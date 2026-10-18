@@ -18,6 +18,8 @@ import {
   isEffectiveCondition,
   parseStatusValue,
   statusValue,
+  ASSIGNED_TO_ME,
+  ASSIGNED_TO_MY_GROUPS,
   type FilterCondition,
   type FilterSet,
   type FilterValue,
@@ -88,7 +90,7 @@ function onlyWithStatus(entities: { id: number; status: string }[], status: stri
 // out — what the user pointed at wins over the filters.
 export function defaultsFromFilters(
   filters: FilterSet,
-  planned: { cycles: CycleOption[]; initiatives: InitiativeOption[] },
+  planned: { cycles: CycleOption[]; initiatives: InitiativeOption[]; viewerUserId?: string },
 ): NewIssueDefaults {
   const pinned = pinnedFilterValues(filters);
   const pinnedId = (field: string) => {
@@ -97,6 +99,13 @@ export function defaultsFromFilters(
   };
   const pinnedText = (field: string) => {
     const value = pinned.get(field);
+    return typeof value === 'string' || value === null ? value : undefined;
+  };
+  // 'me' stands for the viewer, who is the assignee a new issue starts with.
+  const pinnedAssignee = () => {
+    const value = pinned.has('assignee') ? pinned.get('assignee') : pinned.get('assignedTo');
+    if (value === ASSIGNED_TO_ME) return planned.viewerUserId;
+    if (value === ASSIGNED_TO_MY_GROUPS) return undefined;
     return typeof value === 'string' || value === null ? value : undefined;
   };
 
@@ -114,7 +123,7 @@ export function defaultsFromFilters(
     typeId: pinnedId('type'),
     initiativeId: pinnedEntity('initiative', planned.initiatives),
     cycleId: pinnedEntity('cycle', planned.cycles),
-    assigneeUserId: pinnedText('assignee'),
+    assigneeUserId: pinnedAssignee(),
     assigneeGroupId: pinnedId('assigneeGroup'),
     delegateUserId: pinnedText('delegate'),
     priority: pinnedText('priority'),

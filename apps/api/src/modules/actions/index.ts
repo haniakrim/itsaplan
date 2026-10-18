@@ -4,6 +4,7 @@ import { guards, entityGuard } from '#shared/guards';
 import { authContext } from '#shared/auth-context';
 import { HttpError } from '#shared/lib';
 import { mcpTool } from '#mcp/generate';
+import { assertGroupInProject } from '#modules/groups/service';
 import { accessErrors, commonErrors } from '#shared/responses';
 import {
   ActionResponse,
@@ -21,6 +22,15 @@ import {
   deleteAction,
   reorderActions,
 } from './service';
+
+// The effect is a partial issue patch; its assignee group must be one of the project's.
+async function assertEffectGroup(projectId: number, effect: unknown): Promise<void> {
+  if (!effect || typeof effect !== 'object' || !('assigneeGroupId' in effect)) return;
+  const id = effect.assigneeGroupId;
+  if (id !== null && typeof id !== 'number')
+    throw new HttpError(400, 'Assignee group must be a group id or null');
+  await assertGroupInProject(projectId, id);
+}
 
 export const actionRoutes = new Elysia({ name: 'actions', detail: { tags: ['Actions'] } })
   .use(authContext)
@@ -72,6 +82,7 @@ export const actionRoutes = new Elysia({ name: 'actions', detail: { tags: ['Acti
     '/projects/:projectKey/actions',
     async ({ project, body, set }) => {
       set.status = 201;
+      await assertEffectGroup(project.id, body.effect);
       return createAction({ projectId: project.id, ...body });
     },
     {
@@ -107,6 +118,8 @@ export const actionRoutes = new Elysia({ name: 'actions', detail: { tags: ['Acti
   .patch(
     '/actions/:actionId',
     async ({ params, body }) => {
+      const current = await getAction(params.actionId);
+      if (current) await assertEffectGroup(current.projectId, body.effect);
       const action = await updateAction(params.actionId, body);
       if (!action) throw new HttpError(404, 'Action not found');
       return action;

@@ -13,6 +13,7 @@ import { formatDate } from '@/utils/dates';
 export const EFFECT_FIELD_KEYS = [
   'columnId',
   'assigneeUserId',
+  'assigneeGroupId',
   'priority',
   'typeId',
   'startDate',
@@ -47,6 +48,10 @@ export function effectValueLabel(
       return effect.assigneeUserId == null
         ? text.noAssignee
         : (project.assignees.find((a) => a.userId === effect.assigneeUserId)?.name ?? '—');
+    case 'assigneeGroupId':
+      return effect.assigneeGroupId == null
+        ? text.noAssigneeGroup
+        : (project.groups.find((g) => g.id === effect.assigneeGroupId)?.name ?? '—');
     case 'priority':
       return text.priority(effect.priority ?? null);
     case 'typeId':

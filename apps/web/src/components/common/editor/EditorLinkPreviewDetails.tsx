@@ -27,11 +27,12 @@ export default function EditorLinkPreviewDetails({ preview }: { preview: Resolve
             (filter.field === 'custom'
               ? t('previewCustomField')
               : byKey(filters)(`fields.${filter.field}`))}{' '}
-          {byKey(filters)(`operators.${filter.op}`)} {filter.values.join(', ')}
+          {byKey(filters)(`operators.${filter.op}`)}{' '}
+          {[...filter.valueKeys.map((key) => byKey(filters)(key)), ...filter.values].join(', ')}
           {filter.remainingValues > 0 && (
             <>
               {' '}
-              {filter.values.length > 0
+              {filter.values.length + filter.valueKeys.length > 0
                 ? t('previewOtherValues', { count: filter.remainingValues })
                 : filters('selected', { count: filter.remainingValues })}
             </>

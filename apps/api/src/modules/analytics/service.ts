@@ -5,6 +5,7 @@ import {
   projectMember,
   issueActivity,
   issueType,
+  projectGroup,
   user,
   aiAgent,
   agentRun,
@@ -50,6 +51,7 @@ export interface StatsDto {
   inProgress: number;
   backlog: number;
   overdue: number;
+  // Open issues with neither a person nor a group assigned.
   unassigned: number;
   closedLast7d: number;
 }
@@ -85,7 +87,14 @@ export async function getStats(projectId: number): Promise<StatsDto> {
     .select({ unassigned: sql<number>`count(*)::int` })
     .from(issue)
     .innerJoin(projectColumn, eq(projectColumn.id, issue.columnId))
-    .where(and(eq(issue.projectId, projectId), isNull(issue.assigneeUserId), OPEN_STATES));
+    .where(
+      and(
+        eq(issue.projectId, projectId),
+        isNull(issue.assigneeUserId),
+        isNull(issue.assigneeGroupId),
+        OPEN_STATES,
+      ),
+    );
 
   const closedRows = (await db.execute(sql`
     SELECT count(*)::int AS count
@@ -98,7 +107,8 @@ export async function getStats(projectId: number): Promise<StatsDto> {
 
 // --- Breakdown -------------------------------------------------------------------
 
-export type BreakdownBy = 'status' | 'priority' | 'type' | 'assignee' | 'delegate';
+export type BreakdownBy =
+  'status' | 'priority' | 'type' | 'assignee' | 'assigneeGroup' | 'delegate';
 
 export interface BreakdownItem {
   key: string;
@@ -163,6 +173,27 @@ export async function getBreakdown(projectId: number, by: BreakdownBy): Promise<
       .leftJoin(issueType, eq(issueType.id, issue.typeId))
       .where(eq(issue.projectId, projectId))
       .groupBy(issueType.id, issueType.name, issueType.color)
+      .orderBy(desc(sql`count(${issue.id})`));
+    return rows.map((r) => ({
+      key: r.key,
+      label: r.label,
+      count: r.count,
+      color: r.color ?? null,
+    }));
+  }
+
+  if (by === 'assigneeGroup') {
+    const rows = await db
+      .select({
+        key: sql<string>`COALESCE(${projectGroup.id}::text, 'none')`,
+        label: sql<string>`COALESCE(${projectGroup.name}, 'No group')`,
+        color: projectGroup.color,
+        count: sql<number>`count(${issue.id})::int`,
+      })
+      .from(issue)
+      .leftJoin(projectGroup, eq(projectGroup.id, issue.assigneeGroupId))
+      .where(eq(issue.projectId, projectId))
+      .groupBy(projectGroup.id, projectGroup.name, projectGroup.color)
       .orderBy(desc(sql`count(${issue.id})`));
     return rows.map((r) => ({
       key: r.key,

@@ -40,7 +40,8 @@
     "configuration": "Configuração",
     "webhooks": "Webhooks",
     "agents": "Agentes",
-    "schedules": "Agendamentos"
+    "schedules": "Agendamentos",
+    "groups": "Grupos"
   },
   "title": "Novo projeto",
   "copyTitle": "Copiar projeto \"{name}\"",

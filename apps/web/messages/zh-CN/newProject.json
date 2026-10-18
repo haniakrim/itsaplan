@@ -40,7 +40,8 @@
     "configuration": "配置",
     "webhooks": "Webhook",
     "agents": "代理",
-    "schedules": "定时任务"
+    "schedules": "定时任务",
+    "groups": "分组"
   },
   "title": "新建项目",
   "copyTitle": "复制项目“{name}”",

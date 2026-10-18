@@ -36,7 +36,8 @@
     "groupLabels": "Метки",
     "groupCustom": "Свои поля",
     "empty": "Пусто",
-    "openInNewTab": "Открыть в новой вкладке"
+    "openInNewTab": "Открыть в новой вкладке",
+    "assigneeGroup": "Группа исполнителей"
   },
   "menu": {
     "preview": "Предпросмотр",
@@ -462,7 +463,10 @@
     "noMember": "Не задано",
     "pickMember": "Выбрать…",
     "noCandidates": "Некого выбрать.",
-    "groups": "Группы"
+    "groups": "Группы",
+    "assigneeGroup": "Группа исполнителей",
+    "changeGroup": "Назначить группе…",
+    "noGroup": "Без группы"
   },
   "watchers": {
     "watch": "Следить",
@@ -479,6 +483,7 @@
     "cleared": "Очищено",
     "noAssignee": "Без исполнителя",
     "noType": "Без типа",
-    "noLabels": "Нет"
+    "noLabels": "Нет",
+    "noAssigneeGroup": "Без группы"
   }
 }

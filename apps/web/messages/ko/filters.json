@@ -41,7 +41,8 @@
     "startDate": "시작일",
     "created": "생성일",
     "updated": "업데이트일",
-    "assigneeGroup": "담당 그룹"
+    "assigneeGroup": "담당 그룹",
+    "assignedTo": "지정 대상"
   },
   "unset": {
     "assignee": "담당자 없음",
@@ -51,5 +52,10 @@
     "cycle": "사이클 없음",
     "member": "값 없음",
     "assigneeGroup": "그룹 없음"
+  },
+  "mine": {
+    "me": "나",
+    "myGroups": "내 그룹",
+    "meOrMyGroups": "나 또는 내 그룹"
   }
 }

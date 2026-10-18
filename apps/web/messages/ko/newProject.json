@@ -40,7 +40,8 @@
     "configuration": "설정",
     "webhooks": "웹훅",
     "agents": "AI 에이전트",
-    "schedules": "일정"
+    "schedules": "일정",
+    "groups": "그룹"
   },
   "title": "새 프로젝트",
   "copyTitle": "\"{name}\" 프로젝트 복사",

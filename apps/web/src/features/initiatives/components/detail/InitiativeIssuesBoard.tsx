@@ -46,6 +46,7 @@ export default function InitiativeIssuesBoard({ initiativeId }: { initiativeId: 
         ...defaultsFromFilters(board.filters, {
           cycles: project.plannedCycles,
           initiatives: initiativeOptions,
+          viewerUserId: project.viewer.userId,
         }),
         initiativeId,
         ...defaults,

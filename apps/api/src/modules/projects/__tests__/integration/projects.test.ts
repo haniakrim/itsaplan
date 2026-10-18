@@ -475,6 +475,63 @@ describe('projects', () => {
       expect(copied.isActive).toBe(false);
     });
 
+    it('copies the groups with only the members the copy has, and remaps what references them', async () => {
+      const { user, api } = await signUpClient();
+      await setupSource(api);
+      const src = api.projects({ projectKey: 'SRC' });
+      const joiner = await signUpTestUser();
+      const invite = await src.invites.post({ email: joiner.email, role: 'member' });
+      await authedApi(joiner.cookie).invites({ token: invite.data!.token }).accept.post();
+      const memberId = joiner.userId;
+      const group = (
+        await src.groups.post({
+          name: 'Pharmacy',
+          color: '#112233',
+          memberIds: [user.userId, memberId],
+        })
+      ).data!;
+      await src.groups.post({ name: 'Nursing' });
+      await src.views.post({
+        name: 'Pharmacy work',
+        filters: { conditions: [{ field: 'assigneeGroup', op: 'is', values: [group.id] }] },
+        display: { hiddenGroups: [`g${group.id}`, 'g-none'] },
+      });
+      await src.actions.post({ name: 'To pharmacy', effect: { assigneeGroupId: group.id } });
+
+      const copied = await src.copy.post({ key: 'DST', name: 'Destination' });
+      expect(copied.status).toBe(201);
+
+      const dst = api.projects({ projectKey: 'DST' });
+      const groups = (await dst.groups.get()).data!;
+      expect(groups.map((g) => g.name)).toEqual(['Pharmacy', 'Nursing']);
+      expect(groups[0]).toMatchObject({ color: '#112233', memberIds: [user.userId] });
+      expect(groups[1].memberIds).toEqual([]);
+      expect(groups[0].id).not.toBe(group.id);
+
+      const filters = (await dst.views.get()).data![0].filters as {
+        conditions: { values: number[] }[];
+      };
+      expect(filters.conditions[0].values).toEqual([groups[0].id]);
+      const display = (await dst.views.get()).data![0].display as { hiddenGroups: string[] };
+      expect(display.hiddenGroups).toEqual([`g${groups[0].id}`, 'g-none']);
+      const effect = (await dst.actions.get()).data![0].effect as { assigneeGroupId: number };
+      expect(effect.assigneeGroupId).toBe(groups[0].id);
+    });
+
+    it('does not copy groups when the selection leaves them out', async () => {
+      const { api } = await signUpClient();
+      await setupSource(api);
+      await api.projects({ projectKey: 'SRC' }).groups.post({ name: 'Pharmacy' });
+
+      await api.projects({ projectKey: 'SRC' }).copy.post({
+        key: 'DST',
+        name: 'Destination',
+        include: { labels: true },
+      });
+
+      expect((await api.projects({ projectKey: 'DST' }).groups.get()).data).toEqual([]);
+    });
+
     it('copies only the sections named in include, seeding default states', async () => {
       const { api } = await signUpClient();
       await setupSource(api);

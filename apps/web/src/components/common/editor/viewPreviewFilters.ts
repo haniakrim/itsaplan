@@ -1,14 +1,30 @@
 import type { ProjectScaffold } from '@/lib/api/endpoints/projects';
 import type { View } from '@/lib/api/endpoints/views';
 import { BUILTIN_FILTER_FIELDS, OPERATORS_BY_KIND } from '@/utils/filterFields';
-import { isEffectiveCondition, type FilterOperator } from '@/utils/filters';
+import {
+  ASSIGNED_TO_ME,
+  ASSIGNED_TO_MY_GROUPS,
+  MY_GROUPS,
+  isEffectiveCondition,
+  type FilterOperator,
+} from '@/utils/filters';
 
 export type PreviewFilter = {
   field: string;
   label?: string;
   op: FilterOperator;
   values: string[];
+  // Values that mean the viewer ("me", "my groups"): message keys under `filters`,
+  // translated where the preview renders.
+  valueKeys: string[];
   remainingValues: number;
+};
+
+// The viewer-relative values each field can hold, and the message naming each.
+const VIEWER_VALUES: Record<string, Record<string, string>> = {
+  assignee: { [ASSIGNED_TO_ME]: 'mine.me' },
+  assigneeGroup: { [MY_GROUPS]: 'mine.myGroups' },
+  assignedTo: { [ASSIGNED_TO_ME]: 'mine.me', [ASSIGNED_TO_MY_GROUPS]: 'mine.meOrMyGroups' },
 };
 
 const operators = new Set(Object.values(OPERATORS_BY_KIND).flat());
@@ -28,8 +44,13 @@ export function viewPreviewFilters(view: View, project: ProjectScaffold): Previe
       const field = condition.field;
       const custom = project.customFields.find((item) => `cf:${item.id}` === field);
       const known = BUILTIN_FILTER_FIELDS.some((item) => item === field);
-      const values = (Array.isArray(condition.values) ? condition.values : [])
-        .slice(0, 3)
+      const shown = (Array.isArray(condition.values) ? condition.values : []).slice(0, 3);
+      const viewerValues = VIEWER_VALUES[field] ?? {};
+      const valueKeys = shown.flatMap((value) =>
+        typeof value === 'string' && viewerValues[value] ? [viewerValues[value]] : [],
+      );
+      const values = shown
+        .filter((value) => !(typeof value === 'string' && viewerValues[value]))
         .map((value) => {
           if (value === null) return '—';
           if (field === 'status') return project.columns.find((item) => item.id === value)?.name;
@@ -55,7 +76,11 @@ export function viewPreviewFilters(view: View, project: ProjectScaffold): Previe
         label: custom?.name,
         op: condition.op,
         values,
-        remainingValues: Math.max(0, (condition.values?.length ?? 0) - values.length),
+        valueKeys,
+        remainingValues: Math.max(
+          0,
+          (condition.values?.length ?? 0) - values.length - valueKeys.length,
+        ),
       };
     });
 }

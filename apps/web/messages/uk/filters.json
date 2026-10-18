@@ -41,7 +41,8 @@
     "startDate": "Дата початку",
     "created": "Створено",
     "updated": "Оновлено",
-    "assigneeGroup": "Група виконавців"
+    "assigneeGroup": "Група виконавців",
+    "assignedTo": "Призначено"
   },
   "unset": {
     "assignee": "Без виконавця",
@@ -51,5 +52,10 @@
     "cycle": "Без циклу",
     "member": "Не задано",
     "assigneeGroup": "Без групи"
+  },
+  "mine": {
+    "me": "Я",
+    "myGroups": "Мої групи",
+    "meOrMyGroups": "Я або мої групи"
   }
 }

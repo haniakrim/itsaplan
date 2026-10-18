@@ -36,7 +36,8 @@
     "groupLabels": "Label",
     "groupCustom": "Bidang kustom",
     "empty": "Kosong",
-    "openInNewTab": "Buka di tab baru"
+    "openInNewTab": "Buka di tab baru",
+    "assigneeGroup": "Grup penerima tugas"
   },
   "menu": {
     "preview": "Pratinjau",
@@ -462,7 +463,10 @@
     "noMember": "Belum diatur",
     "pickMember": "Pilih anggota…",
     "noCandidates": "Tidak ada yang dapat dipilih.",
-    "groups": "Grup"
+    "groups": "Grup",
+    "assigneeGroup": "Grup penerima tugas",
+    "changeGroup": "Tugaskan ke grup…",
+    "noGroup": "Tanpa grup"
   },
   "watchers": {
     "watch": "Ikuti",
@@ -479,6 +483,7 @@
     "cleared": "Dikosongkan",
     "noAssignee": "Tanpa penerima tugas",
     "noType": "Tanpa tipe",
-    "noLabels": "Tidak ada"
+    "noLabels": "Tidak ada",
+    "noAssigneeGroup": "Tanpa grup"
   }
 }

@@ -84,6 +84,8 @@ release.
 - Configurable dashboards for project analytics: throughput, burnup with a projected
   completion date, breakdown, pulse
 - Quick actions that run on an issue, and auto-assignment when an issue moves into a state
+- Assignee groups: assign an issue to a named set of project members, such as Pharmacy or
+  Nursing, and notify all of them ([docs/groups.md](docs/groups.md))
 - Docs: shared Markdown pages in a tree, with revision history, private and locked pages,
   favorites, embedded files, and links to the issues they describe
 - Freeform notes boards: sticky notes on a canvas, with colors, checklists, and connections

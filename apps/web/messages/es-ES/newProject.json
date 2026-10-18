@@ -40,7 +40,8 @@
     "configuration": "Configuración",
     "webhooks": "Webhooks",
     "agents": "Agentes",
-    "schedules": "Tareas programadas"
+    "schedules": "Tareas programadas",
+    "groups": "Grupos"
   },
   "title": "Nuevo proyecto",
   "copyTitle": "Duplicar el proyecto «{name}»",

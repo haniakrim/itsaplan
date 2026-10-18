@@ -40,7 +40,8 @@
     "configuration": "Конфігурація",
     "webhooks": "Вебхуки",
     "agents": "Агенти",
-    "schedules": "Розклади"
+    "schedules": "Розклади",
+    "groups": "Групи"
   },
   "title": "Новий проєкт",
   "copyTitle": "Копіювати проєкт «{name}»",

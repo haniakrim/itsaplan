@@ -81,14 +81,16 @@
       "priority": "Priority",
       "type": "Type",
       "assignee": "Assignee",
-      "delegate": "Delegate"
+      "delegate": "Delegate",
+      "assigneeGroup": "Group"
     },
     "caption": {
       "status": "By state",
       "priority": "By priority",
       "type": "By type",
       "assignee": "By assignee",
-      "delegate": "By delegate"
+      "delegate": "By delegate",
+      "assigneeGroup": "By group"
     }
   },
   "recentIssues": {

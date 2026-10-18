@@ -14,10 +14,11 @@ const REQUIRES: Record<CopyProjectIncludeKey, CopyProjectIncludeKey[]> = {
   issueTypes: [],
   labels: [],
   customFields: ['issueTypes'],
-  views: ['states', 'issueTypes', 'labels', 'customFields'],
+  groups: [],
+  views: ['states', 'issueTypes', 'labels', 'customFields', 'groups'],
   dashboards: [],
   documents: [],
-  actions: ['states', 'issueTypes', 'labels'],
+  actions: ['states', 'issueTypes', 'labels', 'groups'],
   configuration: [],
   webhooks: [],
   agents: [],
@@ -36,7 +37,7 @@ const COLUMNS: Group[][] = [
   [
     {
       title: 'workflow',
-      keys: ['states', 'issueTypes', 'labels', 'customFields', 'configuration'],
+      keys: ['states', 'issueTypes', 'labels', 'customFields', 'groups', 'configuration'],
     },
   ],
   [{ title: 'automation', keys: ['actions', 'schedules', 'webhooks'] }],

@@ -36,7 +36,8 @@
     "groupLabels": "برچسب‌ها",
     "groupCustom": "فیلدهای سفارشی",
     "empty": "خالی",
-    "openInNewTab": "باز کردن در تب جدید"
+    "openInNewTab": "باز کردن در تب جدید",
+    "assigneeGroup": "گروه مسئول"
   },
   "menu": {
     "preview": "پیش‌نمایش",
@@ -462,7 +463,10 @@
     "noMember": "تنظیم نشده",
     "pickMember": "یک نفر انتخاب کنید…",
     "noCandidates": "کسی برای انتخاب وجود ندارد.",
-    "groups": "گروه‌ها"
+    "groups": "گروه‌ها",
+    "assigneeGroup": "گروه مسئول",
+    "changeGroup": "واگذاری به گروه…",
+    "noGroup": "بدون گروه"
   },
   "watchers": {
     "watch": "دنبال کردن",
@@ -479,6 +483,7 @@
     "cleared": "پاک شد",
     "noAssignee": "بدون مسئول",
     "noType": "بدون نوع",
-    "noLabels": "هیچ‌کدام"
+    "noLabels": "هیچ‌کدام",
+    "noAssigneeGroup": "بدون گروه"
   }
 }

@@ -18,6 +18,9 @@ import { compareByGroupOrder } from '@/utils/initiativeMeta';
 import { projectFeatures } from '@/utils/projectFeatures';
 import { uuid } from '@/utils/uuid';
 import {
+  ASSIGNED_TO_ME,
+  ASSIGNED_TO_MY_GROUPS,
+  MY_GROUPS,
   statusValue,
   type FilterCondition,
   type FilterSet,
@@ -167,6 +170,7 @@ export function useFilterFields(projectKey?: string) {
         label: t('fields.assignee'),
         kind: 'set',
         options: [
+          { value: ASSIGNED_TO_ME, label: t('mine.me') },
           ...project.assignees
             .filter((a) => a.kind === 'member')
             .map((a) => ({ value: a.userId, label: a.name })),
@@ -178,8 +182,18 @@ export function useFilterFields(projectKey?: string) {
         label: t('fields.assigneeGroup'),
         kind: 'set',
         options: [
+          { value: MY_GROUPS, label: t('mine.myGroups') },
           ...project.groups.map((g) => ({ value: g.id, label: g.name, color: g.color })),
           { value: null, label: t('unset.assigneeGroup') },
+        ],
+      },
+      {
+        field: 'assignedTo',
+        label: t('fields.assignedTo'),
+        kind: 'set',
+        options: [
+          { value: ASSIGNED_TO_ME, label: t('mine.me') },
+          { value: ASSIGNED_TO_MY_GROUPS, label: t('mine.meOrMyGroups') },
         ],
       },
       {

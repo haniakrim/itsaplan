@@ -36,7 +36,8 @@
     "groupLabels": "الوسوم",
     "groupCustom": "حقول مخصصة",
     "empty": "فارغ",
-    "openInNewTab": "فتح في تبويب جديد"
+    "openInNewTab": "فتح في تبويب جديد",
+    "assigneeGroup": "مجموعة المسؤولين"
   },
   "menu": {
     "preview": "معاينة",
@@ -462,7 +463,10 @@
     "noMember": "مش متحدد",
     "pickMember": "اختار حد…",
     "noCandidates": "مفيش حد تختاره.",
-    "groups": "المجموعات"
+    "groups": "المجموعات",
+    "assigneeGroup": "مجموعة المسؤولين",
+    "changeGroup": "الإسناد إلى مجموعة…",
+    "noGroup": "بلا مجموعة"
   },
   "watchers": {
     "watch": "متابعة",
@@ -479,6 +483,7 @@
     "cleared": "تم المسح",
     "noAssignee": "بلا مسؤول",
     "noType": "بلا نوع",
-    "noLabels": "لا شيء"
+    "noLabels": "لا شيء",
+    "noAssigneeGroup": "بلا مجموعة"
   }
 }

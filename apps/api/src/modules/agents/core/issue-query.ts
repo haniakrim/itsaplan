@@ -44,6 +44,12 @@ export const issueQuerySchema = z.object({
     .nullable()
     .optional()
     .describe('Exact assignee group id from get_project.groups, or null for issues with no group.'),
+  assignedTo: z
+    .enum(['me', 'meOrMyGroups'])
+    .optional()
+    .describe(
+      "'me' lists issues assigned to the caller; 'meOrMyGroups' also lists issues assigned to a group the caller belongs to.",
+    ),
   delegateUserId: z
     .string()
     .nullable()

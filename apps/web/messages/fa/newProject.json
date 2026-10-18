@@ -40,7 +40,8 @@
     "configuration": "پیکربندی",
     "webhooks": "وب‌هوک‌ها",
     "agents": "ایجنت‌ها",
-    "schedules": "زمان‌بندی‌ها"
+    "schedules": "زمان‌بندی‌ها",
+    "groups": "گروه‌ها"
   },
   "title": "پروژه جدید",
   "copyTitle": "کپی پروژه «{name}»",

@@ -117,6 +117,7 @@ describe('authorized internal link previews', () => {
     assert.equal(result.title, 'Compare eight');
     assert.equal(result.layout, 'table');
     assert.deepEqual(result.filters?.[0]?.values, ['In progress']);
+    assert.deepEqual(result.filters?.[0]?.valueKeys, []);
     await assert.rejects(
       resolveLinkPreview('/project/SYR/view/43', origin, new AbortController().signal),
       { status: 404 },

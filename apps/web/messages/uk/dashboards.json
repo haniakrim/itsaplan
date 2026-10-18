@@ -81,14 +81,16 @@
       "priority": "Пріоритет",
       "type": "Тип",
       "assignee": "Виконавець",
-      "delegate": "Делегат"
+      "delegate": "Делегат",
+      "assigneeGroup": "Група"
     },
     "caption": {
       "status": "За статусом",
       "priority": "За пріоритетом",
       "type": "За типом",
       "assignee": "За виконавцем",
-      "delegate": "За делегатом"
+      "delegate": "За делегатом",
+      "assigneeGroup": "За групою"
     }
   },
   "recentIssues": {

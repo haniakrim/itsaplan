@@ -96,6 +96,7 @@ export default function Shell({
     ? defaultsFromFilters(editor.effectiveFilters, {
         cycles: project?.plannedCycles ?? [],
         initiatives: initiativeOptions,
+        viewerUserId: project?.viewer.userId,
       })
     : {};
   const addIssue = (defaults: NewIssueDefaults) =>

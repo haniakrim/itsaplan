@@ -293,4 +293,70 @@ describe('actions', () => {
       expect(del.status).toBe(403);
     });
   });
+  describe('assignee group effect', () => {
+    async function setupWithGroup() {
+      const { asOwner } = await setupOwnerProject();
+      const scope = asOwner.projects({ projectKey: 'MKT' });
+      const member = await signUpTestUser();
+      const invite = await scope.invites.post({ email: member.email, role: 'member' });
+      const asMember = authedApi(member.cookie);
+      await asMember.invites({ token: invite.data!.token }).accept.post();
+      const group = (await scope.groups.post({ name: 'Pharmacy', memberIds: [member.userId] }))
+        .data!;
+      const columnId = (await scope.get()).data!.columns[0].id;
+      return { asOwner, scope, asMember, group, columnId };
+    }
+
+    it('stores a group effect, and the issue update it stands for assigns and notifies the group', async () => {
+      const { asOwner, scope, asMember, group, columnId } = await setupWithGroup();
+      const action = await scope.actions.post({
+        name: 'To pharmacy',
+        effect: { assigneeGroupId: group.id },
+      });
+      expect(action.status).toBe(201);
+      expect(action.data!.effect).toEqual({ assigneeGroupId: group.id });
+
+      const issue = (await scope.issues.post({ columnId, title: 'Refill' })).data!;
+      await asOwner.issues({ issueId: issue.id }).patch(action.data!.effect as never);
+
+      const board = (await scope.issues.board.get()).data!.issues;
+      expect(board.find((i) => i.id === issue.id)!.assigneeGroupId).toBe(group.id);
+      const feed = await asOwner.issues({ issueId: issue.id }).feed.get({ query: {} });
+      expect(feed.data!.items.some((i) => i.action === 'assignee_group')).toBe(true);
+      const inbox = (await asMember.notifications.get({ query: {} })).data!.items;
+      expect(inbox.map((n) => n.type)).toEqual(['assigned']);
+    });
+
+    it('accepts null to clear the group', async () => {
+      const { scope } = await setupWithGroup();
+      const res = await scope.actions.post({ name: 'Clear', effect: { assigneeGroupId: null } });
+      expect(res.status).toBe(201);
+    });
+
+    it('rejects a group of another project, on create and on update', async () => {
+      const { asOwner, scope } = await setupWithGroup();
+      await createProject(asOwner, { key: 'OPS', name: 'Operations' });
+      const foreign = (await asOwner.projects({ projectKey: 'OPS' }).groups.post({ name: 'Other' }))
+        .data!;
+
+      const create = await scope.actions.post({
+        name: 'Bad',
+        effect: { assigneeGroupId: foreign.id },
+      });
+      expect(create.status).toBe(400);
+
+      const ok = await scope.actions.post({ name: 'Fine' });
+      const update = await asOwner
+        .actions({ actionId: ok.data!.id })
+        .patch({ effect: { assigneeGroupId: foreign.id } });
+      expect(update.status).toBe(400);
+      expect((await scope.actions.get()).data![0].effect).toEqual({});
+    });
+
+    it('rejects a group id that is not a number', async () => {
+      const { scope } = await setupWithGroup();
+      const res = await scope.actions.post({ name: 'Bad', effect: { assigneeGroupId: 'x' } });
+      expect(res.status).toBe(400);
+    });
+  });
 });

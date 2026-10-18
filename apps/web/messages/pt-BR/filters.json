@@ -41,7 +41,8 @@
     "startDate": "Data de início",
     "created": "Criado",
     "updated": "Atualizado",
-    "assigneeGroup": "Grupo responsável"
+    "assigneeGroup": "Grupo responsável",
+    "assignedTo": "Atribuído a"
   },
   "unset": {
     "assignee": "Sem responsável",
@@ -51,5 +52,10 @@
     "cycle": "Sem ciclo",
     "member": "Sem valor",
     "assigneeGroup": "Sem grupo"
+  },
+  "mine": {
+    "me": "Eu",
+    "myGroups": "Meus grupos",
+    "meOrMyGroups": "Eu ou meus grupos"
   }
 }

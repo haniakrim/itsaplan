@@ -147,7 +147,7 @@ export const projectRoutes = new Elysia({ name: 'projects', detail: { tags: ['Pr
         assignees,
         customFields,
         issueTemplates,
-        viewer: { role: viewer.role, teamRole: teamAccess?.role ?? null, via: viewer.via },
+        viewer: { userId, role: viewer.role, teamRole: teamAccess?.role ?? null, via: viewer.via },
         permissions: viewer.permissions,
       };
     },

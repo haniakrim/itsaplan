@@ -41,6 +41,7 @@ export const BUILTIN_FILTER_FIELDS = [
   'statusType',
   'assignee',
   'assigneeGroup',
+  'assignedTo',
   'delegate',
   'priority',
   'type',

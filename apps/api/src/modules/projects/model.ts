@@ -174,6 +174,7 @@ const AssigneeCandidateResponse = t.Object({
 // The caller's own role in a project (from MemberContext in members/service). The
 // resolved permission matrix is a sibling `permissions` key on the board payload.
 const ViewerResponse = t.Object({
+  userId: t.String(),
   role: t.Union([t.Literal('owner'), t.Literal('member')]),
   // The caller's standing in the team that owns the project, null when they are not
   // a member of it. An owner or manager of the team governs the project's settings

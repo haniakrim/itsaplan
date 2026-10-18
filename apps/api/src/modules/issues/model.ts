@@ -552,6 +552,12 @@ export const listIssuesQuery = t.Object({
   ),
   assigneeUserId: t.Optional(t.String({ description: 'Exact assignee user id.' })),
   assigneeGroupId: t.Optional(t.Numeric({ description: 'Exact assignee group id.' })),
+  assignedTo: t.Optional(
+    t.Union([t.Literal('me'), t.Literal('meOrMyGroups')], {
+      description:
+        "'me' for issues assigned to the caller; 'meOrMyGroups' also includes issues assigned to a group the caller belongs to.",
+    }),
+  ),
   delegateUserId: t.Optional(t.String({ description: 'Exact delegate agent id.' })),
   priority: t.Optional(t.String({ description: 'Exact priority value.' })),
   labelIds: t.Optional(t.String({ description: 'CSV of label ids; the issue must carry all.' })),

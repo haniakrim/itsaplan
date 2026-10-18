@@ -64,6 +64,16 @@ export async function groupMemberIds(groupId: number): Promise<string[]> {
   return (await membersOf([groupId])).get(groupId) ?? [];
 }
 
+// The ids of the project's groups the user belongs to.
+export async function groupIdsOfUser(projectId: number, userId: string): Promise<number[]> {
+  const rows = await db
+    .select({ id: projectGroup.id })
+    .from(projectGroupMember)
+    .innerJoin(projectGroup, eq(projectGroup.id, projectGroupMember.groupId))
+    .where(and(eq(projectGroup.projectId, projectId), eq(projectGroupMember.userId, userId)));
+  return rows.map((r) => r.id);
+}
+
 // A group id from another project fails the same way a missing one does.
 export async function assertGroupInProject(
   projectId: number,

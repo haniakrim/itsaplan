@@ -41,7 +41,8 @@
     "startDate": "تاريخ البدء",
     "created": "تاريخ الإنشاء",
     "updated": "تاريخ التحديث",
-    "assigneeGroup": "مجموعة المسؤولين"
+    "assigneeGroup": "مجموعة المسؤولين",
+    "assignedTo": "أُسند إلى"
   },
   "unset": {
     "assignee": "بلا مسؤول",
@@ -51,5 +52,10 @@
     "cycle": "بلا دورة",
     "member": "بدون قيمة",
     "assigneeGroup": "بلا مجموعة"
+  },
+  "mine": {
+    "me": "أنا",
+    "myGroups": "مجموعاتي",
+    "meOrMyGroups": "أنا أو مجموعاتي"
   }
 }

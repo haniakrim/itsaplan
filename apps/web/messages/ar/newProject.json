@@ -40,7 +40,8 @@
     "configuration": "التهيئة",
     "webhooks": "خطافات الويب (webhooks)",
     "agents": "الوكلاء (agents)",
-    "schedules": "الجدولات"
+    "schedules": "الجدولات",
+    "groups": "المجموعات"
   },
   "title": "مشروع جديد",
   "copyTitle": "نسخ المشروع \"{name}\"",

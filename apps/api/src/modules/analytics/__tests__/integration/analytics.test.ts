@@ -95,13 +95,24 @@ describe('analytics', () => {
       expect(res.data?.overdue).toBe(1);
     });
 
-    it('counts only open issues without an assignee as unassigned', async () => {
+    it('counts only open issues without an assignee or a group as unassigned', async () => {
       const { asOwner, owner, col } = await setupProject();
       await createIssue(asOwner, col.started, { assigneeUserId: owner.userId });
       await createIssue(asOwner, col.started);
       await createIssue(asOwner, col.completed);
 
       const res = await asOwner.projects({ projectKey: 'MKT' }).analytics.stats.get();
+      expect(res.data?.unassigned).toBe(1);
+    });
+
+    it('does not count an issue assigned to a group as unassigned', async () => {
+      const { asOwner, col } = await setupProject();
+      const scope = asOwner.projects({ projectKey: 'MKT' });
+      const pharmacy = (await scope.groups.post({ name: 'Pharmacy' })).data!;
+      await scope.issues.post({ columnId: col.started, title: 'Rx', assigneeGroupId: pharmacy.id });
+      await createIssue(asOwner, col.started);
+
+      const res = await scope.analytics.stats.get();
       expect(res.data?.unassigned).toBe(1);
     });
 
@@ -256,6 +267,41 @@ describe('analytics', () => {
       });
       expect(res.data?.find((i) => i.key === 'none')).toMatchObject({
         label: 'Unassigned',
+        count: 1,
+      });
+    });
+
+    it('groups by assignee group with a No group bucket and the group color', async () => {
+      const { asOwner, col } = await setupProject();
+      const scope = asOwner.projects({ projectKey: 'MKT' });
+      const pharmacy = (await scope.groups.post({ name: 'Pharmacy', color: '#112233' })).data!;
+      const nursing = (await scope.groups.post({ name: 'Nursing' })).data!;
+      for (let i = 0; i < 2; i++)
+        await scope.issues.post({
+          columnId: col.started,
+          title: 'Rx',
+          assigneeGroupId: pharmacy.id,
+        });
+      await scope.issues.post({
+        columnId: col.started,
+        title: 'Ward',
+        assigneeGroupId: nursing.id,
+      });
+      await createIssue(asOwner, col.started);
+
+      const res = await scope.analytics.breakdown.get({ query: { by: 'assigneeGroup' } });
+      expect(res.status).toBe(200);
+      expect(res.data?.find((i) => i.key === String(pharmacy.id))).toMatchObject({
+        label: 'Pharmacy',
+        count: 2,
+        color: '#112233',
+      });
+      expect(res.data?.find((i) => i.key === String(nursing.id))).toMatchObject({
+        label: 'Nursing',
+        count: 1,
+      });
+      expect(res.data?.find((i) => i.key === 'none')).toMatchObject({
+        label: 'No group',
         count: 1,
       });
     });

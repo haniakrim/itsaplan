@@ -36,7 +36,8 @@
     "groupLabels": "标签",
     "groupCustom": "自定义字段",
     "empty": "空",
-    "openInNewTab": "在新标签页中打开"
+    "openInNewTab": "在新标签页中打开",
+    "assigneeGroup": "负责组"
   },
   "menu": {
     "preview": "预览",
@@ -462,7 +463,10 @@
     "noMember": "未设置",
     "pickMember": "选择…",
     "noCandidates": "没有可选对象。",
-    "groups": "分组"
+    "groups": "分组",
+    "assigneeGroup": "负责组",
+    "changeGroup": "指派给分组…",
+    "noGroup": "无分组"
   },
   "watchers": {
     "watch": "关注",
@@ -479,6 +483,7 @@
     "cleared": "已清除",
     "noAssignee": "无负责人",
     "noType": "无类型",
-    "noLabels": "无标签"
+    "noLabels": "无标签",
+    "noAssigneeGroup": "无分组"
   }
 }

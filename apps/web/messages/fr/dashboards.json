@@ -81,14 +81,16 @@
       "priority": "Priorité",
       "type": "Type",
       "assignee": "Responsable",
-      "delegate": "Délégué"
+      "delegate": "Délégué",
+      "assigneeGroup": "Groupe"
     },
     "caption": {
       "status": "Par état",
       "priority": "Par priorité",
       "type": "Par type",
       "assignee": "Par responsable",
-      "delegate": "Par délégué"
+      "delegate": "Par délégué",
+      "assigneeGroup": "Par groupe"
     }
   },
   "recentIssues": {

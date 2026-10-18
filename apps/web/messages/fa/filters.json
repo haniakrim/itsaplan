@@ -41,7 +41,8 @@
     "startDate": "تاریخ شروع",
     "created": "ایجادشده",
     "updated": "به‌روزرسانی‌شده",
-    "assigneeGroup": "گروه مسئول"
+    "assigneeGroup": "گروه مسئول",
+    "assignedTo": "واگذار شده به"
   },
   "unset": {
     "assignee": "بدون مسئول",
@@ -51,5 +52,10 @@
     "cycle": "بدون سیکل",
     "member": "بدون مقدار",
     "assigneeGroup": "بدون گروه"
+  },
+  "mine": {
+    "me": "من",
+    "myGroups": "گروه‌های من",
+    "meOrMyGroups": "من یا گروه‌های من"
   }
 }

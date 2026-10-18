@@ -13,6 +13,8 @@ import {
   projectDocument,
   documentAsset,
   projectAction,
+  projectGroup,
+  projectGroupMember,
   webhook,
   projectSetting,
 } from '@repo/db';
@@ -54,6 +56,7 @@ export interface CopyProjectInclude {
   issueTypes: boolean;
   labels: boolean;
   customFields: boolean;
+  groups: boolean;
   views: boolean;
   dashboards: boolean;
   documents: boolean;
@@ -69,6 +72,7 @@ export const COPY_INCLUDE_KEYS: (keyof CopyProjectInclude)[] = [
   'issueTypes',
   'labels',
   'customFields',
+  'groups',
   'views',
   'dashboards',
   'documents',
@@ -91,6 +95,7 @@ const DEFAULT_INCLUDE: CopyProjectInclude = {
   issueTypes: true,
   labels: true,
   customFields: true,
+  groups: true,
   views: true,
   dashboards: true,
   documents: true,
@@ -105,12 +110,14 @@ function normalizeInclude(raw?: Partial<CopyProjectInclude>): CopyProjectInclude
   const inc: CopyProjectInclude = raw ? { ...ALL_FALSE, ...raw } : { ...DEFAULT_INCLUDE };
   if (inc.customFields) inc.issueTypes = true;
   if (inc.views) {
+    inc.groups = true;
     inc.states = true;
     inc.issueTypes = true;
     inc.labels = true;
     inc.customFields = true;
   }
   if (inc.actions) {
+    inc.groups = true;
     inc.states = true;
     inc.issueTypes = true;
     inc.labels = true;
@@ -131,6 +138,7 @@ export interface CopyIdMaps {
   type: Map<number, number>;
   field: Map<number, number>;
   option: Map<number, number>;
+  group: Map<number, number>;
 }
 
 // Returns the mapped id for a numeric value present in the map; any other value
@@ -164,6 +172,7 @@ export function remapViewFilters(filters: unknown, maps: CopyIdMaps): unknown {
     if (field === 'status') valueMap = maps.column;
     else if (field === 'type') valueMap = maps.type;
     else if (field === 'labels') valueMap = maps.label;
+    else if (field === 'assigneeGroup') valueMap = maps.group;
     else if (typeof field === 'string' && field.startsWith('cf:')) {
       const newFieldId = maps.field.get(Number(field.slice(3)));
       if (newFieldId != null) newField = `cf:${newFieldId}`;
@@ -181,14 +190,14 @@ export function remapViewFilters(filters: unknown, maps: CopyIdMaps): unknown {
 }
 
 // Remaps one work items group key to the copied project's entities. Group keys are
-// namespaced by grouping field: c<columnId> and t<typeId> carry a numeric id and are
-// remapped; a<userId> (assignee), p<priority>, the *-none buckets and 'all' carry no
+// namespaced by grouping field: c<columnId>, t<typeId> and g<groupId> carry a numeric id
+// and are remapped; a<userId> (assignee), p<priority>, the *-none buckets and 'all' carry no
 // project-scoped numeric id and pass through.
 function remapGroupKey(key: string, maps: CopyIdMaps): string {
-  const m = /^([ct])(\d+)$/.exec(key);
+  const m = /^([ctg])(\d+)$/.exec(key);
   if (!m) return key;
   const id = Number(m[2]);
-  const map = m[1] === 'c' ? maps.column : maps.type;
+  const map = m[1] === 'c' ? maps.column : m[1] === 'g' ? maps.group : maps.type;
   const newId = map.get(id);
   return newId != null ? `${m[1]}${newId}` : key;
 }
@@ -207,8 +216,8 @@ function remapViewDisplay(display: unknown, maps: CopyIdMaps): unknown {
 }
 
 // Rewrites the entity ids an action's effect holds so they point at the copied
-// project's entities. The effect is a partial issue patch; columnId/typeId and each
-// labelId are remapped, while assigneeUserId (a global user id), priority and dates
+// project's entities. The effect is a partial issue patch; columnId/typeId/assigneeGroupId
+// and each labelId are remapped, while assigneeUserId (a global user id), priority and dates
 // are left as-is.
 function remapActionEffect(effect: unknown, maps: CopyIdMaps): unknown {
   if (!effect || typeof effect !== 'object') return effect;
@@ -216,6 +225,7 @@ function remapActionEffect(effect: unknown, maps: CopyIdMaps): unknown {
   const out: Record<string, unknown> = { ...src };
   if ('columnId' in src) out.columnId = remapId(maps.column, src.columnId);
   if ('typeId' in src) out.typeId = remapId(maps.type, src.typeId);
+  if ('assigneeGroupId' in src) out.assigneeGroupId = remapId(maps.group, src.assigneeGroupId);
   if (Array.isArray(src.labelIds)) out.labelIds = src.labelIds.map((v) => remapId(maps.label, v));
   return out;
 }
@@ -245,6 +255,7 @@ export async function copyProject(
     type: new Map(),
     field: new Map(),
     option: new Map(),
+    group: new Map(),
   };
 
   const copiedDocumentAssetKeys: string[] = [];
@@ -425,6 +436,40 @@ export async function copyProject(
             .returning({ id: customFieldOption.id });
           maps.option.set(o.id, newOption.id);
         }
+      }
+    }
+
+    // Groups with the members that are also members of the copy, which is only its
+    // owner: the copy starts with no one else.
+    if (inc.groups) {
+      const groupRows = await tx
+        .select()
+        .from(projectGroup)
+        .where(eq(projectGroup.projectId, sourceProjectId))
+        .orderBy(projectGroup.position, projectGroup.id);
+      for (const g of groupRows) {
+        const [created] = await tx
+          .insert(projectGroup)
+          .values({ projectId: proj.id, name: g.name, color: g.color, position: g.position })
+          .returning({ id: projectGroup.id });
+        maps.group.set(g.id, created.id);
+      }
+      if (maps.group.size > 0) {
+        const memberRows = await tx
+          .select()
+          .from(projectGroupMember)
+          .where(
+            and(
+              inArray(projectGroupMember.groupId, Array.from(maps.group.keys())),
+              eq(projectGroupMember.userId, ownerId),
+            ),
+          );
+        if (memberRows.length > 0)
+          await tx
+            .insert(projectGroupMember)
+            .values(
+              memberRows.map((m) => ({ groupId: maps.group.get(m.groupId)!, userId: m.userId })),
+            );
       }
     }
 

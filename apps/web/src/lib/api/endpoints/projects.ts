@@ -87,6 +87,7 @@ export interface Assignee {
 // the resolved permission matrix is a sibling `permissions` field. See
 // usePermissions.
 export interface ProjectViewer {
+  userId: string;
   role: MemberRole;
   // The caller's standing in the team that owns the project, null when they are not
   // a member of it. An owner or manager governs the project's settings alongside the

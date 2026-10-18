@@ -178,6 +178,7 @@ export type CopyProjectIncludeKey =
   | 'documents'
   | 'actions'
   | 'configuration'
+  | 'groups'
   | 'webhooks'
   | 'agents'
   | 'schedules';

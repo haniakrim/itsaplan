@@ -20,7 +20,8 @@ export type WidgetType =
   | 'webhook_health'
   | 'agent_workload';
 
-export type BreakdownBy = 'status' | 'priority' | 'type' | 'assignee' | 'delegate';
+export type BreakdownBy =
+  'status' | 'priority' | 'type' | 'assignee' | 'assigneeGroup' | 'delegate';
 
 // The dashboard grid: a react-grid-layout board. Each widget has a position
 // (`x`, `y`) and a size (`w` columns, `h` rows of ROW_UNIT px). In edit mode

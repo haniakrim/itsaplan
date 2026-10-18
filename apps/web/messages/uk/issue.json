@@ -36,7 +36,8 @@
     "groupLabels": "Мітки",
     "groupCustom": "Власні поля",
     "empty": "Порожньо",
-    "openInNewTab": "Відкрити в новій вкладці"
+    "openInNewTab": "Відкрити в новій вкладці",
+    "assigneeGroup": "Група виконавців"
   },
   "menu": {
     "preview": "Попередній перегляд",
@@ -462,7 +463,10 @@
     "noMember": "Не задано",
     "pickMember": "Вибрати…",
     "noCandidates": "Нема кого вибрати.",
-    "groups": "Групи"
+    "groups": "Групи",
+    "assigneeGroup": "Група виконавців",
+    "changeGroup": "Призначити групі…",
+    "noGroup": "Без групи"
   },
   "watchers": {
     "watch": "Стежити",
@@ -479,6 +483,7 @@
     "cleared": "Очищено",
     "noAssignee": "Без виконавця",
     "noType": "Без типу",
-    "noLabels": "Немає"
+    "noLabels": "Немає",
+    "noAssigneeGroup": "Без групи"
   }
 }

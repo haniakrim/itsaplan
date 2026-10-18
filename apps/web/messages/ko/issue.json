@@ -36,7 +36,8 @@
     "groupLabels": "라벨",
     "groupCustom": "사용자 지정 필드",
     "empty": "비어 있음",
-    "openInNewTab": "새 탭에서 열기"
+    "openInNewTab": "새 탭에서 열기",
+    "assigneeGroup": "담당 그룹"
   },
   "menu": {
     "preview": "미리보기",
@@ -462,7 +463,10 @@
     "noMember": "설정되지 않음",
     "pickMember": "멤버 선택…",
     "noCandidates": "선택할 수 있는 멤버가 없습니다.",
-    "groups": "그룹"
+    "groups": "그룹",
+    "assigneeGroup": "담당 그룹",
+    "changeGroup": "그룹에 지정…",
+    "noGroup": "그룹 없음"
   },
   "watchers": {
     "watch": "구독",
@@ -479,6 +483,7 @@
     "cleared": "지워짐",
     "noAssignee": "담당자 없음",
     "noType": "유형 없음",
-    "noLabels": "없음"
+    "noLabels": "없음",
+    "noAssigneeGroup": "그룹 없음"
   }
 }

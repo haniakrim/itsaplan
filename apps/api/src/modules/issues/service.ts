@@ -60,7 +60,7 @@ import { recordCycleChange } from './cycle-history';
 import { recordStatusChange } from './status-history';
 import { mapAttachment, type AttachmentRow } from '#modules/attachments/service';
 import { notifyIssueChange, notifyTextMentions } from '#modules/notifications/service';
-import { assertGroupInProject, groupIdByName } from '#modules/groups/service';
+import { assertGroupInProject, groupIdByName, groupIdsOfUser } from '#modules/groups/service';
 import { emitIssueEvent } from './webhook-payload';
 import {
   getAssignTriggerAgent,
@@ -297,7 +297,7 @@ function escapeLike(value: string): string {
 export async function searchIssues(
   project: ProjectRow,
   filters: IssueQuery,
-  opts: { includeArchived?: boolean } = {},
+  opts: { includeArchived?: boolean; viewerId?: string } = {},
 ): Promise<IssueSearchHit[]> {
   const conds: SQL[] = [eq(issue.projectId, project.id)];
   if (!opts.includeArchived) conds.push(isNull(issue.archivedAt));
@@ -370,6 +370,16 @@ export async function searchIssues(
         ? isNull(issue.assigneeGroupId)
         : eq(issue.assigneeGroupId, filters.assigneeGroupId),
     );
+  if (filters.assignedTo) {
+    if (!opts.viewerId) throw new HttpError(400, 'assignedTo needs a signed-in caller');
+    const groupIds =
+      filters.assignedTo === 'meOrMyGroups' ? await groupIdsOfUser(project.id, opts.viewerId) : [];
+    conds.push(
+      groupIds.length > 0
+        ? or(eq(issue.assigneeUserId, opts.viewerId), inArray(issue.assigneeGroupId, groupIds))!
+        : eq(issue.assigneeUserId, opts.viewerId),
+    );
+  }
   if (filters.delegateUserId !== undefined)
     conds.push(
       filters.delegateUserId === null

@@ -36,7 +36,8 @@
     "groupLabels": "Labels",
     "groupCustom": "Custom fields",
     "empty": "Empty",
-    "openInNewTab": "Open in new tab"
+    "openInNewTab": "Open in new tab",
+    "assigneeGroup": "Assignee group"
   },
   "menu": {
     "preview": "Preview",
@@ -462,7 +463,10 @@
     "noMember": "Not set",
     "pickMember": "Pick someone…",
     "noCandidates": "Nobody to pick.",
-    "groups": "Groups"
+    "groups": "Groups",
+    "assigneeGroup": "Assignee group",
+    "changeGroup": "Assign to group…",
+    "noGroup": "No group"
   },
   "watchers": {
     "watch": "Watch",
@@ -479,6 +483,7 @@
     "cleared": "Cleared",
     "noAssignee": "No assignee",
     "noType": "No type",
-    "noLabels": "None"
+    "noLabels": "None",
+    "noAssigneeGroup": "No group"
   }
 }

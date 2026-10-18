@@ -81,14 +81,16 @@
       "priority": "Prioritas",
       "type": "Jenis",
       "assignee": "Penerima tugas",
-      "delegate": "Delegasi"
+      "delegate": "Delegasi",
+      "assigneeGroup": "Grup"
     },
     "caption": {
       "status": "Berdasarkan status",
       "priority": "Berdasarkan prioritas",
       "type": "Berdasarkan jenis",
       "assignee": "Berdasarkan penerima tugas",
-      "delegate": "Berdasarkan delegasi"
+      "delegate": "Berdasarkan delegasi",
+      "assigneeGroup": "Berdasarkan grup"
     }
   },
   "recentIssues": {
