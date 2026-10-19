@@ -82,6 +82,14 @@ export default function TakeoverScreen({
                   <li key={section.id}>
                     <a
                       href={`#${section.id}`}
+                      // Scrolls the panel to the section without writing the hash
+                      // into the page's URL, which outlives the panel.
+                      onClick={(e) => {
+                        const target = document.getElementById(section.id);
+                        if (!target) return;
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}
                       aria-current={section.id === activeId ? 'location' : undefined}
                       className={cn(
                         'flex gap-3 transition-colors',

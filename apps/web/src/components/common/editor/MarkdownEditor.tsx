@@ -6,6 +6,8 @@ import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { TableKit } from '@tiptap/extension-table';
 import Placeholder from '@tiptap/extension-placeholder';
 import Link from '@tiptap/extension-link';
+import TaskItem from '@tiptap/extension-task-item';
+import TaskList from '@tiptap/extension-task-list';
 import { common, createLowlight } from 'lowlight';
 import { Markdown } from 'tiptap-markdown';
 import { pasteMarkdown } from './pasteMarkdown';
@@ -127,6 +129,9 @@ export default function MarkdownEditor({
       // Replaces StarterKit's plain code block, keeping the node name codeBlock.
       StarterKit.configure(editorStarterKitOptions),
       CodeBlockLowlight.configure({ lowlight }),
+      // `- [ ]` items, which the slash menu's Task list also inserts.
+      TaskList,
+      TaskItem.configure({ nested: true }),
       Placeholder.configure({ placeholder }),
       Link.configure({
         openOnClick: false,

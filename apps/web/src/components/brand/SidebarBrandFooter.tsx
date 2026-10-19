@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { BookOpen } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import AppLogo from '@/components/common/AppLogo';
 import UserManual from '@/features/user-manual/UserManual';
@@ -36,7 +37,7 @@ export default function SidebarBrandFooter() {
   const newerVersion = status?.updateAvailable ? status.latestVersion : null;
 
   const layout =
-    'flex w-full items-center gap-2.5 px-2 pt-2 pb-1.5 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0';
+    'flex w-full flex-wrap items-center gap-2.5 px-2 pt-2 pb-1.5 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0';
 
   const content = (
     <>
@@ -44,7 +45,7 @@ export default function SidebarBrandFooter() {
         <AppLogo className="size-7 text-sidebar-primary" />
       </span>
       <div className="grid text-start leading-none group-data-[collapsible=icon]:hidden">
-        <span className="text-base font-semibold tracking-tight text-sidebar-foreground">
+        <span className="text-base font-semibold tracking-tight whitespace-nowrap text-sidebar-foreground">
           One Health
         </span>
         {newerVersion ? (
@@ -63,6 +64,12 @@ export default function SidebarBrandFooter() {
           </span>
         )}
       </div>
+      {/* Says what the button opens: the manual, for everyone. Its own row, so the
+          name beside the mark keeps one line. */}
+      <span className="flex basis-full items-center justify-center gap-1.5 rounded-md border border-sidebar-primary/25 bg-sidebar-primary/10 px-1.5 py-1 text-[11px] font-medium text-sidebar-primary group-data-[collapsible=icon]:hidden">
+        <BookOpen className="size-3.5" aria-hidden />
+        {t('title')}
+      </span>
     </>
   );
 
