@@ -1,4 +1,5 @@
-import { MessageSquarePlus, Shield } from 'lucide-react';
+import Link from 'next/link';
+import { MessageSquarePlus, Pencil, Shield } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useProjectAgents } from '@/hooks/useProjectAgents';
 import { useShell } from '@/context/shellContext';
@@ -19,6 +20,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { splitProjectRef, teamPath } from '@/utils/paths';
 import { AGENT_KIND_ICON } from '../../utils/agentKindIcon';
 import { useAgentSection } from '../../context/agentSection';
 import { AgentMetaChip } from './AgentMetaChip';
@@ -33,8 +35,14 @@ export default function ProjectAiAgents() {
   const tTeam = useTranslations('teams.agents');
   const tChat = useTranslations('aiChat');
   const tCommon = useTranslations('common');
-  const { onChatWithAgent } = useShell();
-  const { teamId } = useAgentSection();
+  const { onChatWithAgent, project } = useShell();
+  const { teamId, permissions } = useAgentSection();
+  // An agent is edited in the team section; a member who may edit agents gets a
+  // shortcut there that opens the agent's sheet.
+  const editHref = (agentId: number) =>
+    project && permissions.edit
+      ? `${teamPath(splitProjectRef(project.project.ref).teamRef)}/ai-agents?edit=${agentId}`
+      : null;
   const query = useProjectAgents();
   const paging = usePaging();
   const agents = query.data ?? [];
@@ -111,7 +119,25 @@ export default function ProjectAiAgents() {
                   )}
                 </TableCell>
                 <TableCell className="px-3 py-2 align-middle">
-                  <div className="flex items-center justify-end">
+                  <div className="flex items-center justify-end gap-1.5">
+                    {editHref(agent.id) && (
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            asChild
+                            size="icon"
+                            variant="outline"
+                            className="size-8"
+                            aria-label={tCommon('edit')}
+                          >
+                            <Link href={editHref(agent.id)!}>
+                              <Pencil className="size-4" />
+                            </Link>
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>{tCommon('edit')}</TooltipContent>
+                      </Tooltip>
+                    )}
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Button

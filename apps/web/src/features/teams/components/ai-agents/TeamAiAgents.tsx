@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import type { AiAgent } from '@/lib/api/endpoints/agents';
@@ -53,6 +53,18 @@ export default function TeamAiAgents() {
   const [actionsId, setActionsId] = useState<number | null>(null);
   const [deleting, setDeleting] = useState<AiAgent | null>(null);
   const paging = usePaging();
+
+  // `?edit=<id>`, from the project's agent list, opens that agent's sheet once the
+  // list is loaded. Read after mount: the page also renders on the server.
+  // Only once, so closing the sheet keeps it closed.
+  const openedFromLink = useRef(false);
+  const loadedCount = agents.length;
+  useEffect(() => {
+    if (openedFromLink.current || loadedCount === 0) return;
+    openedFromLink.current = true;
+    const requested = Number(new URLSearchParams(window.location.search).get('edit'));
+    if (requested) setEditingId(requested);
+  }, [loadedCount]);
 
   const editing = agents.find((a) => a.id === editingId) ?? null;
   // The team's agents come in one list — the sheets and the project screens read it
