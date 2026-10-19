@@ -218,8 +218,13 @@ const IN_PROGRESS_FILTER: FilterSet = {
 const BACKLOG_FILTER: FilterSet = {
   conditions: [{ id: 'c1', field: 'statusType', op: 'is', values: ['backlog'] }],
 };
+// Open issues nobody holds: no person and no group, as the api's stats count them.
 const UNASSIGNED_FILTER: FilterSet = {
-  conditions: [{ id: 'c1', field: 'assignee', op: 'is', values: [null] }],
+  conditions: [
+    { id: 'c1', field: 'statusType', op: 'is_not', values: ['completed', 'canceled', 'closed'] },
+    { id: 'c2', field: 'assignee', op: 'is', values: [null] },
+    { id: 'c3', field: 'assigneeGroup', op: 'is', values: [null] },
+  ],
 };
 
 // The built-in layout shown when a project has no saved dashboards. Saving it

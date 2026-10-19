@@ -46,7 +46,6 @@ export function TimelineBar({
   if (milestone) {
     return (
       <div
-        data-timeline-bar={issue.id}
         onPointerDown={readOnly ? undefined : (e) => onBeginDrag(e, issue, 'move')}
         onClick={(e) => {
           e.preventDefault();
@@ -59,7 +58,10 @@ export function TimelineBar({
         )}
         style={{ left: rect.left + rect.width - 12 }}
       >
+        {/* The diamond alone carries the bar marker: dependency arrows meet it, not
+            the title beside it. */}
         <span
+          data-timeline-bar={issue.id}
           className="size-3 shrink-0 rotate-45 rounded-[2px]"
           style={{
             backgroundColor: color,

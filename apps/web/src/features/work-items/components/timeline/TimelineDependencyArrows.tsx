@@ -77,7 +77,8 @@ export function TimelineDependencyArrows() {
           next.push({
             key: `${pair.from}-${pair.to}`,
             d: dependencyPath(from, to),
-            blocked: to.left < from.right,
+            // A few pixels of slack: a milestone's rotated diamond overhangs its day.
+            blocked: to.left < from.right - 4,
           });
         }
         const sig = next.map((a) => a.d).join('|');
