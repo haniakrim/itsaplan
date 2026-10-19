@@ -39,6 +39,8 @@ export interface GodEmailForm {
   setClientId: (v: string) => void;
   clientSecret: string;
   setClientSecret: (v: string) => void;
+  useInstanceApp: boolean;
+  setUseInstanceApp: (v: boolean) => void;
   timeout: string;
   setTimeout: (v: string) => void;
   apiKey: string;
@@ -82,6 +84,7 @@ export function useGodEmailForm(settings: InstanceEmailSettings): GodEmailForm {
   const [tenantId, setTenantId] = useState(settings.smtp.oauth.tenantId);
   const [clientId, setClientId] = useState(settings.smtp.oauth.clientId);
   const [clientSecret, setClientSecret] = useState('');
+  const [useInstanceApp, setUseInstanceApp] = useState(settings.smtp.oauth.useInstanceApp);
   const [timeout, setTimeout] = useState(initialTimeout);
   const [apiKey, setApiKey] = useState('');
   const [allowProjects, setAllowProjects] = useState(settings.allowProjects);
@@ -96,13 +99,15 @@ export function useGodEmailForm(settings: InstanceEmailSettings): GodEmailForm {
     smtpAuth !== settings.smtp.auth ||
     tenantId !== settings.smtp.oauth.tenantId ||
     clientId !== settings.smtp.oauth.clientId ||
-    clientSecret.length > 0;
+    clientSecret.length > 0 ||
+    useInstanceApp !== settings.smtp.oauth.useInstanceApp;
   const smtpCredentialsReady =
     smtpAuth === 'microsoft365'
       ? username.trim().length > 0 &&
-        tenantId.trim().length > 0 &&
-        clientId.trim().length > 0 &&
-        (clientSecret.length > 0 || settings.smtp.oauth.hasClientSecret)
+        (useInstanceApp ||
+          (tenantId.trim().length > 0 &&
+            clientId.trim().length > 0 &&
+            (clientSecret.length > 0 || settings.smtp.oauth.hasClientSecret)))
       : username.trim().length === 0 || password.length > 0 || settings.smtp.hasPassword;
   const dirty =
     provider !== initialProvider ||
@@ -134,6 +139,7 @@ export function useGodEmailForm(settings: InstanceEmailSettings): GodEmailForm {
         oauth: {
           tenantId: tenantId.trim(),
           clientId: clientId.trim(),
+          useInstanceApp,
           ...(clientSecret.length > 0 ? { clientSecret } : {}),
         },
       },
@@ -192,6 +198,8 @@ export function useGodEmailForm(settings: InstanceEmailSettings): GodEmailForm {
     setClientId,
     clientSecret,
     setClientSecret,
+    useInstanceApp,
+    setUseInstanceApp,
     timeout,
     setTimeout,
     apiKey,

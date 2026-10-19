@@ -10,6 +10,7 @@ export interface ConfigField {
   required: boolean;
   placeholder?: string;
   help?: string;
+  hiddenWhen?: string;
 }
 
 // 'llm' is an AI provider (its models an agent runs on, no tools); 'tool' is a tool

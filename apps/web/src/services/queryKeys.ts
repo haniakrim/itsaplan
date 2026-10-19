@@ -310,6 +310,10 @@ export const qk = {
   instanceProjectDefaults: ['instanceProjectDefaults'] as const,
   instanceAgentSettings: ['instanceAgentSettings'] as const,
   instanceStorageSettings: ['instanceStorageSettings'] as const,
+  instanceFileStorage: ['instanceFileStorage'] as const,
+  instanceMicrosoft365: ['instanceMicrosoft365'] as const,
+  procoreCheckSettings: ['procoreCheckSettings'] as const,
+  allowedOrigins: ['allowedOrigins'] as const,
   // The upload limits as read by the upload UI (open to any signed-in user).
   storageSettings: ['storageSettings'] as const,
   // The running version (any signed-in user) and the upstream release check (god).

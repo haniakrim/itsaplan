@@ -19,10 +19,18 @@ export const microsoft365: Integration = {
   label: 'Microsoft 365',
   credentialSchema: [
     {
+      key: 'useInstanceApp',
+      label: 'Use the instance Microsoft 365 app',
+      type: 'boolean',
+      required: false,
+      help: "Use the app registration the instance owner set up in god mode instead of one of this team's own. Only the default user is asked for then; the app's secret stays on the server.",
+    },
+    {
       key: 'tenantId',
       label: 'Tenant ID',
       type: 'string',
       required: true,
+      hiddenWhen: 'useInstanceApp',
       placeholder: '00000000-0000-0000-0000-000000000000',
       help: 'Directory (tenant) ID, on the Overview page of the app registration in Entra ID (entra.microsoft.com).',
     },
@@ -31,6 +39,7 @@ export const microsoft365: Integration = {
       label: 'Client ID',
       type: 'string',
       required: true,
+      hiddenWhen: 'useInstanceApp',
       placeholder: '00000000-0000-0000-0000-000000000000',
       help: 'Application (client) ID of the same app registration.',
     },
@@ -39,6 +48,7 @@ export const microsoft365: Integration = {
       label: 'Client secret',
       type: 'secret',
       required: true,
+      hiddenWhen: 'useInstanceApp',
       help: 'A secret value from Certificates & secrets. Under API permissions add the Microsoft Graph application permissions the chosen tools list, then Grant admin consent.',
     },
     {

@@ -1,4 +1,7 @@
 import type { StorageDriver } from './driver';
+import { resolveSharePointConfig, type SharePointConfig } from './config';
+
+export type { SharePointConfig };
 import { contentTypeFromKey, DEFAULT_CONTENT_TYPE, sniffContentType } from './content-type';
 
 // SharePoint document library / OneDrive through Microsoft Graph, app-only (client
@@ -19,15 +22,6 @@ const RETRY_STATUSES = new Set([429, 503, 504]);
 // Refresh the token this long before it expires.
 const TOKEN_SKEW_MS = 60_000;
 
-export interface SharePointConfig {
-  tenantId: string;
-  clientId: string;
-  clientSecret: string;
-  siteId?: string;
-  driveId?: string;
-  rootFolder?: string;
-}
-
 export interface SharePointDeps {
   fetch?: typeof fetch;
   sleep?: (ms: number) => Promise<void>;
@@ -45,24 +39,7 @@ export class GraphError extends Error {
 }
 
 export function sharePointConfigFromEnv(env: NodeJS.ProcessEnv = process.env): SharePointConfig {
-  const tenantId = env.SHAREPOINT_TENANT_ID;
-  const clientId = env.SHAREPOINT_CLIENT_ID;
-  const clientSecret = env.SHAREPOINT_CLIENT_SECRET;
-  const siteId = env.SHAREPOINT_SITE_ID || undefined;
-  const driveId = env.SHAREPOINT_DRIVE_ID || undefined;
-  if (!tenantId || !clientId || !clientSecret || (!siteId && !driveId)) {
-    throw new Error(
-      'SharePoint storage is not configured: set SHAREPOINT_TENANT_ID, SHAREPOINT_CLIENT_ID, SHAREPOINT_CLIENT_SECRET and SHAREPOINT_SITE_ID (or SHAREPOINT_DRIVE_ID).',
-    );
-  }
-  return {
-    tenantId,
-    clientId,
-    clientSecret,
-    siteId,
-    driveId,
-    rootFolder: env.SHAREPOINT_ROOT_FOLDER || undefined,
-  };
+  return resolveSharePointConfig({}, env);
 }
 
 // Splits a path into segments, rejecting empty, "." and ".." ones, and URL-encodes

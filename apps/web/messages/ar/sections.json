@@ -54,6 +54,18 @@
     "scim": {
       "label": "SCIM",
       "description": "اسمح لمزوّد الهوية بإنشاء الحسابات وتحديثها وتعطيلها على هذا الخادم، ومنح الوصول إلى المشاريع عبر مجموعاته."
+    },
+    "file-storage": {
+      "label": "تخزين الملفات",
+      "description": "مكان حفظ الملفات المرفوعة: مخزن متوافق مع S3 أو SharePoint وOneDrive، مع اختبار للاتصال."
+    },
+    "microsoft365": {
+      "label": "Microsoft 365",
+      "description": "تسجيل تطبيق Microsoft 365 الواحد الذي يمكن للبريد وتخزين SharePoint وأدوات وكلاء الفرق مشاركته."
+    },
+    "integration-checks": {
+      "label": "فحوصات التكامل",
+      "description": "شغّل فحوصات مباشرة لـ Procore وتخزين SharePoint وأدوات Microsoft 365 واطّلع على نتيجة كل خطوة."
     }
   },
   "settings": {

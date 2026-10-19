@@ -73,6 +73,10 @@ export function CredentialForm({
     setValues((prev) => ({ ...prev, [key]: v }));
   }
 
+  const visibleFields = meta.credentialSchema.filter(
+    (field) => !field.hiddenWhen || values[field.hiddenWhen] !== true,
+  );
+
   function fieldSatisfied(field: ConfigField): boolean {
     if (!field.required || field.type === 'boolean') return true;
     const v = values[field.key];
@@ -84,11 +88,11 @@ export function CredentialForm({
     return false;
   }
 
-  const canSubmit = !busy && meta.credentialSchema.every(fieldSatisfied);
+  const canSubmit = !busy && visibleFields.every(fieldSatisfied);
 
   function buildCredential(): Record<string, unknown> {
     const out: Record<string, unknown> = {};
-    for (const field of meta.credentialSchema) {
+    for (const field of visibleFields) {
       const v = values[field.key];
       if (field.type === 'boolean') out[field.key] = v === true;
       else if (typeof v === 'string' && v.trim() !== '') out[field.key] = v.trim();
@@ -136,7 +140,7 @@ export function CredentialForm({
         <span className="text-sm font-medium text-foreground">{meta.label}</span>
       </div>
 
-      {meta.credentialSchema.map((field) => (
+      {visibleFields.map((field) => (
         <div key={field.key} className="space-y-1.5">
           {field.type === 'boolean' ? (
             <label className="flex cursor-pointer items-center gap-2">

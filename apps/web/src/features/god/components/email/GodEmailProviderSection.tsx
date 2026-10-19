@@ -1,8 +1,10 @@
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import type { NotificationEncryption } from '@/lib/api/endpoints/notificationSettings';
 import type { SmtpAuth } from '@/lib/api/endpoints/god';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
 import {
   Select,
   SelectContent,
@@ -116,34 +118,56 @@ export default function GodEmailProviderSection({ form }: { form: GodEmailForm }
             </div>
             {form.smtpAuth === 'microsoft365' ? (
               <>
-                <div className="space-y-1.5">
-                  <Label htmlFor="smtp-tenant">{t('tenantId')}</Label>
-                  <Input
-                    id="smtp-tenant"
-                    value={form.tenantId}
-                    onChange={(e) => form.setTenantId(e.target.value)}
-                    autoComplete="off"
+                <div className="flex items-center justify-between gap-3 sm:col-span-3">
+                  <div className="space-y-1">
+                    <label htmlFor="smtp-use-instance-app" className="text-sm font-medium">
+                      {t('useInstanceApp')}
+                    </label>
+                    <p className="text-xs text-muted-foreground">
+                      {t('useInstanceAppHint')}{' '}
+                      <Link href="/god/microsoft365" className="underline">
+                        {t('openMicrosoft365')}
+                      </Link>
+                    </p>
+                  </div>
+                  <Switch
+                    id="smtp-use-instance-app"
+                    checked={form.useInstanceApp}
+                    onCheckedChange={form.setUseInstanceApp}
                   />
                 </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="smtp-client">{t('clientId')}</Label>
-                  <Input
-                    id="smtp-client"
-                    value={form.clientId}
-                    onChange={(e) => form.setClientId(e.target.value)}
-                    autoComplete="off"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="smtp-client-secret">{t('clientSecret')}</Label>
-                  <SecretInput
-                    id="smtp-client-secret"
-                    value={form.clientSecret}
-                    onChange={form.setClientSecret}
-                    hasStored={settings.smtp.oauth.hasClientSecret}
-                    placeholder={t('clientSecretPlaceholder')}
-                  />
-                </div>
+                {form.useInstanceApp ? null : (
+                  <>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="smtp-tenant">{t('tenantId')}</Label>
+                      <Input
+                        id="smtp-tenant"
+                        value={form.tenantId}
+                        onChange={(e) => form.setTenantId(e.target.value)}
+                        autoComplete="off"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="smtp-client">{t('clientId')}</Label>
+                      <Input
+                        id="smtp-client"
+                        value={form.clientId}
+                        onChange={(e) => form.setClientId(e.target.value)}
+                        autoComplete="off"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="smtp-client-secret">{t('clientSecret')}</Label>
+                      <SecretInput
+                        id="smtp-client-secret"
+                        value={form.clientSecret}
+                        onChange={form.setClientSecret}
+                        hasStored={settings.smtp.oauth.hasClientSecret}
+                        placeholder={t('clientSecretPlaceholder')}
+                      />
+                    </div>
+                  </>
+                )}
                 <p className="text-xs text-muted-foreground sm:col-span-3">
                   {t('microsoft365Hint')}
                 </p>

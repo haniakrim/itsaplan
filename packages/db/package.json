@@ -18,6 +18,7 @@
   "dependencies": {
     "@repo/crypto": "workspace:*",
     "@repo/mailer": "workspace:*",
+    "@repo/storage": "workspace:*",
     "drizzle-orm": "^0.45.4",
     "postgres": "^3.4.9"
   },

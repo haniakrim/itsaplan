@@ -43,7 +43,10 @@ through this module — never inline a query on `app_setting` / `app_secret` els
 
 The mail provider is read by the api and the worker as well, so its shape and reader
 live in `@repo/db` (`domains/instance-email.ts`); what is here is the write side god
-mode drives.
+mode drives. A provider whose Microsoft 365 sign-in has `oauth.useInstanceApp` stores no
+tenant, client or secret: `getInstanceEmailConfig` fills them from the instance Microsoft 365
+app (`app_secret` key `instance.microsoft365`, `domains/instance-microsoft365.ts`), while
+`getStoredInstanceEmailConfig` returns the stored shape god mode edits.
 
 "Invite only" means the address has a pending `team_invite` that has not expired
 (`hasPendingInvite`). An invite expires `inviteTtlDays` after it was created (7 by
@@ -343,7 +346,13 @@ manages that may create accounts; a throw turns it away. Without one the gate de
   a localhost fallback: cookies, the passkey relying party, the cookie domain and every
   link in an authentication email are derived from them, so a wrong value fails silently
   at runtime instead of at startup. The parsed `trustedOrigins` list (from `APP_URL`) is
-  exported so the api's CORS uses the same value.
+  the first part of `originPolicy`, which adds the extra origins the instance owner saved in
+  god mode (`app_setting` key `auth.allowedOrigins`, entries validated by
+  `normalizeOriginEntry`: `http(s)://host[:port]`, a wildcard only as the whole leftmost
+  label with two labels after it). better-auth's `trustedOrigins` is a function over
+  `originPolicy.list()` and the api's CORS check calls `originPolicy.isAllowed`; the list is
+  cached for 5 seconds and `save` refreshes it at once. Passkey `origin` stays the static
+  `APP_URL` list.
 - **`API_URL` with a path** (the api under a path of the web's host): better-auth's
   `baseURL` gets only the origin, because a path there replaces its `/api/auth` base path
   and the api's fixed mount stops matching. Every public URL built from it — the OAuth

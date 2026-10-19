@@ -13,6 +13,10 @@ import { nextPageParam, type PageParams } from '@/lib/api/core/paging';
 import { DEFAULT_PAGE_SIZE } from '@/hooks/usePaging';
 import {
   type AgentSettings,
+  type FileStoragePatch,
+  type InstanceMicrosoft365Patch,
+  type Microsoft365CheckInput,
+  type ProcoreCheckInput,
   type InstanceAuthSettingsPatch,
   type InstanceEmailSettingsPatch,
   type InstanceGoogleSettingsPatch,
@@ -38,6 +42,19 @@ import {
   getInstanceAgentSettings,
   updateInstanceAgentSettings,
   getInstanceStorageSettings,
+  getInstanceFileStorage,
+  updateInstanceFileStorage,
+  testInstanceFileStorage,
+  getInstanceMicrosoft365,
+  updateInstanceMicrosoft365,
+  testInstanceMicrosoft365,
+  getProcoreCheckSettings,
+  runProcoreCheck,
+  forgetProcoreCheck,
+  runSharePointCheck,
+  runMicrosoft365Check,
+  getAllowedOrigins,
+  updateAllowedOrigins,
   updateInstanceStorageSettings,
   listInstanceUsers,
   setInstanceUserActive,
@@ -358,5 +375,98 @@ export function useInstanceTeamMembersQuery(teamId: number, search: string | und
       listInstanceTeamMembers(teamId, { search, page: pageParam, pageSize: DEFAULT_PAGE_SIZE }),
     initialPageParam: 1,
     getNextPageParam: nextPageParam,
+  });
+}
+
+export function useInstanceFileStorageQuery() {
+  return useQuery({
+    queryKey: qk.instanceFileStorage,
+    queryFn: () => getInstanceFileStorage(),
+  });
+}
+
+export function useUpdateInstanceFileStorage() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (patch: FileStoragePatch) => updateInstanceFileStorage(patch),
+    onSuccess: (data) => qc.setQueryData(qk.instanceFileStorage, data),
+  });
+}
+
+export function useTestInstanceFileStorage() {
+  return useMutation({
+    mutationFn: (patch: FileStoragePatch) => testInstanceFileStorage(patch),
+  });
+}
+
+export function useInstanceMicrosoft365Query() {
+  return useQuery({
+    queryKey: qk.instanceMicrosoft365,
+    queryFn: () => getInstanceMicrosoft365(),
+  });
+}
+
+export function useUpdateInstanceMicrosoft365() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (patch: InstanceMicrosoft365Patch) => updateInstanceMicrosoft365(patch),
+    onSuccess: (data) => {
+      qc.setQueryData(qk.instanceMicrosoft365, data);
+      void qc.invalidateQueries({ queryKey: qk.instanceFileStorage });
+    },
+  });
+}
+
+export function useTestInstanceMicrosoft365() {
+  return useMutation({
+    mutationFn: (patch: InstanceMicrosoft365Patch) => testInstanceMicrosoft365(patch),
+  });
+}
+
+export function useProcoreCheckSettingsQuery() {
+  return useQuery({
+    queryKey: qk.procoreCheckSettings,
+    queryFn: () => getProcoreCheckSettings(),
+  });
+}
+
+export function useRunProcoreCheck() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (input: ProcoreCheckInput) => runProcoreCheck(input),
+    onSuccess: () => qc.invalidateQueries({ queryKey: qk.procoreCheckSettings }),
+  });
+}
+
+export function useForgetProcoreCheck() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: () => forgetProcoreCheck(),
+    onSuccess: () => qc.invalidateQueries({ queryKey: qk.procoreCheckSettings }),
+  });
+}
+
+export function useRunSharePointCheck() {
+  return useMutation({ mutationFn: () => runSharePointCheck() });
+}
+
+export function useRunMicrosoft365Check() {
+  return useMutation({
+    mutationFn: (input: Microsoft365CheckInput) => runMicrosoft365Check(input),
+  });
+}
+
+export function useAllowedOriginsQuery() {
+  return useQuery({
+    queryKey: qk.allowedOrigins,
+    queryFn: () => getAllowedOrigins(),
+  });
+}
+
+export function useUpdateAllowedOrigins() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (origins: string[]) => updateAllowedOrigins(origins),
+    onSuccess: (data) => qc.setQueryData(qk.allowedOrigins, data),
   });
 }

@@ -1,0 +1,25 @@
+{
+  "name": "@repo/live-checks",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/agent-tools": "workspace:*",
+    "@repo/net": "workspace:*",
+    "@repo/storage": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@types/bun": "latest",
+    "eslint": "^9.39.0",
+    "typescript": "^6.0.3"
+  }
+}

@@ -14,6 +14,8 @@ export {
   INSTANCE_EMAIL_SECRET_KEY,
   defaultInstanceEmailConfig,
   getInstanceEmailConfig,
+  getStoredInstanceEmailConfig,
+  withInstanceMicrosoftApp,
   getProjectEmailConfig,
   hasConfiguredEmailProvider,
   type InstanceEmailConfig,
@@ -38,3 +40,15 @@ export {
   lockAttachmentStorage,
   type StorageSettings,
 } from './domains/storage';
+export {
+  MICROSOFT365_SECRET_KEY,
+  getInstanceMicrosoft365,
+  getStoredInstanceMicrosoft365,
+  type InstanceMicrosoft365,
+} from './domains/instance-microsoft365';
+export {
+  STORAGE_BACKEND_SECRET_KEY,
+  getStorageOverrides,
+  invalidateStorageBackendCache,
+  resolveInstanceStorageConfig,
+} from './domains/storage-backend';

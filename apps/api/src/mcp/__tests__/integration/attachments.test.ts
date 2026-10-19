@@ -183,5 +183,7 @@ describe('MCP attachments', () => {
     });
     expect(result.isError).toBe(true);
     expect(result.structuredContent).toMatchObject({ ok: false, status: 403 });
-  });
+    // Signs up a second user and opens an MCP session on top of the image setup, which
+    // passes 5 s while the whole suite shares the database.
+  }, 20_000);
 });

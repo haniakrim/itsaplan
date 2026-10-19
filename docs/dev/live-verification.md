@@ -6,12 +6,24 @@ exercise each one against a real account. They are not part of `bun test` or CI.
 credentials they print `skipped: set X` and exit 0; with credentials they exit 1 on any failure.
 Run them from the repo root; `bun --env-file=.env` loads the variables from `.env`.
 
+The checks themselves live in `packages/live-checks`; the scripts call it. The instance owner
+runs the same checks from god mode, **Integration checks**, without a shell: the page has a
+card per integration and shows a table of `PASS`, `FAIL`, `MISSING-PERMISSION` and `SKIPPED`
+rows with a message each. The routes are owner-only and limited to 10 runs per 10 minutes per
+process.
+
+| Card          | What it uses                                                                   |
+| ------------- | ------------------------------------------------------------------------------ |
+| Procore       | the credentials typed into the form (client ID, secret, company ID, sandbox, optional project ID). They are not kept unless **Remember** is ticked; then they are stored encrypted and **Forget** deletes them |
+| SharePoint    | the SharePoint values of **File storage** (or the instance Microsoft 365 app); it writes and deletes test files under `itsaplan-verify/` |
+| Microsoft 365 | the instance Microsoft 365 app and the mailbox or OneDrive user named in the form. It only reads, unless **write and read back a test file** is ticked, which runs `file_write` and `file_read` |
+
 After a run, update the "Unverified" notes in the matching dev doc (see the last section).
 
 ## Procore (`pnpm verify:procore`)
 
 Script: `scripts/verify/procore.ts`. Read-only. Uses the real `ProcoreReader` and
-`procore-mapping.ts`.
+`procore-mapping.ts`, through `checkProcore` in `packages/live-checks`.
 
 | Variable                | Meaning                                                  |
 | ----------------------- | -------------------------------------------------------- |

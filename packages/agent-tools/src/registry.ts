@@ -78,6 +78,10 @@ export function integrationDescriptors(): IntegrationDescriptor[] {
   }));
 }
 
+function isOn(value: unknown): boolean {
+  return value === true || value === 'true';
+}
+
 // Validates and coerces a submitted credential against a schema: required fields must
 // be present, values are coerced to each field's type, and unknown keys are dropped.
 // Throws ToolConfigError on a missing required field or an uncoercible value (the API
@@ -86,6 +90,7 @@ export function coerceConfig(fields: ConfigField[], input: unknown): ToolConfig 
   const src = (input && typeof input === 'object' ? input : {}) as Record<string, unknown>;
   const out: ToolConfig = {};
   for (const field of fields) {
+    if (field.hiddenWhen && isOn(src[field.hiddenWhen])) continue;
     const raw = src[field.key];
     const missing = raw === undefined || raw === null || raw === '';
     if (missing) {

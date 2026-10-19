@@ -20,7 +20,7 @@ import {
   setSamlSettings,
   getSamlConfig,
 } from '@repo/auth';
-import { hasConfiguredEmailProvider, getStorageSettings } from '@repo/db';
+import { hasConfiguredEmailProvider, getStorageSettings, withInstanceMicrosoftApp } from '@repo/db';
 import { emailBody, hasEmailProvider, sendEmail } from '@repo/mailer';
 import { authContext } from '#shared/auth-context';
 import { requireGod } from '#shared/access';
@@ -223,7 +223,7 @@ export const godRoutes = new Elysia({ name: 'god', detail: { tags: ['God'] } })
     async ({ user, body: patch }) => {
       const current = requireGod(user);
       if (!current.email) throw new HttpError(400, 'The instance owner has no email address');
-      const config = await resolveEmailConfig(patch ?? {});
+      const config = await withInstanceMicrosoftApp(await resolveEmailConfig(patch ?? {}));
       if (!hasEmailProvider(config)) {
         throw new HttpError(400, 'Configure an email provider first');
       }

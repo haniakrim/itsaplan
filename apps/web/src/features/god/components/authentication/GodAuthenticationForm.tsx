@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import GodSectionPage from '../GodSectionPage';
+import GodAllowedOrigins from './GodAllowedOrigins';
 import RegistrationModePicker from './RegistrationModePicker';
 import { MAX_INVITE_TTL_DAYS, useGodPolicyForm } from '../../hooks/useGodPolicyForm';
 
@@ -161,6 +162,8 @@ export default function GodAuthenticationForm({
             />
           </SettingsCard>
         </SettingsSection>
+
+        <GodAllowedOrigins />
       </div>
     </GodSectionPage>
   );

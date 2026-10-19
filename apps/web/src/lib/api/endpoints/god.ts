@@ -61,7 +61,12 @@ export interface InstanceEmailSettings {
     hasPassword: boolean;
     timeout: number | null;
     auth: SmtpAuth;
-    oauth: { tenantId: string; clientId: string; hasClientSecret: boolean };
+    oauth: {
+      tenantId: string;
+      clientId: string;
+      hasClientSecret: boolean;
+      useInstanceApp: boolean;
+    };
   };
   resend: { enabled: boolean; hasApiKey: boolean };
   from: string;
@@ -79,7 +84,12 @@ export interface InstanceEmailSettingsPatch {
     password?: string;
     timeout: number | null;
     auth?: SmtpAuth;
-    oauth?: { tenantId: string; clientId: string; clientSecret?: string };
+    oauth?: {
+      tenantId: string;
+      clientId: string;
+      clientSecret?: string;
+      useInstanceApp?: boolean;
+    };
   };
   resend?: { enabled: boolean; apiKey?: string };
   from?: string;
@@ -452,3 +462,183 @@ export const listInstanceTeamMembers = (teamId: number, params: PageParams & { s
   request<Page<InstanceTeamMember>>(
     `/god/teams/${teamId}/members${pageQuery(params, { search: params.search })}`,
   );
+
+export type SettingSource = 'database' | 'environment' | 'default';
+
+export interface SourcedValue<T> {
+  value: T;
+  source: SettingSource;
+}
+
+export interface SourcedSecret {
+  hasValue: boolean;
+  source: SettingSource;
+}
+
+export type CheckStatus = 'PASS' | 'FAIL' | 'MISSING-PERMISSION' | 'SKIPPED';
+
+export interface CheckRow {
+  name: string;
+  status: CheckStatus;
+  detail: string;
+}
+
+export type StorageDriverName = 's3' | 'sharepoint';
+
+export interface FileStorageSettings {
+  driver: SourcedValue<StorageDriverName>;
+  s3: {
+    endpoint: SourcedValue<string>;
+    bucket: SourcedValue<string>;
+    region: SourcedValue<string>;
+    accessKeyId: SourcedValue<string>;
+    secretAccessKey: SourcedSecret;
+    forcePathStyle: SourcedValue<boolean>;
+  };
+  sharepoint: {
+    useInstanceApp: boolean;
+    tenantId: SourcedValue<string>;
+    clientId: SourcedValue<string>;
+    clientSecret: SourcedSecret;
+    siteId: SourcedValue<string>;
+    driveId: SourcedValue<string>;
+    rootFolder: SourcedValue<string>;
+  };
+  instanceAppConfigured: boolean;
+}
+
+export interface FileStoragePatch {
+  driver?: StorageDriverName | null;
+  s3?: {
+    endpoint?: string | null;
+    bucket?: string | null;
+    region?: string | null;
+    accessKeyId?: string | null;
+    secretAccessKey?: string | null;
+    forcePathStyle?: boolean | null;
+  };
+  sharepoint?: {
+    useInstanceApp?: boolean;
+    tenantId?: string | null;
+    clientId?: string | null;
+    clientSecret?: string | null;
+    siteId?: string | null;
+    driveId?: string | null;
+    rootFolder?: string | null;
+  };
+}
+
+export interface FileStorageTestResult {
+  ok: boolean;
+  steps: CheckRow[];
+}
+
+export const getInstanceFileStorage = () => request<FileStorageSettings>('/god/file-storage');
+
+export const updateInstanceFileStorage = (patch: FileStoragePatch) =>
+  request<FileStorageSettings>('/god/file-storage', {
+    method: 'PUT',
+    body: JSON.stringify(patch),
+  });
+
+export const testInstanceFileStorage = (patch: FileStoragePatch) =>
+  request<FileStorageTestResult>('/god/file-storage/test', {
+    method: 'POST',
+    body: JSON.stringify(patch),
+  });
+
+export interface InstanceMicrosoft365Settings {
+  tenantId: string;
+  clientId: string;
+  hasClientSecret: boolean;
+}
+
+export interface InstanceMicrosoft365Patch {
+  tenantId: string;
+  clientId: string;
+  clientSecret?: string;
+}
+
+export interface InstanceMicrosoft365TestResult {
+  ok: boolean;
+  message: string;
+}
+
+export const getInstanceMicrosoft365 = () =>
+  request<InstanceMicrosoft365Settings>('/god/microsoft365');
+
+export const updateInstanceMicrosoft365 = (patch: InstanceMicrosoft365Patch) =>
+  request<InstanceMicrosoft365Settings>('/god/microsoft365', {
+    method: 'PUT',
+    body: JSON.stringify(patch),
+  });
+
+export const testInstanceMicrosoft365 = (patch: InstanceMicrosoft365Patch) =>
+  request<InstanceMicrosoft365TestResult>('/god/microsoft365/test', {
+    method: 'POST',
+    body: JSON.stringify(patch),
+  });
+
+export interface IntegrationCheckResult {
+  ok: boolean;
+  rows: CheckRow[];
+}
+
+export interface ProcoreCheckSettings {
+  remembered: boolean;
+  clientId: string;
+  companyId: string;
+  sandbox: boolean;
+  hasClientSecret: boolean;
+}
+
+export interface ProcoreCheckInput {
+  clientId?: string;
+  clientSecret?: string;
+  companyId?: string;
+  sandbox?: boolean;
+  projectId?: string;
+  remember?: boolean;
+}
+
+export interface Microsoft365CheckInput {
+  user: string;
+  write?: boolean;
+}
+
+export const getProcoreCheckSettings = () =>
+  request<ProcoreCheckSettings>('/god/integration-checks/procore');
+
+export const runProcoreCheck = (input: ProcoreCheckInput) =>
+  request<IntegrationCheckResult>('/god/integration-checks/procore', {
+    method: 'POST',
+    body: JSON.stringify(input),
+  });
+
+export const forgetProcoreCheck = () =>
+  request<void>('/god/integration-checks/procore', { method: 'DELETE' });
+
+export const runSharePointCheck = () =>
+  request<IntegrationCheckResult>('/god/integration-checks/sharepoint', {
+    method: 'POST',
+    body: JSON.stringify({}),
+  });
+
+export const runMicrosoft365Check = (input: Microsoft365CheckInput) =>
+  request<IntegrationCheckResult>('/god/integration-checks/microsoft365', {
+    method: 'POST',
+    body: JSON.stringify(input),
+  });
+
+export interface AllowedOrigins {
+  origins: string[];
+  envOrigins: string[];
+}
+
+export const getAllowedOrigins = () => request<AllowedOrigins>('/god/allowed-origins');
+
+export const updateAllowedOrigins = (origins: string[]) =>
+  request<AllowedOrigins>('/god/allowed-origins', {
+    method: 'PUT',
+    body: JSON.stringify({ origins }),
+  });

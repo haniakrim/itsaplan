@@ -22,7 +22,7 @@ const settings: InstanceEmailSettings = {
     hasPassword: false,
     timeout: null,
     auth: 'password',
-    oauth: { tenantId: '', clientId: '', hasClientSecret: false },
+    oauth: { tenantId: '', clientId: '', hasClientSecret: false, useInstanceApp: false },
   },
   resend: { enabled: false, hasApiKey: false },
   from: '',
@@ -130,7 +130,12 @@ describe('useGodEmailForm with Microsoft 365', () => {
       username: 'mailer@example.com',
       timeout: null,
       auth: 'microsoft365',
-      oauth: { tenantId: 'tenant-1', clientId: 'client-1', clientSecret: 'app-secret' },
+      oauth: {
+        tenantId: 'tenant-1',
+        clientId: 'client-1',
+        useInstanceApp: false,
+        clientSecret: 'app-secret',
+      },
     });
   });
 });

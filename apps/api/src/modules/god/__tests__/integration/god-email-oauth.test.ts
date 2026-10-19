@@ -278,6 +278,7 @@ describe('god email settings with Microsoft 365', () => {
       tenantId: 'tenant-1',
       clientId: 'client-1',
       clientSecret: 'app-secret',
+      useInstanceApp: false,
     });
   });
 

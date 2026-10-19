@@ -8,7 +8,7 @@ import {
   readSecret,
   writeSecret,
   defaultInstanceEmailConfig,
-  getInstanceEmailConfig,
+  getStoredInstanceEmailConfig,
   INSTANCE_EMAIL_SECRET_KEY,
   type InstanceEmailConfig,
 } from '@repo/db';
@@ -176,7 +176,12 @@ export interface InstanceEmailDto {
     hasPassword: boolean;
     timeout: number | null;
     auth: SmtpAuth;
-    oauth: { tenantId: string; clientId: string; hasClientSecret: boolean };
+    oauth: {
+      tenantId: string;
+      clientId: string;
+      hasClientSecret: boolean;
+      useInstanceApp: boolean;
+    };
   };
   resend: { enabled: boolean; hasApiKey: boolean };
   from: string;
@@ -196,7 +201,12 @@ export interface InstanceEmailPatch {
     password?: string;
     timeout: number | null;
     auth?: SmtpAuth;
-    oauth?: { tenantId: string; clientId: string; clientSecret?: string };
+    oauth?: {
+      tenantId: string;
+      clientId: string;
+      clientSecret?: string;
+      useInstanceApp?: boolean;
+    };
   };
   resend?: { enabled: boolean; apiKey?: string };
   from?: string;
@@ -218,6 +228,7 @@ function toEmailDto(config: InstanceEmailConfig): InstanceEmailDto {
         tenantId: config.smtp.oauth?.tenantId ?? '',
         clientId: config.smtp.oauth?.clientId ?? '',
         hasClientSecret: (config.smtp.oauth?.clientSecret ?? '').length > 0,
+        useInstanceApp: config.smtp.oauth?.useInstanceApp === true,
       },
     },
     resend: { enabled: config.resend.enabled, hasApiKey: config.resend.apiKey.length > 0 },
@@ -227,7 +238,7 @@ function toEmailDto(config: InstanceEmailConfig): InstanceEmailDto {
 }
 
 export async function getEmailSettings(): Promise<InstanceEmailDto> {
-  return toEmailDto((await getInstanceEmailConfig()) ?? defaultInstanceEmailConfig());
+  return toEmailDto((await getStoredInstanceEmailConfig()) ?? defaultInstanceEmailConfig());
 }
 
 function resolveSmtp(
@@ -244,6 +255,7 @@ function resolveSmtp(
           tenantId: oauth.tenantId,
           clientId: oauth.clientId,
           clientSecret: mergeSecret(current.oauth?.clientSecret ?? '', oauth.clientSecret),
+          useInstanceApp: oauth.useInstanceApp ?? current.oauth?.useInstanceApp ?? false,
         }
       : current.oauth,
   };
@@ -255,7 +267,7 @@ function resolveSmtp(
 export async function resolveEmailConfig(
   patch: InstanceEmailPatch = {},
 ): Promise<InstanceEmailConfig> {
-  const current = (await getInstanceEmailConfig()) ?? defaultInstanceEmailConfig();
+  const current = (await getStoredInstanceEmailConfig()) ?? defaultInstanceEmailConfig();
   return {
     smtp: patch.smtp ? resolveSmtp(current.smtp, patch.smtp) : current.smtp,
     resend: patch.resend

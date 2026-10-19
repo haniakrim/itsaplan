@@ -1,4 +1,10 @@
-import { db, agentTool, agentToolLink, integrationCredential } from '@repo/db';
+import {
+  db,
+  agentTool,
+  agentToolLink,
+  getInstanceMicrosoft365,
+  integrationCredential,
+} from '@repo/db';
 import { and, eq, inArray, sql } from 'drizzle-orm';
 import { getTool, type ToolConfig } from '@repo/agent-tools';
 import { iso, HttpError, rethrowDuplicate } from '#shared/lib';
@@ -132,6 +138,7 @@ export async function listAgentToolsForRun(
     .select({
       id: agentTool.id,
       toolKey: agentTool.toolKey,
+      integrationKey: integrationCredential.integrationKey,
       ciphertext: integrationCredential.ciphertext,
       iv: integrationCredential.iv,
       authTag: integrationCredential.authTag,
@@ -140,13 +147,19 @@ export async function listAgentToolsForRun(
     .innerJoin(agentTool, eq(agentTool.id, agentToolLink.agentToolId))
     .innerJoin(integrationCredential, eq(integrationCredential.id, agentTool.credentialId))
     .where(eq(agentToolLink.agentId, agentId));
-  return rows.map((r) => ({
-    id: r.id,
-    toolKey: r.toolKey,
-    credential: JSON.parse(
+  const instanceApp = rows.some((r) => r.integrationKey === 'microsoft365')
+    ? await getInstanceMicrosoft365()
+    : null;
+  return rows.map((r) => {
+    const credential = JSON.parse(
       decryptSecret({ ciphertext: r.ciphertext, iv: r.iv, authTag: r.authTag }),
-    ) as ToolConfig,
-  }));
+    ) as ToolConfig;
+    if (r.integrationKey === 'microsoft365' && credential.useInstanceApp === true) {
+      if (!instanceApp) throw new Error('The instance Microsoft 365 app is not set up');
+      return { id: r.id, toolKey: r.toolKey, credential: { ...credential, ...instanceApp } };
+    }
+    return { id: r.id, toolKey: r.toolKey, credential };
+  });
 }
 
 // Unknown ids and ids from another team are ignored, not rejected.

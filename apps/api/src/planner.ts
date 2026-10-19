@@ -37,6 +37,7 @@ import { analyticsRoutes } from './modules/analytics';
 import { chartRoutes } from './modules/charts';
 import { settingsRoutes } from './modules/settings';
 import { godRoutes } from './modules/god';
+import { instanceConfigRoutes } from './modules/instance-config';
 import { agentScheduleRoutes } from './modules/agents/schedules';
 import { modelPriceRoutes } from './modules/agents/prices';
 import { agentRunnerRoutes } from './modules/agents/runner';
@@ -138,4 +139,5 @@ export const planner = new Elysia({ name: 'planner' })
   .use(linkPreviewRoutes)
   .use(aiAssistRoutes)
   .use(settingsRoutes)
-  .use(godRoutes);
+  .use(godRoutes)
+  .use(instanceConfigRoutes);

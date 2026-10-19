@@ -34,6 +34,7 @@
         "@repo/auth": "workspace:*",
         "@repo/crypto": "workspace:*",
         "@repo/db": "workspace:*",
+        "@repo/live-checks": "workspace:*",
         "@repo/mailer": "workspace:*",
         "@repo/net": "workspace:*",
         "@repo/storage": "workspace:*",
@@ -232,6 +233,7 @@
       "dependencies": {
         "@repo/crypto": "workspace:*",
         "@repo/mailer": "workspace:*",
+        "@repo/storage": "workspace:*",
         "drizzle-orm": "^0.45.4",
         "postgres": "^3.4.9",
       },
@@ -257,6 +259,21 @@
         "typescript-eslint": "^8.71.2",
       },
       "devDependencies": {
+        "eslint": "^9.39.0",
+        "typescript": "^6.0.3",
+      },
+    },
+    "packages/live-checks": {
+      "name": "@repo/live-checks",
+      "version": "0.0.0",
+      "dependencies": {
+        "@repo/agent-tools": "workspace:*",
+        "@repo/net": "workspace:*",
+        "@repo/storage": "workspace:*",
+      },
+      "devDependencies": {
+        "@repo/eslint-config": "workspace:*",
+        "@types/bun": "latest",
         "eslint": "^9.39.0",
         "typescript": "^6.0.3",
       },
@@ -979,6 +996,8 @@
     "@repo/db": ["@repo/db@workspace:packages/db"],
 
     "@repo/eslint-config": ["@repo/eslint-config@workspace:packages/eslint-config"],
+
+    "@repo/live-checks": ["@repo/live-checks@workspace:packages/live-checks"],
 
     "@repo/mailer": ["@repo/mailer@workspace:packages/mailer"],
 

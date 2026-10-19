@@ -484,12 +484,24 @@ directly). Helpers in `src/__tests__/helpers/`: `api` (anonymous client), `authe
   before the test ends, in `afterEach` or right after the run:
   `await getMastra().observability.flush()`.
 
+## Instance configuration (`modules/instance-config/`)
+
+God-only routes for the settings that used to be environment variables: the file storage
+backend (`/god/file-storage`, stored encrypted under `app_secret` key `storage.backend`, each
+field falling back to its env var), the instance Microsoft 365 app (`/god/microsoft365`), the
+live integration checks (`/god/integration-checks/*`, 10 runs per 10 minutes per user and
+process) and the extra allowed origins (`/god/allowed-origins`). `app.ts` installs
+`resolveInstanceStorageConfig` as the `@repo/storage` config source. A private S3 endpoint is
+refused unless it equals `S3_ENDPOINT` or its host:port is in `STORAGE_ALLOWED_PRIVATE_HOSTS`.
+A team Microsoft 365 credential with `useInstanceApp` stores no app fields; `agents/tools`
+adds them when a tool runs.
+
 ## Rules
 
 - Auth logic is in `@repo/auth`, DB access via `@repo/db` — do not re-instantiate
   either. The web app never imports these packages; it uses this API over HTTP.
-- CORS `origin` is the `trustedOrigins` list exported by `@repo/auth` — do not re-parse
-  `APP_URL` here.
+- CORS `origin` asks `originPolicy` from `@repo/auth` (the `APP_URL` origins plus the extra
+  ones saved in god mode, refreshed by an `onRequest` hook) — do not re-parse `APP_URL` here.
 - swagger `/docs` (planner) is separate from better-auth's `/api/auth/reference`; both
   stay reachable without a session.
 - Dev: `bun run dev`. Prod: the Dockerfile migrates, then starts the server; the compose files and the Helm chart run the migrations as a separate step and start only the server.

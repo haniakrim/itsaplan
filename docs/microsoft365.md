@@ -30,8 +30,10 @@ app post Teams channel messages, so the Teams tools only read.
 3. Under **API permissions**, **Add a permission**, **Microsoft Graph**, **Application
    permissions**, add the permissions of the tools you will turn on (table above), then
    **Grant admin consent**.
-4. In the project, open the integrations, add a **Microsoft 365** credential with the tenant
-   ID, the client ID, the secret and a default user, and bind the tools to an agent.
+4. In the team's integrations, add a **Microsoft 365** credential with the tenant ID, the
+   client ID, the secret and a default user, and bind the tools to an agent. Or, when the
+   instance owner has set up the instance app (below), tick **Use the instance Microsoft 365
+   app** and enter only the default user.
 
 A call without a granted permission fails with a message that names the permission.
 
@@ -46,3 +48,23 @@ then give the app access to chosen sites only.
 
 Agents with **Require approval** on hold every Microsoft 365 call until a person approves it,
 as they do for every integration tool.
+
+## The instance Microsoft 365 app
+
+The instance owner can save one app registration in god mode, **Microsoft 365**: tenant ID,
+client ID and client secret (stored encrypted, never shown again). **Test** asks Microsoft
+Graph for a token with the values on the page, before they are saved. Three places can use it
+instead of an app registration of their own:
+
+- **Email provider**, with Microsoft 365 sign-in for SMTP: tick **Use the instance Microsoft
+  365 app**. The app needs the `SMTP.SendAsApp` permission. A provider with its own tenant,
+  client and secret keeps working.
+- **File storage**, SharePoint / OneDrive: tick **Use the instance Microsoft 365 app**
+  (`docs/self-hosting.md`). The app needs `Sites.Selected` or `Files.ReadWrite.All`.
+- **Agent tools**: a team's Microsoft 365 credential with **Use the instance Microsoft 365
+  app** ticked stores no tenant, client or secret. The server adds them when a tool runs, so
+  the secret never reaches a team manager, and a change in god mode applies to the next run.
+
+One app serving all three needs the permissions of all three. A team that uses the instance
+app can reach every mailbox, calendar and drive the app can, through the default user and the
+`user` an agent names, so tick the option only for teams the owner trusts with that access.

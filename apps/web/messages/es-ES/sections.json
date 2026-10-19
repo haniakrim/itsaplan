@@ -54,6 +54,18 @@
     "scim": {
       "label": "SCIM",
       "description": "Permite que un proveedor de identidades cree, actualize y desactive cuentas en esta instancia, y conceda acceso a proyectos a través de sus grupos."
+    },
+    "file-storage": {
+      "label": "Almacenamiento de archivos",
+      "description": "Dónde se guardan los archivos subidos: un almacén compatible con S3 o SharePoint y OneDrive, con prueba de conexión."
+    },
+    "microsoft365": {
+      "label": "Microsoft 365",
+      "description": "El registro de app de Microsoft 365 que pueden compartir el correo, el almacenamiento en SharePoint y las herramientas de agentes de los equipos."
+    },
+    "integration-checks": {
+      "label": "Comprobaciones de integración",
+      "description": "Ejecuta comprobaciones en vivo de Procore, del almacenamiento en SharePoint y de las herramientas de Microsoft 365 y consulta el resultado de cada paso."
     }
   },
   "settings": {

@@ -54,6 +54,18 @@
     "scim": {
       "label": "SCIM",
       "description": "Permita que um provedor de identidade crie, atualize e desative contas nesta instância e conceda acesso a projetos por seus grupos."
+    },
+    "file-storage": {
+      "label": "Armazenamento de arquivos",
+      "description": "Onde os arquivos enviados são armazenados: um armazenamento compatível com S3 ou SharePoint e OneDrive, com teste de conexão."
+    },
+    "microsoft365": {
+      "label": "Microsoft 365",
+      "description": "O único registro de app do Microsoft 365 que e-mail, armazenamento SharePoint e ferramentas de agentes das equipes podem compartilhar."
+    },
+    "integration-checks": {
+      "label": "Verificações de integração",
+      "description": "Executa verificações ao vivo do Procore, do armazenamento SharePoint e das ferramentas do Microsoft 365 e mostra o resultado de cada etapa."
     }
   },
   "settings": {

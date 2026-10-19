@@ -1,4 +1,5 @@
-import { db } from '@repo/db';
+import { originPolicy } from '@repo/auth';
+import { db, invalidateStorageBackendCache } from '@repo/db';
 import { sql } from 'drizzle-orm';
 
 // TRUNCATEs every table in the test database so each test starts clean. Two
@@ -26,4 +27,6 @@ export async function resetDb(): Promise<void> {
   const tables = rows.map((r) => `"${r.tablename}"`).join(', ');
   if (tables.length === 0) return;
   await db.execute(sql.raw(`TRUNCATE ${tables} RESTART IDENTITY CASCADE`));
+  originPolicy.invalidate();
+  invalidateStorageBackendCache();
 }

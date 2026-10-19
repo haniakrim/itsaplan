@@ -1,41 +1,64 @@
 import { randomUUID } from 'node:crypto';
 import type { StorageDriver } from './driver';
+import { resolveStorageConfig, parseStorageDriver, type StorageConfig } from './config';
 import { createS3Driver } from './s3';
-import { createSharePointDriver, sharePointConfigFromEnv } from './sharepoint';
+import { createSharePointDriver } from './sharepoint';
 
 export type { StorageDriver, StoredObject } from './driver';
+export * from './config';
 export { createS3Driver } from './s3';
-export { createSharePointDriver, sharePointConfigFromEnv } from './sharepoint';
+export {
+  createSharePointDriver,
+  sharePointConfigFromEnv,
+  GraphError,
+  type SharePointDeps,
+} from './sharepoint';
 
 // Object store for attachments — api's issue/chat/document/initiative attachments,
 // avatars, skill files and the worker's imported issue attachments alike. Only the
 // file bytes live here; the metadata and object key are rows in whichever table
 // owns them (issue_attachment, chat_attachment, ...).
 //
-// STORAGE_DRIVER picks the backend: "s3" (the default; RustFS in the Compose
-// stacks or any S3-compatible store) or "sharepoint" (a SharePoint document
-// library / OneDrive through Microsoft Graph). A misconfigured driver throws on
-// first use, naming the variables to set.
+// The backend is "s3" (the default; RustFS in the Compose stacks or any S3-compatible
+// store) or "sharepoint" (a SharePoint document library / OneDrive through Microsoft
+// Graph). Its settings come from a source the process installs at startup
+// (setStorageConfigSource): the instance owner's settings in the database with the
+// environment as fallback. Without one the source is the environment alone. A
+// misconfigured backend throws on first use, naming the variables to set.
 
-export function storageDriverName(env: NodeJS.ProcessEnv = process.env): 's3' | 'sharepoint' {
-  const name = (env.STORAGE_DRIVER || 's3').trim().toLowerCase();
-  if (name === 's3' || name === 'sharepoint') return name;
-  throw new Error(`Unknown STORAGE_DRIVER '${env.STORAGE_DRIVER}': use "s3" or "sharepoint".`);
+export type StorageConfigSource = () => Promise<StorageConfig>;
+
+const envSource: StorageConfigSource = async () => resolveStorageConfig();
+
+let source: StorageConfigSource = envSource;
+let cached: { key: string; driver: StorageDriver } | null = null;
+
+export function setStorageConfigSource(next: StorageConfigSource = envSource): void {
+  source = next;
+  cached = null;
 }
 
-let cached: { name: string; driver: StorageDriver } | null = null;
+export function storageDriverName(env: NodeJS.ProcessEnv = process.env): 's3' | 'sharepoint' {
+  return parseStorageDriver(env.STORAGE_DRIVER);
+}
 
-function driver(): StorageDriver {
-  const name = storageDriverName();
-  if (cached?.name === name) return cached.driver;
-  const created =
-    name === 'sharepoint' ? createSharePointDriver(sharePointConfigFromEnv()) : createS3Driver();
-  cached = { name, driver: created };
+export function createStorageDriver(config: StorageConfig): StorageDriver {
+  return config.driver === 'sharepoint'
+    ? createSharePointDriver(config.sharepoint)
+    : createS3Driver(config.s3);
+}
+
+async function driver(): Promise<StorageDriver> {
+  const config = await source();
+  const key = JSON.stringify(config);
+  if (cached?.key === key) return cached.driver;
+  const created = createStorageDriver(config);
+  cached = { key, driver: created };
   return created;
 }
 
 export async function putObject(key: string, body: Buffer, contentType: string): Promise<void> {
-  await driver().put(key, body, contentType);
+  await (await driver()).put(key, body, contentType);
 }
 
 // Returns a web ReadableStream of the object body so a route can stream it to
@@ -44,7 +67,7 @@ export async function putObject(key: string, body: Buffer, contentType: string):
 export async function getObject(
   key: string,
 ): Promise<{ body: ReadableStream; contentType: string; contentLength?: number }> {
-  return driver().get(key);
+  return (await driver()).get(key);
 }
 
 // Reads a whole object into a UTF-8 string. For small text objects (skill
@@ -55,7 +78,7 @@ export async function getObjectText(key: string): Promise<string> {
 }
 
 export async function deleteObject(key: string): Promise<void> {
-  await driver().delete(key);
+  await (await driver()).delete(key);
 }
 
 // Deletes several objects, best-effort (a failed delete only orphans bytes).

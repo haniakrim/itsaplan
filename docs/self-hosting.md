@@ -196,13 +196,61 @@ push, and anyone who signs in through OIDC while their identity provider puts a 
 claim on the token — set that up as a claim mapping on the OIDC client if the provider
 supports one. Either way, map the group the same way once it shows up.
 
+## Instance settings in god mode
+
+These settings are saved in the database by the instance owner (the first account) in god
+mode. Each one that has an environment variable falls back to it when nothing is saved, so an
+instance set up through `.env` needs no change, and the page marks what comes from the
+environment.
+
+| God mode section                 | Replaces                                               |
+| -------------------------------- | ------------------------------------------------------ |
+| File storage                     | `STORAGE_DRIVER`, `S3_*`, `SHAREPOINT_*`               |
+| Microsoft 365                    | (new) one Entra ID app the mail provider, SharePoint storage and agent tools share |
+| Email                            | `EMAIL_FROM` stays the fallback From address           |
+| Authentication, Allowed sign-in addresses | extra origins beside `APP_URL`                |
+| Integration checks               | `scripts/verify/*` (see `docs/dev/live-verification.md`) |
+
+`APP_URL` stays the canonical origin: links in emails, the passkey relying party and the
+cookie domain come from its first entry.
+
+### Allowed sign-in addresses
+
+Under **Authentication**, **Allowed sign-in addresses** lists the origins that may use the app
+besides `APP_URL`, for example a second domain or a development host. Each line is
+`http(s)://host[:port]`; no path, query or credentials. A wildcard stands for the whole
+leftmost label and needs two labels after it: `https://*.example.com` and
+`http://*.orca.localhost:60418` are valid; `*`, `https://*.com` and `https://a*.example.com`
+are refused. A wildcard matches subdomains of any depth, with the same scheme and port. The
+list applies to the api's CORS check and to better-auth's trusted origins, within 5 seconds of
+saving and without a restart. Passkeys keep working on the `APP_URL` origins only, and a
+cookie is only shared with another site when the browser allows it (`SameSite=Lax`).
+
 ## Storing files in SharePoint / OneDrive
 
 By default every stored file (issue, chat, document and initiative attachments, avatars,
-skill files, import uploads) goes to the S3-compatible store. Set `STORAGE_DRIVER=sharepoint`
-to keep them in a SharePoint document library or OneDrive drive through Microsoft Graph
-instead. The database, the object keys and the app behave the same either way; with
-`sharepoint` the `S3_*` variables are not read and the bundled RustFS is not needed.
+skill files, import uploads) goes to the S3-compatible store. The instance owner can keep them
+in a SharePoint document library or OneDrive drive through Microsoft Graph instead. The
+database, the object keys and the app behave the same either way; with SharePoint the S3
+settings are not read and the bundled RustFS is not needed.
+
+The backend is set in god mode, **File storage**. A value saved there wins; a field that is
+not saved falls back to its environment variable (`STORAGE_DRIVER`, `S3_*`, `SHAREPOINT_*`),
+so an instance configured through `.env` keeps working. The page marks every value that comes
+from the environment, shows it read-only and lets the owner override it; **Use the
+environment value** removes the override. Credentials are stored encrypted like the other
+instance secrets and are never shown again.
+
+A change reaches the api and the worker without a restart: the process that saves it applies
+it at once, the others within 5 seconds.
+
+**Test connection** puts, reads back and deletes a small object with the values on the page,
+before they are saved, and shows the result of each step.
+
+An S3 endpoint is fetched by the server, so a private address is refused unless it is the
+`S3_ENDPOINT` of the environment (the compose stacks use `http://minio:9000`) or its `host:port`
+is listed in `STORAGE_ALLOWED_PRIVATE_HOSTS` (comma-separated, matched on host and port). Set
+that variable on the api for a private store that is not the bundled one.
 
 **1. Register an app in Entra ID.** In the Azure portal, open Microsoft Entra ID, App
 registrations, New registration (single tenant). Note the **Directory (tenant) ID** and
@@ -245,8 +293,13 @@ for example `.../sites/contoso.sharepoint.com:/sites/itsaplan`. The `id` in the 
 site's default document library. To use another library or a OneDrive drive, set
 `SHAREPOINT_DRIVE_ID` instead (`GET /sites/{site-id}/drives` lists them).
 
-**5. Set the variables** on the api and the worker (the compose files and the Helm chart pass
-them through):
+**5. Enter the values** in god mode, **File storage**: pick SharePoint / OneDrive, then fill in
+the tenant, client ID, secret and site id (or drive id). Alternatively tick **Use the instance
+Microsoft 365 app** to take the tenant, client ID and secret from god mode, **Microsoft 365**
+(see `docs/microsoft365.md`); then only the site or drive id and the root folder are asked for.
+
+The same values can come from the environment of the api and the worker (the compose files and
+the Helm chart pass them through); a value saved in god mode wins over them:
 
 | Variable                  | Value                                                       |
 | ------------------------- | ----------------------------------------------------------- |
@@ -257,7 +310,8 @@ them through):
 | `SHAREPOINT_SITE_ID`      | Site id (or `SHAREPOINT_DRIVE_ID`)                          |
 | `SHAREPOINT_ROOT_FOLDER`  | Folder inside the drive for every file. Default `itsaplan`  |
 
-A missing variable makes the first upload or download fail with a message naming it.
+A missing value makes the first upload or download fail with a message naming it, and god mode
+refuses to save a backend that lacks one.
 
 How it behaves:
 
@@ -274,12 +328,13 @@ How it behaves:
   own storage quota and versioning (every overwrite makes a version).
 
 **Existing files are not migrated.** After switching, objects already in S3 are missing until
-you copy them. The one-off script reads every object key from the database (issue, chat,
+you copy them; the File storage page says so when the driver is changed. The one-off script reads every object key from the database (issue, chat,
 initiative and document attachments, skill files, avatars) and copies it from S3 to SharePoint
 under the same key. It never deletes from S3 and is safe to run again:
 
 ```bash
-# .env still holds the S3_* values and now the SHAREPOINT_* ones
+# DATABASE_URL and APP_ENCRYPTION_KEY come from .env; the S3 and SharePoint values are read
+# the way the app reads them: saved in god mode first, then the S3_* and SHAREPOINT_* variables
 bun --env-file=.env scripts/storage-copy-s3-to-sharepoint.ts --dry-run   # list the keys
 bun --env-file=.env scripts/storage-copy-s3-to-sharepoint.ts
 ```

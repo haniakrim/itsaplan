@@ -16,6 +16,9 @@ export interface MicrosoftOAuthConfig {
   tenantId: string;
   clientId: string;
   clientSecret: string;
+  // The credentials above are the instance's Microsoft 365 app, filled in when the
+  // config is read (the stored config holds none).
+  useInstanceApp?: boolean;
 }
 
 export interface SmtpConfig {

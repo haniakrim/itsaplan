@@ -54,6 +54,18 @@
     "scim": {
       "label": "SCIM",
       "description": "让身份提供方在此实例上创建、更新和停用账号，并通过其群组授予项目访问权限。"
+    },
+    "file-storage": {
+      "label": "文件存储",
+      "description": "上传文件的存放位置：兼容 S3 的存储，或 SharePoint 和 OneDrive，并提供连接测试。"
+    },
+    "microsoft365": {
+      "label": "Microsoft 365",
+      "description": "邮件、SharePoint 存储和团队智能体工具可以共用的唯一 Microsoft 365 应用注册。"
+    },
+    "integration-checks": {
+      "label": "集成检查",
+      "description": "对 Procore、SharePoint 存储和 Microsoft 365 工具运行实时检查，并查看每一步的结果。"
     }
   },
   "settings": {

@@ -1,4 +1,4 @@
-import { db, integrationCredential } from '@repo/db';
+import { db, getInstanceMicrosoft365, integrationCredential } from '@repo/db';
 import { and, eq, sql } from 'drizzle-orm';
 import {
   coerceConfig,
@@ -91,6 +91,17 @@ async function checkLlmBaseUrl(integrationKey: string, config: ToolConfig): Prom
   }
 }
 
+// A Microsoft 365 credential that borrows the instance's app needs that app to exist.
+async function checkInstanceApp(integrationKey: string, config: ToolConfig): Promise<void> {
+  if (integrationKey !== 'microsoft365' || config.useInstanceApp !== true) return;
+  if (!(await getInstanceMicrosoft365())) {
+    throw new HttpError(
+      400,
+      'The instance Microsoft 365 app is not set up. Ask the instance owner.',
+    );
+  }
+}
+
 // One page of the team's credentials, by integration key, with how many it holds in
 // total.
 export async function listCredentials(
@@ -161,6 +172,7 @@ export async function createCredential(
   if (!schema) throw new HttpError(400, `Unknown integration: ${input.integrationKey}`);
   const config = coerce(schema, input.credential);
   await checkLlmBaseUrl(input.integrationKey, config);
+  await checkInstanceApp(input.integrationKey, config);
   const enc = encryptSecret(JSON.stringify(config));
   const [row] = await db
     .insert(integrationCredential)
@@ -202,6 +214,7 @@ export async function updateCredential(
     const current = (await decrypt(id, teamId)) ?? {};
     const merged = coerce(schema, { ...current, ...patch.credential });
     await checkLlmBaseUrl(existing.integrationKey, merged);
+    await checkInstanceApp(existing.integrationKey, merged);
     const enc = encryptSecret(JSON.stringify(merged));
     set.ciphertext = enc.ciphertext;
     set.iv = enc.iv;

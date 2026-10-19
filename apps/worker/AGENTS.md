@@ -22,6 +22,10 @@ scheduling, and source imports. See root `AGENTS.md`.
 - Drives `import_job` rows through Discover -> Create -> Link -> Rewrite ->
   Attachments -> Done. See "Source imports" below.
 
+The worker's file storage settings (`@repo/storage`) come from god mode with the environment
+as fallback: `index.ts` installs `resolveInstanceStorageConfig` from `@repo/db` as the storage
+config source, which re-reads the saved settings every 5 seconds.
+
 ## Source imports
 
 `import-worker.ts` polls `import_job` for a due `pending` row (`import-store.ts`,

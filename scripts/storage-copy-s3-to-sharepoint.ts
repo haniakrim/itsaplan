@@ -4,8 +4,10 @@
 //
 //   bun --env-file=.env scripts/storage-copy-s3-to-sharepoint.ts [--dry-run]
 //
-// Reads the S3_* and SHAREPOINT_* variables (STORAGE_DRIVER is ignored: the source is
-// always S3 and the target always SharePoint) and DATABASE_URL. Object keys come from
+// Reads the S3 and SharePoint settings the way the app does: what the instance owner saved
+// in god mode (File storage), with the S3_* and SHAREPOINT_* variables as fallback. The
+// saved driver is ignored: the source is always S3 and the target always SharePoint. Needs
+// DATABASE_URL and APP_ENCRYPTION_KEY. Object keys come from
 // the tables that reference them: issue, chat, initiative and document attachments,
 // skill files, and avatars. Same key on both sides, so nothing in the database changes.
 // Safe to re-run: a target file that already exists is replaced with identical bytes,
@@ -14,8 +16,10 @@ import { SQL } from 'bun';
 import {
   createS3Driver,
   createSharePointDriver,
-  sharePointConfigFromEnv,
+  resolveS3Config,
+  resolveSharePointConfig,
 } from '../packages/storage/src/index.ts';
+import { getInstanceMicrosoft365, getStorageOverrides } from '../packages/db/src/index.ts';
 
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) throw new Error('DATABASE_URL is not set.');
@@ -54,8 +58,13 @@ async function listKeys(): Promise<string[]> {
   return [...keys].sort();
 }
 
-const source = createS3Driver();
-const target = dryRun ? null : createSharePointDriver(sharePointConfigFromEnv());
+const overrides = await getStorageOverrides();
+const source = createS3Driver(resolveS3Config(overrides));
+const target = dryRun
+  ? null
+  : createSharePointDriver(
+      resolveSharePointConfig(overrides, process.env, await getInstanceMicrosoft365()),
+    );
 
 const keys = await listKeys();
 await sql.end();

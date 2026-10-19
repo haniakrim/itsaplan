@@ -54,6 +54,18 @@
     "scim": {
       "label": "SCIM",
       "description": "Permettez à un fournisseur d'identité de créer, mettre à jour et désactiver des comptes sur cette instance, et d'accorder l'accès aux projets via ses groupes."
+    },
+    "file-storage": {
+      "label": "Stockage de fichiers",
+      "description": "Où sont stockés les fichiers téléversés : un stockage compatible S3 ou SharePoint et OneDrive, avec un test de connexion."
+    },
+    "microsoft365": {
+      "label": "Microsoft 365",
+      "description": "L'unique enregistrement d'app Microsoft 365 que l'e-mail, le stockage SharePoint et les outils d'agents d'équipe peuvent partager."
+    },
+    "integration-checks": {
+      "label": "Vérifications d'intégration",
+      "description": "Lance des vérifications en direct de Procore, du stockage SharePoint et des outils Microsoft 365 et affiche le résultat de chaque étape."
     }
   },
   "settings": {

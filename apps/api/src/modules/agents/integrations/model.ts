@@ -40,6 +40,7 @@ const ConfigFieldResponse = t.Object({
   required: t.Boolean(),
   placeholder: t.Optional(t.String()),
   help: t.Optional(t.String()),
+  hiddenWhen: t.Optional(t.String()),
 });
 
 const IntegrationResponse = t.Object({

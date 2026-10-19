@@ -32,6 +32,7 @@ import {
 import { buildSpMetadata } from './saml';
 import { sendAuthEmail } from './mail';
 import { readAuthExtensions } from './extensions';
+import { createOriginPolicy } from './origins';
 
 // Frontend origins allowed to call the auth handler. Mandatory config: cookies, the
 // WebAuthn relying party and the cookie domain are all derived from it, so a deploy
@@ -43,6 +44,10 @@ export const trustedOrigins = (process.env.APP_URL ?? '')
 if (trustedOrigins.length === 0) {
   throw new Error('APP_URL is not set: public origin(s) of the web app.');
 }
+
+// APP_URL plus the extra origins the instance owner added in god mode. better-auth and
+// the api's CORS check ask it on every request.
+export const originPolicy = createOriginPolicy(trustedOrigins);
 
 // Parent domain for a cross-subdomain session cookie (".example.com" from
 // "app.example.com"). Returns undefined for localhost, IPs, or apex domains, where
@@ -1018,7 +1023,7 @@ function createAuth() {
     ],
 
     // The frontend runs on a different origin (Next :3001) — allow its requests.
-    trustedOrigins,
+    trustedOrigins: () => originPolicy.list(),
 
     // /is-username-available answers for anyone, and a username is derived from the
     // address, so it would tell a stranger which addresses are registered. Nothing in
@@ -1160,3 +1165,11 @@ export type {
   ScimSettingsDto,
 } from './instance';
 export { parseIdpMetadata, SamlMetadataError, type IdpMetadataSummary } from './saml';
+export {
+  ALLOWED_ORIGINS_SETTING_KEY,
+  OriginEntryError,
+  matchesOriginEntry,
+  normalizeOriginEntries,
+  normalizeOriginEntry,
+  type OriginPolicy,
+} from './origins';

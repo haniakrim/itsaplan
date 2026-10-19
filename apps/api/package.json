@@ -32,6 +32,7 @@
     "@repo/auth": "workspace:*",
     "@repo/crypto": "workspace:*",
     "@repo/db": "workspace:*",
+    "@repo/live-checks": "workspace:*",
     "@repo/mailer": "workspace:*",
     "@repo/net": "workspace:*",
     "@repo/storage": "workspace:*",

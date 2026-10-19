@@ -54,6 +54,18 @@
     "scim": {
       "label": "SCIM",
       "description": "Let an identity provider create, update and deactivate accounts on this instance, and grant project access through its groups."
+    },
+    "file-storage": {
+      "label": "File storage",
+      "description": "Where uploaded files are stored: an S3-compatible store or SharePoint and OneDrive, with a connection test."
+    },
+    "microsoft365": {
+      "label": "Microsoft 365",
+      "description": "The one Microsoft 365 app registration that email, SharePoint storage and team agent tools can share."
+    },
+    "integration-checks": {
+      "label": "Integration checks",
+      "description": "Run live checks of Procore, SharePoint storage and the Microsoft 365 tools and read the result of each step."
     }
   },
   "settings": {

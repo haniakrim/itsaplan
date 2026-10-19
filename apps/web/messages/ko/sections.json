@@ -54,6 +54,18 @@
     "scim": {
       "label": "SCIM",
       "description": "ID 공급자가 이 인스턴스의 계정을 생성, 업데이트 및 비활성화하고 그룹을 통해 프로젝트 접근 권한을 부여할 수 있도록 설정합니다."
+    },
+    "file-storage": {
+      "label": "파일 저장소",
+      "description": "업로드한 파일이 저장되는 곳: S3 호환 저장소 또는 SharePoint와 OneDrive. 연결 테스트를 제공합니다."
+    },
+    "microsoft365": {
+      "label": "Microsoft 365",
+      "description": "이메일, SharePoint 저장소, 팀 에이전트 도구가 함께 사용할 수 있는 하나의 Microsoft 365 앱 등록입니다."
+    },
+    "integration-checks": {
+      "label": "통합 검사",
+      "description": "Procore, SharePoint 저장소, Microsoft 365 도구에 대해 실시간 검사를 실행하고 각 단계의 결과를 확인합니다."
     }
   },
   "settings": {

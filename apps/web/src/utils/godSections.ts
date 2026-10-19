@@ -1,6 +1,9 @@
 import type { ComponentType } from 'react';
 import {
   Building2,
+  Cloud,
+  Database,
+  ListChecks,
   FolderKanban,
   HardDrive,
   Keyboard,
@@ -73,6 +76,11 @@ export const GOD_SECTIONS: GodSection[] = godSections([
     icon: HardDrive,
   },
   {
+    slug: 'file-storage',
+    group: 'instance',
+    icon: Database,
+  },
+  {
     slug: 'telegram',
     group: 'instance',
     icon: Send,
@@ -82,6 +90,18 @@ export const GOD_SECTIONS: GodSection[] = godSections([
     slug: 'email',
     group: 'instance',
     icon: Mail,
+    integration: true,
+  },
+  {
+    slug: 'microsoft365',
+    group: 'instance',
+    icon: Cloud,
+    integration: true,
+  },
+  {
+    slug: 'integration-checks',
+    group: 'instance',
+    icon: ListChecks,
     integration: true,
   },
   {

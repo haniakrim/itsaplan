@@ -54,6 +54,18 @@
     "scim": {
       "label": "SCIM",
       "description": "Izinkan penyedia identitas membuat, memperbarui, dan menonaktifkan akun di instance ini, serta memberikan akses proyek melalui grupnya."
+    },
+    "file-storage": {
+      "label": "Penyimpanan file",
+      "description": "Tempat file unggahan disimpan: penyimpanan kompatibel S3 atau SharePoint dan OneDrive, dengan uji koneksi."
+    },
+    "microsoft365": {
+      "label": "Microsoft 365",
+      "description": "Satu pendaftaran aplikasi Microsoft 365 yang dapat dipakai bersama oleh email, penyimpanan SharePoint, dan alat agen tim."
+    },
+    "integration-checks": {
+      "label": "Pemeriksaan integrasi",
+      "description": "Jalankan pemeriksaan langsung untuk Procore, penyimpanan SharePoint, dan alat Microsoft 365, lalu baca hasil tiap langkah."
     }
   },
   "settings": {

@@ -5,6 +5,7 @@ import {
   type SmtpConfig,
 } from '@repo/mailer';
 import { readSecret } from '../secrets';
+import { getInstanceMicrosoft365 } from './instance-microsoft365';
 
 // The instance mail provider, stored encrypted in app_secret under 'auth.email'.
 // Three processes read it: @repo/auth (authentication mail), the api (the invite
@@ -43,12 +44,35 @@ export function defaultInstanceEmailConfig(): InstanceEmailConfig {
   };
 }
 
-// The stored config, or null when nothing has been saved.
-export async function getInstanceEmailConfig(): Promise<InstanceEmailConfig | null> {
+// The config as saved, or null when nothing has been saved. God mode edits this one: a
+// provider that uses the instance Microsoft 365 app holds no credentials of its own.
+export async function getStoredInstanceEmailConfig(): Promise<InstanceEmailConfig | null> {
   const stored = await readSecret<InstanceEmailConfig>(INSTANCE_EMAIL_SECRET_KEY);
   if (!stored) return null;
   // Merge over the default so a config written before a field was added stays valid.
   return { ...defaultInstanceEmailConfig(), ...stored };
+}
+
+// The config with the instance Microsoft 365 app filled in where the provider is set to
+// use it.
+export async function withInstanceMicrosoftApp(
+  config: InstanceEmailConfig,
+): Promise<InstanceEmailConfig> {
+  if (!config.smtp.oauth?.useInstanceApp) return config;
+  const app = await getInstanceMicrosoft365();
+  return {
+    ...config,
+    smtp: {
+      ...config.smtp,
+      oauth: { ...config.smtp.oauth, tenantId: '', clientId: '', clientSecret: '', ...app },
+    },
+  };
+}
+
+// The config a sender uses.
+export async function getInstanceEmailConfig(): Promise<InstanceEmailConfig | null> {
+  const config = await getStoredInstanceEmailConfig();
+  return config ? withInstanceMicrosoftApp(config) : null;
 }
 
 // Whether outbound mail can be sent right now. Everything that mails the user

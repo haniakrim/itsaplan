@@ -4,7 +4,7 @@ import {
   oauthProtectedResourceMetadata,
   openIdConfiguration,
   OIDC_PROVIDER_ID,
-  trustedOrigins,
+  originPolicy,
   getAuthSettings,
   hasConfiguredGoogle,
   hasConfiguredOidc,
@@ -12,7 +12,8 @@ import {
   getSamlLabel,
   hasConfiguredSaml,
 } from '@repo/auth';
-import { db, hasConfiguredEmailProvider, user } from '@repo/db';
+import { db, hasConfiguredEmailProvider, resolveInstanceStorageConfig, user } from '@repo/db';
+import { setStorageConfigSource } from '@repo/storage';
 import { cors } from '@elysiajs/cors';
 import { swagger } from '@elysiajs/swagger';
 import { Elysia } from 'elysia';
@@ -25,6 +26,9 @@ import { currentUserRoutes } from './modules/current-user';
 import { syncOidcGroupsAfterCallback } from './modules/scim/oidc-sync';
 import { normalizeOpenApiResponse } from './openapi';
 import pkg from '../../../package.json';
+
+// File storage settings come from god mode, with the environment as fallback.
+setStorageConfigSource(resolveInstanceStorageConfig);
 
 const apiUrl = (process.env.API_URL ?? 'http://localhost:3000').replace(/\/+$/, '');
 const appUrl = (process.env.APP_URL?.split(',')[0]?.trim() || 'http://localhost:3001').replace(
@@ -57,9 +61,13 @@ const OIDC_CALLBACK = `/api/auth/callback/${OIDC_PROVIDER_ID}`;
 // binds the port; tests import it and pass it to Eden Treaty to drive routes in
 // memory (no network). Keep the chain unbroken so `type App` stays accurate.
 export const app = new Elysia()
+  .onRequest(() => originPolicy.refresh())
   .use(
     cors({
-      origin: trustedOrigins,
+      origin: (request) => {
+        const origin = request.headers.get('origin');
+        return origin !== null && originPolicy.isAllowed(origin);
+      },
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key'],

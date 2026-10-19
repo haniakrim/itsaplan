@@ -24,6 +24,9 @@ export interface ConfigField {
   required: boolean;
   placeholder?: string;
   help?: string;
+  // Key of a boolean field of the same schema. While that field is on, this one is not
+  // asked for, not required and not stored.
+  hiddenWhen?: string;
 }
 
 // A resolved credential: the decrypted field values keyed by field key.
