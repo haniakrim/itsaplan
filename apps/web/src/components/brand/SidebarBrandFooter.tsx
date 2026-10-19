@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl';
 import AppLogo from '@/components/common/AppLogo';
 import UserManual from '@/features/user-manual/UserManual';
 import ReleaseCheck from '@/features/whats-new/components/ReleaseCheck';
-import ReleaseHistory from '@/features/whats-new/components/ReleaseHistory';
 import { useSession } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 import { useAppVersionQuery, useUpdateStatusQuery } from '@/services/updates.service';
@@ -30,7 +29,7 @@ export default function SidebarBrandFooter() {
 
   const { data: appVersion } = useAppVersionQuery();
   const { data: status } = useUpdateStatusQuery(isGod);
-  const [view, setView] = useState<'manual' | 'releases' | null>(null);
+  const [view, setView] = useState<'manual' | null>(null);
 
   const version = appVersion?.version ?? status?.currentVersion;
   // The version to offer, or null when the running one is the newest known.
@@ -87,21 +86,7 @@ export default function SidebarBrandFooter() {
         <UserManual
           onClose={() => setView(null)}
           aside={status && <ReleaseCheck status={status} />}
-          navFooter={
-            status && (
-              <button
-                type="button"
-                onClick={() => setView('releases')}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                {t('releaseHistory')}
-              </button>
-            )
-          }
         />
-      )}
-      {view === 'releases' && status && (
-        <ReleaseHistory status={status} onClose={() => setView('manual')} />
       )}
     </>
   );

@@ -2,7 +2,6 @@
   "eyebrow": "One Health",
   "title": "Manual de usuario",
   "open": "Abrir el manual de usuario",
-  "releaseHistory": "Historial de versiones",
   "images": {
     "sign-in": "La página de inicio de sesión con correo o nombre de usuario, contraseña y el botón de passkey",
     "board": "El tablero de elementos de trabajo con una columna por estado y una tarjeta por cada ticket",
@@ -154,7 +153,7 @@
       "step1": "Si algo no funciona como se describe aquí, avisa al propietario de tu proyecto o a quien administra esta instancia, e indica en qué página estabas.",
       "step2": "El enlace Documentación de la API, al final de la barra lateral, abre la referencia técnica para desarrolladores.",
       "step3": "El propietario de la instancia tiene el Modo dios, un área aparte para los ajustes de toda la instancia, como los métodos de inicio de sesión, el correo y el registro.",
-      "step4": "Al propietario de la instancia también se le avisa cuando hay una versión nueva. El enlace Historial de versiones de la columna izquierda de este manual lista las notas de versión y busca actualizaciones.",
+      "step4": "El propietario de la instancia también recibe un aviso cuando hay una versión nueva y busca actualizaciones con el botón de la columna izquierda de este manual.",
       "step5": "Haz una copia de seguridad antes de actualizar. La instancia hace una copia de la base de datos automáticamente antes de cada actualización."
     }
   }

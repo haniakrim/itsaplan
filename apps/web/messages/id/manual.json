@@ -2,7 +2,6 @@
   "eyebrow": "One Health",
   "title": "Panduan pengguna",
   "open": "Buka panduan pengguna",
-  "releaseHistory": "Riwayat rilis",
   "images": {
     "sign-in": "Halaman masuk dengan email atau nama pengguna, kata sandi, dan tombol passkey",
     "board": "Papan item pekerjaan dengan satu kolom per status dan satu kartu untuk setiap issue",
@@ -154,7 +153,7 @@
       "step1": "Jika ada yang tidak berfungsi seperti yang dijelaskan di sini, beri tahu pemilik proyek atau orang yang mengelola instance ini, dan sebutkan halaman yang sedang Anda buka.",
       "step2": "Tautan Dokumentasi API di bagian bawah bilah sisi membuka referensi teknis untuk pengembang.",
       "step3": "Pemilik instance memiliki Mode God, area terpisah untuk pengaturan seluruh instance seperti metode masuk, email, dan pendaftaran.",
-      "step4": "Pemilik instance juga diberi tahu saat versi baru tersedia. Tautan Riwayat rilis di kolom kiri panduan ini mencantumkan catatan rilis dan memeriksa pembaruan.",
+      "step4": "Pemilik instans juga diberi tahu saat versi baru tersedia, dan memeriksa pembaruan dengan tombol di kolom kiri panduan ini.",
       "step5": "Buat cadangan sebelum memperbarui. Instance membuat cadangan basis data secara otomatis sebelum setiap peningkatan versi."
     }
   }

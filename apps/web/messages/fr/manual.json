@@ -2,7 +2,6 @@
   "eyebrow": "One Health",
   "title": "Manuel d'utilisation",
   "open": "Ouvrir le manuel d'utilisation",
-  "releaseHistory": "Historique des versions",
   "images": {
     "sign-in": "La page de connexion avec l'e-mail ou le nom d'utilisateur, le mot de passe et le bouton de clé d'accès",
     "board": "Le tableau des tickets avec une colonne par état et une carte pour chaque ticket",
@@ -154,7 +153,7 @@
       "step1": "Si quelque chose ne fonctionne pas comme décrit ici, prévenez le propriétaire de votre projet ou la personne qui gère cette instance, et indiquez sur quelle page vous étiez.",
       "step2": "Le lien Documentation de l'API, en bas de la barre latérale, ouvre la référence technique pour les développeurs.",
       "step3": "Le propriétaire de l'instance dispose du God mode, un espace séparé pour les paramètres de toute l'instance, comme les méthodes de connexion, l'e-mail et l'inscription.",
-      "step4": "Le propriétaire de l'instance est aussi prévenu quand une nouvelle version est disponible. Le lien Historique des versions dans la colonne de gauche de ce manuel liste les notes de version et recherche les mises à jour.",
+      "step4": "Le propriétaire de l'instance est aussi prévenu quand une nouvelle version est disponible, et recherche les mises à jour avec le bouton de la colonne de gauche de ce manuel.",
       "step5": "Faites une sauvegarde avant de mettre à jour. L'instance effectue automatiquement une sauvegarde de la base de données avant chaque mise à niveau."
     }
   }

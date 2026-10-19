@@ -2,7 +2,6 @@
   "eyebrow": "One Health",
   "title": "Manual do usuário",
   "open": "Abrir o manual do usuário",
-  "releaseHistory": "Histórico de versões",
   "images": {
     "sign-in": "A página de login com e-mail ou nome de usuário, senha e o botão de chave de acesso",
     "board": "O quadro de itens de trabalho com uma coluna por estado e um cartão para cada issue",
@@ -154,7 +153,7 @@
       "step1": "Se algo não funcionar como descrito aqui, avise o dono do projeto ou quem administra esta instância e diga em qual página você estava.",
       "step2": "O link Docs da API na parte de baixo da barra lateral abre a referência técnica para desenvolvedores.",
       "step3": "O dono da instância tem o Modo god, uma área separada para configurações de toda a instância, como métodos de login, e-mail e cadastro.",
-      "step4": "O dono da instância também é avisado quando há uma nova versão disponível. O link Histórico de versões na coluna da esquerda deste manual lista as notas de versão e verifica se há atualizações.",
+      "step4": "O proprietário da instância também é avisado quando há uma nova versão e verifica atualizações pelo botão na coluna esquerda deste manual.",
       "step5": "Faça um backup antes de atualizar. A instância faz um backup do banco de dados automaticamente antes de cada atualização."
     }
   }

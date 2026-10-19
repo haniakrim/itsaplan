@@ -199,5 +199,5 @@ Start with your team: a project manager or a colleague can answer most questions
 - If something does not work as described here, tell your project owner or the person who runs this instance, and say which page you were on.
 - The API docs link at the bottom of the sidebar opens the technical reference for developers.
 - The instance owner has God mode, a separate area for instance-wide settings such as sign-in methods, email, and registration.
-- The instance owner is also told when a new version is available. The Release history link in the left column of this manual lists the release notes and checks for updates.
+- The instance owner is also told when a new version is available, and checks for updates with the button in the left column of this manual.
 - Back up before updating. The instance takes a database backup automatically before each upgrade.

@@ -2,7 +2,6 @@
   "eyebrow": "One Health",
   "title": "User manual",
   "open": "Open the user manual",
-  "releaseHistory": "Release history",
   "images": {
     "sign-in": "The sign-in page with email or username, password, and the passkey button",
     "board": "The work items board with one column per state and a card for each issue",
@@ -154,7 +153,7 @@
       "step1": "If something does not work as described here, tell your project owner or the person who runs this instance, and say which page you were on.",
       "step2": "The API docs link at the bottom of the sidebar opens the technical reference for developers.",
       "step3": "The instance owner has God mode, a separate area for instance-wide settings such as sign-in methods, email, and registration.",
-      "step4": "The instance owner is also told when a new version is available. The Release history link in the left column of this manual lists the release notes and checks for updates.",
+      "step4": "The instance owner is also told when a new version is available, and checks for updates with the button in the left column of this manual.",
       "step5": "Back up before updating. The instance takes a database backup automatically before each upgrade."
     }
   }
