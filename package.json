@@ -31,6 +31,9 @@
     "db:migrate:test": "SKIP_PRE_MIGRATION_BACKUP=1 bun --env-file=.env.test packages/db/src/migrate.ts",
     "db:studio": "bun --filter='@repo/db' run db:studio",
     "auth:generate": "bun --filter='@repo/auth' run auth:generate",
+    "verify:procore": "bun --env-file=.env scripts/verify/procore.ts",
+    "verify:sharepoint": "bun --env-file=.env scripts/verify/sharepoint-storage.ts",
+    "verify:m365": "bun --env-file=.env scripts/verify/microsoft365-tools.ts",
     "prepare": "lefthook install || true"
   },
   "workspaces": [
