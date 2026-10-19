@@ -162,6 +162,7 @@ needed. Run it again later to restart the instance; the data stays.
 ### Everything else
 
 - [Deploy on Railway](docs/railway.md) — one-click hosted deploy from the template
+- [User manual](docs/user-manual.md) — how to use the app, with screenshots; also in the app from the sidebar footer
 - [Self-hosting](docs/self-hosting.md) — the full production setup, secrets, and updates
 - [Deploy on Coolify](docs/coolify.md) — the same stack on a Coolify instance
 - [Deploy on Kubernetes](docs/helm.md) — Helm chart for any Kubernetes cluster

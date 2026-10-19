@@ -1,13 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { ExternalLink, RefreshCw } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import type { UpdateStatus } from '@/lib/api/endpoints/updates';
 import TakeoverScreen from '@/components/common/page/TakeoverScreen';
-import { Button } from '@/components/ui/button';
-import { useCheckForUpdates } from '@/services/updates.service';
-import { formatDateTime } from '@/utils/dates';
-import { cn } from '@/lib/utils';
+import ReleaseCheck from './ReleaseCheck';
 import { releaseSections } from './ReleaseSections';
 
 // The same screen opened from the sidebar version rather than by an upgrade: the
@@ -23,7 +20,6 @@ export default function ReleaseHistory({
 }) {
   const t = useTranslations('updates');
   const tCommon = useTranslations('common');
-  const check = useCheckForUpdates();
 
   const sections = releaseSections(status.releases, {
     empty: t('noNotes'),
@@ -41,26 +37,7 @@ export default function ReleaseHistory({
       eyebrow={t('running', { current: status.currentVersion })}
       title={t(status.updateAvailable ? 'updateAvailable' : 'releaseHistory')}
       sections={sections}
-      aside={
-        <div className="flex items-center justify-between gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => check.mutate()}
-            disabled={check.isPending}
-          >
-            <RefreshCw className={cn('size-4', check.isPending && 'animate-spin')} />
-            {t(check.isPending ? 'checking' : 'check')}
-          </Button>
-          {status.checkedAt && (
-            <p className="text-end text-xs text-muted-foreground">
-              {t('lastChecked')}
-              <br />
-              {formatDateTime(status.checkedAt)}
-            </p>
-          )}
-        </div>
-      }
+      aside={<ReleaseCheck status={status} />}
       navFooter={
         allReleasesUrl && (
           <a
@@ -76,6 +53,7 @@ export default function ReleaseHistory({
       }
       actionLabel={tCommon('close')}
       onAction={onClose}
+      onEscape={onClose}
     />
   );
 }

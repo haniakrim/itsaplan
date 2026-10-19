@@ -16,6 +16,7 @@ import initiatives from '../../messages/en/initiatives.json';
 import invite from '../../messages/en/invite.json';
 import issue from '../../messages/en/issue.json';
 import issueLinks from '../../messages/en/issueLinks.json';
+import manual from '../../messages/en/manual.json';
 import mcp from '../../messages/en/mcp.json';
 import members from '../../messages/en/members.json';
 import meta from '../../messages/en/meta.json';
@@ -76,6 +77,7 @@ const coreMessages = {
   agentAnalytics,
   updates,
   whatsNew,
+  manual,
   product,
 };
 

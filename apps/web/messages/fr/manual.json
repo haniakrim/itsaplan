@@ -1,0 +1,161 @@
+{
+  "eyebrow": "One Health",
+  "title": "Manuel d'utilisation",
+  "open": "Ouvrir le manuel d'utilisation",
+  "releaseHistory": "Historique des versions",
+  "images": {
+    "sign-in": "La page de connexion avec l'e-mail ou le nom d'utilisateur, le mot de passe et le bouton de clé d'accès",
+    "board": "Le tableau des tickets avec une colonne par état et une carte pour chaque ticket",
+    "issue-detail": "Un ticket ouvert dans le panneau latéral avec sa description et ses propriétés",
+    "assign": "Le sélecteur de responsable listant des personnes et des groupes",
+    "project-plan": "La chronologie du plan du projet avec des phases, des flèches de dépendance, un losange de jalon et des barres en rouge pour les retards",
+    "initiatives": "La liste des initiatives avec responsable, date cible, avancement et santé",
+    "dashboards": "Un tableau de bord avec des tuiles de chiffres et des widgets de débit, de répartition, de pulse et d'activité",
+    "ai-agents": "La liste des agents IA d'une équipe avec leurs identifiants, leurs modèles et leurs déclencheurs",
+    "groups": "La page Groupes des paramètres du projet listant Pharmacie, Soins infirmiers, Laboratoire, Installations et Accueil",
+    "states": "La page États des paramètres du projet avec les états regroupés par catégorie",
+    "templates": "La page Modèles de tickets des paramètres du projet",
+    "custom-fields": "La page Champs personnalisés des paramètres du projet avec des champs globaux et des champs par type de ticket",
+    "import-export": "La page Import/Export avec un onglet de source pour chaque outil",
+    "members": "La page Membres du projet avec les rôles des personnes et des agents IA",
+    "notifications": "La page Notifications avec des cases E-mail et Telegram pour chaque événement",
+    "mcp": "La page Serveur MCP avec le point d'accès et les onglets OAuth et clé API"
+  },
+  "sections": {
+    "start": {
+      "title": "Premiers pas",
+      "intro": "Connectez-vous une fois et tout le reste est à un clic. Vous avez besoin d'un compte sur cette instance, créé par une invitation ou par une inscription.",
+      "step1": "Connectez-vous avec votre e-mail ou votre nom d'utilisateur et votre mot de passe, ou appuyez sur Se connecter avec une clé d'accès pour utiliser votre empreinte, votre visage ou le code PIN de l'appareil. Vous pourrez ajouter une clé d'accès plus tard dans votre compte.",
+      "step2": "La barre latérale de gauche liste Boîte de réception, Tableaux de bord, Tickets, Initiatives, Cycles, Documents et Notes, puis Équipe IA et Configuration. Le sélecteur de projet en haut change d'équipe et de projet. Le bouton de panneau dans la barre du haut réduit la barre latérale.",
+      "step3": "Appuyez sur ⌘K (Ctrl+K sous Windows et Linux) pour ouvrir la palette de commandes. Saisissez du texte pour accéder à un ticket, à une page ou à un paramètre, ou pour lancer une action comme créer un ticket.",
+      "step4": "La barre du haut contient aussi le bouton plus pour créer un ticket, le sélecteur de langue et le bouton de thème clair ou sombre. Vos choix sont enregistrés avec votre compte.",
+      "step5": "Rouvrez ce manuel à tout moment depuis le nom du produit, en bas de la barre latérale."
+    },
+    "board": {
+      "title": "Tableau des tickets",
+      "intro": "Tickets est l'endroit où l'équipe suit les tâches, les demandes, les incidents et tout ce qui a besoin d'un responsable. La vue par défaut est un tableau.",
+      "step1": "Chaque colonne est un état, comme Backlog, À faire, En cours ou Terminé. Faites glisser une carte vers une autre colonne pour changer son état. Le nombre à côté du nom de la colonne compte ses tickets.",
+      "step2": "Une carte affiche la clé, le titre, la priorité, l'estimation, l'échéance, les étiquettes et le responsable. Cliquez sur une carte pour ouvrir le ticket. Le bouton plus dans l'en-tête d'une colonne crée un ticket dans cet état.",
+      "step3": "Pour créer un ticket, appuyez sur le bouton plus dans la barre du haut ou utilisez la palette de commandes. Choisissez un modèle, comme Rapport d'incident ou Demande de fournitures, pour partir d'une description et de propriétés déjà remplies.",
+      "step4": "Utilisez le bouton de filtre à droite des onglets pour affiner le tableau par état, responsable, étiquette, priorité, etc. Le bouton d'affichage change la disposition, le regroupement et les propriétés visibles sur les cartes.",
+      "step5": "Enregistrez un ensemble de filtres et d'options d'affichage comme une vue avec Nouvelle vue. Les vues sont des onglets à côté de Tout, comme Plan du projet, et chacune garde ses propres réglages."
+    },
+    "issue": {
+      "title": "Détail d'un ticket",
+      "intro": "Cliquez sur une carte pour ouvrir le ticket dans un panneau latéral. Utilisez le bouton d'agrandissement pour l'ouvrir en pleine largeur.",
+      "step1": "Le titre et la description se modifient directement. Écrivez ce qui s'est passé, ce qui a été fait et la suite. Les listes de contrôle et la mise en forme sont prises en charge.",
+      "step2": "La liste Propriétés contient l'état, la priorité, le type, le responsable, le délégué, les observateurs, l'initiative, le cycle, les dates de début et d'échéance, et les étiquettes. Cliquez sur une valeur pour la modifier.",
+      "step3": "Les champs personnalisés apparaissent sous les propriétés, par exemple Site, Impact patient ou Incident de sécurité patient. Remplissez-les comme n'importe quelle autre propriété.",
+      "step4": "Ajoutez des sous-tâches pour découper le travail, et des liens pour relier les tickets : bloque, est bloqué par, est lié à ou duplique. Un lien de blocage dessine aussi une flèche de dépendance dans le plan du projet.",
+      "step5": "Écrivez des commentaires en bas, répondez dans des fils, joignez des fichiers et mentionnez une personne ou un agent IA avec @. Appuyez sur Suivre pour suivre un ticket et être notifié des commentaires et des changements d'état."
+    },
+    "assign": {
+      "title": "Assigner le travail",
+      "intro": "Chaque ticket peut avoir une personne, un groupe et un délégué. Assignez tôt pour que rien ne reste sans responsable.",
+      "step1": "Cliquez sur la valeur Responsable dans le panneau du ticket et choisissez une personne ou un groupe. Les membres sont listés d'abord, les groupes en dessous. Tous les membres d'un groupe sont notifiés.",
+      "step2": "Délégué confie le travail à un agent IA tout en vous laissant responsable. Choisissez un agent sous Délégué, ou mentionnez-le avec @ dans un commentaire. L'agent rend compte sur le ticket.",
+      "step3": "Pour assigner plusieurs tickets à la fois, sélectionnez des cartes ou des lignes et utilisez la barre d'actions groupées qui apparaît en bas pour définir le responsable, l'état, les étiquettes ou la priorité.",
+      "step4": "Une action du projet peut assigner automatiquement quand un ticket passe dans un état, par exemple au groupe Pharmacie quand il entre dans En attente de fournitures. Configurez-la dans les paramètres du projet, sous Actions.",
+      "step5": "Pour voir votre propre travail, ajoutez le filtre Assigné à avec la valeur Moi, ou Moi ou mes groupes pour inclure les tickets des groupes dont vous faites partie. Enregistrez-le comme vue pour avoir une liste de tâches quotidienne."
+    },
+    "plan": {
+      "title": "Plan du projet et Gantt",
+      "intro": "La vue Plan du projet place les tickets sur une chronologie pour que l'équipe voie l'enchaînement, les chevauchements et les retards. Ouvrez-la depuis les onglets au-dessus du tableau.",
+      "step1": "Les tickets sont les lignes et le temps s'écoule en largeur. Une barre s'étend de la date de début à l'échéance : renseignez les deux sur un ticket pour le voir tracé. La fine ligne verticale marque aujourd'hui.",
+      "step2": "Les lignes sont regroupées par initiative, si bien que chaque initiative se lit comme une phase. Les tickets sans initiative sont listés en premier. Cliquez sur la flèche d'un groupe pour le replier.",
+      "step3": "Des flèches relient un ticket qui en bloque un autre au ticket bloqué. Une barre tracée avec des rayures rouges démarre avant la fin du travail dont elle dépend : décalez-la ou corrigez les dates.",
+      "step4": "Un losange est un jalon, un ticket qui ne représente qu'un point dans le temps, comme une approbation. Son libellé se trouve à côté.",
+      "step5": "Faites glisser une barre pour déplacer un ticket, et faites glisser l'une de ses extrémités pour changer la date de début ou l'échéance. Les modifications sont enregistrées immédiatement."
+    },
+    "initiatives": {
+      "title": "Initiatives et cycles",
+      "intro": "Les initiatives regroupent des tickets en objectifs ou en phases plus larges. Les cycles bornent le travail dans une période fixe.",
+      "step1": "Ouvrez Initiatives pour les voir toutes dans des onglets : Actives, Planifiées, Proposées, Terminées et Toutes. Chaque ligne affiche le responsable, la date cible, l'avancement et la santé.",
+      "step2": "Appuyez sur Nouvelle initiative, puis donnez-lui un nom, un responsable et une date cible. Ajoutez-y des tickets depuis la propriété Initiative du ticket.",
+      "step3": "L'avancement compte les tickets terminés par rapport au total. La santé indique si l'initiative est dans les temps.",
+      "step4": "Les cycles sont de courtes périodes, par exemple deux semaines, avec un ensemble de tickets à terminer. Ouvrez Cycles dans la barre latérale pour en créer un et y ajouter des tickets.",
+      "step5": "Les tickets encore ouverts à la fin d'un cycle passent au cycle suivant, donc rien n'est perdu."
+    },
+    "dashboards": {
+      "title": "Tableaux de bord",
+      "intro": "Les tableaux de bord transforment le projet en chiffres faciles à parcourir en réunion ou au début d'un service.",
+      "step1": "Le tableau de bord Vue d'ensemble affiche des tuiles pour les tickets Ouverts, En cours, en Backlog et Non assignés, puis des graphiques comme Débit, Répartition, Pulse, Tickets récents et le fil d'Activité.",
+      "step2": "Regardez d'abord Non assignés : cette tuile compte les tickets ouverts sans responsable. Ouverts compte tout ce qui n'est ni terminé ni annulé.",
+      "step3": "Appuyez sur Modifier la disposition pour ajouter, supprimer, redimensionner et déplacer des widgets. Appuyez sur Nouveau tableau de bord pour en créer un autre, par exemple un par service.",
+      "step4": "Le widget Répartition peut compter les tickets par état, priorité, responsable, étiquette ou groupe.",
+      "step5": "Les tableaux de bord se mettent à jour pendant que l'équipe travaille, donc il n'y a rien à actualiser."
+    },
+    "agents": {
+      "title": "Agents IA",
+      "intro": "Un agent IA est un coéquipier qui travaille sur des tickets pour vous : il lit le ticket, effectue la tâche et écrit le résultat sous forme de commentaire. Il a un identifiant comme @planner ou @reviewer.",
+      "step1": "Mentionnez un agent avec @ dans un commentaire pour lui demander quelque chose, ou choisissez-le sous Délégué sur un ticket pour lui confier le travail. Les agents s'exécutent aussi selon des planifications, listées sous Planifications.",
+      "step2": "Certaines actions d'agent nécessitent d'abord l'accord d'une personne. Les demandes d'approbation apparaissent sur le ticket et dans votre boîte de réception. Chaque action d'un agent est écrite dans son journal d'actions.",
+      "step3": "Chaque agent a un modèle, un ensemble d'outils et des budgets facultatifs qui limitent ce qu'il peut dépenser. Une exécution s'arrête quand le budget est atteint.",
+      "step4": "Les responsables d'équipe créent et modifient les agents sous Gérer les équipes, Équipe IA, Agents IA. Les intégrations qui s'y trouvent relient l'agent à un fournisseur de modèles et à d'autres services.",
+      "step5": "Traitez un agent comme un nouveau collègue : donnez-lui une demande claire, vérifiez son résultat et laissez les décisions sensibles à une personne."
+    },
+    "groups": {
+      "title": "Groupes",
+      "intro": "Un groupe est un ensemble nommé de membres du projet, comme Pharmacie, Soins infirmiers, Laboratoire, Installations ou Accueil. Assignez un ticket au groupe quand c'est l'équipe, et non une seule personne, qui en est responsable.",
+      "step1": "Ouvrez les paramètres du projet, puis Groupes. Appuyez sur Ajouter un groupe, choisissez un nom et une couleur, et sélectionnez ses membres. Seuls les membres du projet peuvent rejoindre un groupe.",
+      "step2": "Utilisez l'icône de crayon pour renommer un groupe ou changer ses membres, et l'icône de corbeille pour le supprimer. Supprimer un groupe le retire de ses tickets.",
+      "step3": "Les groupes apparaissent dans le sélecteur de responsable sous les membres, comme pastille sur les cartes, comme filtre et comme regroupement sur le tableau.",
+      "step4": "Chaque membre d'un groupe est notifié quand un ticket lui est assigné, sauf la personne qui a fait la modification.",
+      "step5": "La colonne Tickets indique combien de tickets contient chaque groupe, ce qui aide à repérer une équipe surchargée."
+    },
+    "settings": {
+      "title": "Paramètres du projet",
+      "intro": "Les paramètres du projet définissent la façon de travailler de votre équipe. Ouvrez-les depuis la barre latérale. Il faut des droits de responsable dans le projet pour les modifier.",
+      "step1": "Les états sont les colonnes du tableau, rangés en catégories de Backlog à Terminé et Annulé. Ajoutez, renommez et recolorez des états, et faites-les glisser pour les réordonner. Les types de tickets, comme Incident ou Demande, et les étiquettes se gèrent de la même façon.",
+      "step2": "Les champs personnalisés ajoutent vos propres propriétés aux tickets : texte, nombre, case à cocher, liste de choix ou membre. Un champ peut s'appliquer à tous les tickets ou à un seul type de ticket.",
+      "step3": "Les modèles de tickets sont des préréglages pour un nouveau ticket dont le titre, la description et les propriétés sont déjà remplis. Ils conviennent aux tâches répétitives comme les rapports d'incident et les demandes de fournitures.",
+      "step4": "Les actions sont des changements en un clic ou automatiques sur un ticket, par exemple définir l'état et le responsable ensemble. Les webhooks envoient des événements à un autre système quand les tickets changent.",
+      "step5": "Configuration active et désactive des fonctions pour le projet, et Général contient son nom et sa clé."
+    },
+    "import": {
+      "title": "Import et export",
+      "intro": "Importez du travail existant depuis un autre outil, ou récupérez une copie du projet. Ouvrez les paramètres du projet, puis Import/Export.",
+      "step1": "Choisissez un onglet de source : Plane, Linear, Jira, Trello, Procore ou MS Project. Chaque onglet demande l'adresse et un token ou un fichier, et comporte une étape Tester la connexion.",
+      "step2": "Pour MS Project, importez le projet enregistré au format XML. Les tâches deviennent des tickets, et les liens entre tâches deviennent des dépendances.",
+      "step3": "Les imports s'exécutent en arrière-plan et sont listés sous Imports. Un import peut être mis en pause, repris ou annulé pendant son exécution.",
+      "step4": "L'onglet Export télécharge le projet sous forme de fichier JSON avec ses tickets, ses commentaires et ses étiquettes. Gardez une copie avant un gros changement.",
+      "step5": "Importez d'abord dans un projet de test, vérifiez le résultat, puis recommencez dans le projet réel."
+    },
+    "members": {
+      "title": "Membres, rôles et notifications",
+      "intro": "Les membres sont les personnes et les agents IA qui ont accès à un projet. Leur rôle décide de ce qu'ils peuvent modifier.",
+      "step1": "Ouvrez Membres dans la barre latérale pour voir tout le monde, avec des onglets Personnes et Agents IA. Ajouter un membre invite une personne ou ajoute un agent.",
+      "step2": "La liste déroulante de rôle définit ce qu'un membre peut faire. Un rôle indique, pour chaque type d'élément, si son titulaire peut créer, modifier, lire et supprimer. Les rôles sont définis par les responsables d'équipe sous Gérer les équipes, Rôles du projet.",
+      "step3": "Ouvrez Notifications pour choisir quels événements vous parviennent et où : assigné à un ticket, mentionné, nouveau commentaire sur un ticket que vous suivez et changement d'état sur un ticket que vous suivez.",
+      "step4": "Cochez E-mail, Telegram ou les deux pour chaque événement, puis appuyez sur Enregistrer.",
+      "step5": "Demandez à un propriétaire du projet ou à un responsable d'équipe si vous avez besoin d'un autre rôle."
+    },
+    "mcp": {
+      "title": "Connecter des clients IA",
+      "intro": "Le serveur MCP permet à un client IA comme Claude ou ChatGPT de lire et de mettre à jour des tickets en votre nom. Ouvrez Serveur MCP dans la barre latérale.",
+      "step1": "La page affiche le point d'accès MCP, qui est l'adresse de votre instance suivie de /mcp, et l'adresse de découverte OAuth. Utilisez les boutons de copie.",
+      "step2": "Avec OAuth, ajoutez une application MCP dans votre client, collez le point d'accès, choisissez OAuth, puis connectez-vous et approuvez l'accès. Le client ne reçoit jamais de clé API.",
+      "step3": "Pour Claude Code, exécutez cette commande en remplaçant ORIGIN par l'adresse de votre instance : claude mcp add --transport http plan ORIGIN/mcp",
+      "step4": "Avec une clé API, créez une clé dans votre compte, ouvrez l'onglet clé API et donnez la clé au client comme indiqué à cet endroit. Le client ne voit que ce que cette clé autorise.",
+      "step5": "Vous pouvez révoquer une application connectée ou une clé API à tout moment dans votre compte."
+    },
+    "account": {
+      "title": "Compte et sécurité",
+      "intro": "Les paramètres de votre compte se trouvent sous votre avatar, en haut à droite de l'écran.",
+      "step1": "Profil contient votre nom, votre nom d'utilisateur, votre avatar, votre langue et votre fuseau horaire.",
+      "step2": "Les clés d'accès permettent de se connecter sans mot de passe. Ajoutez-en une sur chaque appareil que vous utilisez, et supprimez celle d'un appareil perdu.",
+      "step3": "Les clés API donnent accès à des scripts et à des clients IA en votre nom. Donnez à chaque clé un nom clair et supprimez celles que vous n'utilisez plus.",
+      "step4": "Applications connectées liste les applications que vous avez approuvées via OAuth, comme un client IA. Révoquez celles que vous ne reconnaissez pas.",
+      "step5": "Déconnectez-vous depuis le menu de l'avatar quand vous utilisez un ordinateur partagé."
+    },
+    "help": {
+      "title": "Obtenir de l'aide et notes d'administration",
+      "intro": "Commencez par votre équipe : un chef de projet ou un collègue peut répondre à la plupart des questions sur la façon dont votre clinique utilise l'outil.",
+      "step1": "Si quelque chose ne fonctionne pas comme décrit ici, prévenez le propriétaire de votre projet ou la personne qui gère cette instance, et indiquez sur quelle page vous étiez.",
+      "step2": "Le lien Documentation de l'API, en bas de la barre latérale, ouvre la référence technique pour les développeurs.",
+      "step3": "Le propriétaire de l'instance dispose du God mode, un espace séparé pour les paramètres de toute l'instance, comme les méthodes de connexion, l'e-mail et l'inscription.",
+      "step4": "Le propriétaire de l'instance est aussi prévenu quand une nouvelle version est disponible. Le lien Historique des versions dans la colonne de gauche de ce manuel liste les notes de version et recherche les mises à jour.",
+      "step5": "Faites une sauvegarde avant de mettre à jour. L'instance effectue automatiquement une sauvegarde de la base de données avant chaque mise à niveau."
+    }
+  }
+}

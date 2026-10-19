@@ -1,0 +1,161 @@
+{
+  "eyebrow": "One Health",
+  "title": "Manual do usuário",
+  "open": "Abrir o manual do usuário",
+  "releaseHistory": "Histórico de versões",
+  "images": {
+    "sign-in": "A página de login com e-mail ou nome de usuário, senha e o botão de chave de acesso",
+    "board": "O quadro de itens de trabalho com uma coluna por estado e um cartão para cada issue",
+    "issue-detail": "Uma issue aberta no painel lateral com sua descrição e propriedades",
+    "assign": "O seletor de responsável listando pessoas e grupos",
+    "project-plan": "A linha do tempo do plano do projeto com fases, setas de dependência, um losango de marco e barras atrasadas em vermelho",
+    "initiatives": "A lista de iniciativas com responsável, data-alvo, progresso e saúde",
+    "dashboards": "Um dashboard com tiles de números, vazão, distribuição, pulso e widgets de atividade",
+    "ai-agents": "A lista de agentes de IA de um time com identificadores, modelos e gatilhos",
+    "groups": "A página Grupos das configurações do projeto listando Farmácia, Enfermagem, Laboratório, Instalações e Recepção",
+    "states": "A página Estados das configurações do projeto com os estados agrupados por categoria",
+    "templates": "A página Modelos de issue das configurações do projeto",
+    "custom-fields": "A página Campos personalizados das configurações do projeto com campos globais e campos por tipo de issue",
+    "import-export": "A página Importar e Exportar com uma aba de origem para cada ferramenta",
+    "members": "A página Membros do projeto com funções para pessoas e agentes de IA",
+    "notifications": "A página Notificações com caixas de e-mail e Telegram para cada evento",
+    "mcp": "A página Servidor MCP com o endpoint e as abas OAuth e chave de API"
+  },
+  "sections": {
+    "start": {
+      "title": "Primeiros passos",
+      "intro": "Entre uma vez e tudo abaixo fica a um clique. Você precisa de uma conta nesta instância, criada por convite ou por cadastro.",
+      "step1": "Entre com seu e-mail ou nome de usuário e senha, ou pressione Entrar com chave de acesso para usar sua digital, seu rosto ou o PIN do dispositivo. Você pode adicionar uma chave de acesso depois, na sua conta.",
+      "step2": "A barra lateral à esquerda lista Caixa de entrada, Dashboards, Itens de trabalho, Iniciativas, Ciclos, Documentos e Notas, depois Time de IA e Configuração. O seletor de projeto no topo troca de time e de projeto. O botão de painel na barra superior recolhe a barra lateral.",
+      "step3": "Pressione ⌘K (Ctrl+K no Windows e no Linux) para abrir a paleta de comandos. Digite para ir a uma issue, uma página ou uma configuração, ou para executar uma ação, como criar uma issue.",
+      "step4": "A barra superior também tem o botão de mais para criar uma issue, o seletor de idioma e a alternância entre tema claro e escuro. Suas escolhas ficam salvas na sua conta.",
+      "step5": "Abra este manual de novo a qualquer momento pelo nome do produto na parte de baixo da barra lateral."
+    },
+    "board": {
+      "title": "Quadro de itens de trabalho",
+      "intro": "Itens de trabalho é onde o time acompanha tarefas, pedidos, incidentes e tudo o mais que precisa de um responsável. A visualização padrão é um quadro.",
+      "step1": "Cada coluna é um estado, como Backlog, A fazer, Em andamento ou Concluído. Arraste um cartão para outra coluna para mudar seu estado. O número ao lado do nome da coluna conta suas issues.",
+      "step2": "Um cartão mostra a chave, o título, a prioridade, a estimativa, a data de vencimento, as etiquetas e o responsável. Clique em um cartão para abrir a issue. O botão de mais no cabeçalho de uma coluna cria uma issue nesse estado.",
+      "step3": "Para criar uma issue, pressione o botão de mais na barra superior ou use a paleta de comandos. Escolha um modelo, como Relatório de incidente ou Solicitação de suprimentos, para começar com uma descrição e propriedades já preenchidas.",
+      "step4": "Use o botão de filtro à direita das abas para restringir o quadro por estado, responsável, etiqueta, prioridade e mais. O botão de exibição muda o layout, o agrupamento e quais propriedades os cartões mostram.",
+      "step5": "Salve um conjunto de filtros e opções de exibição como uma visão com Nova visão. As visões são abas ao lado de Todos, como Plano do projeto, e cada uma mantém suas próprias configurações."
+    },
+    "issue": {
+      "title": "Detalhes da issue",
+      "intro": "Clique em qualquer cartão para abrir a issue em um painel lateral. Use o botão de expandir para abri-la em largura total.",
+      "step1": "O título e a descrição são editáveis no próprio lugar. Escreva o que aconteceu, o que foi feito e o que vem a seguir. Listas de verificação e formatação são aceitas.",
+      "step2": "A lista de Propriedades reúne estado, prioridade, tipo, responsável, delegado, observadores, iniciativa, ciclo, datas de início e de vencimento e etiquetas. Clique em um valor para mudá-lo.",
+      "step3": "Os campos personalizados aparecem abaixo das propriedades, por exemplo Unidade, Impacto no paciente ou Incidente de segurança do paciente. Preencha-os como qualquer outra propriedade.",
+      "step4": "Adicione subtarefas para dividir o trabalho e vínculos para relacionar issues: bloqueia, é bloqueada por, se relaciona com ou duplica. Um vínculo de bloqueio também desenha uma seta de dependência no plano do projeto.",
+      "step5": "Escreva comentários na parte de baixo, responda em threads, anexe arquivos e @mencione uma pessoa ou um agente de IA. Pressione Acompanhar para seguir uma issue e ser notificado sobre comentários e mudanças de estado."
+    },
+    "assign": {
+      "title": "Atribuindo o trabalho",
+      "intro": "Toda issue pode ter uma pessoa, um grupo e um delegado. Atribua cedo para que nada fique sem responsável.",
+      "step1": "Clique no valor de Responsável no painel da issue e escolha uma pessoa ou um grupo. Os membros aparecem primeiro, os grupos logo abaixo. Todos de um grupo são notificados.",
+      "step2": "Delegado entrega o trabalho a um agente de IA enquanto você continua como responsável. Escolha um agente em Delegado ou @mencione-o em um comentário. O agente responde na própria issue.",
+      "step3": "Para atribuir muitas issues de uma vez, selecione cartões ou linhas e use a barra de ações em lote que aparece na parte de baixo para definir o responsável, o estado, as etiquetas ou a prioridade.",
+      "step4": "Uma ação do projeto pode atribuir automaticamente quando uma issue entra em um estado, por exemplo ao grupo Farmácia quando ela entra em Aguardando suprimentos. Configure em Configurações do projeto, em Ações.",
+      "step5": "Para ver seu próprio trabalho, adicione o filtro Atribuído a com o valor Eu, ou Eu ou meus grupos para incluir as issues dos grupos a que você pertence. Salve como uma visão para ter uma lista diária de tarefas."
+    },
+    "plan": {
+      "title": "Plano do projeto e Gantt",
+      "intro": "A visualização Plano do projeto dispõe as issues em uma linha do tempo para o time ver sequência, sobreposição e atrasos. Abra-a pelas abas acima do quadro.",
+      "step1": "As issues são linhas e o tempo corre na horizontal. Uma barra vai da data de início à data de vencimento, então defina as duas em uma issue para vê-la desenhada. A linha vertical fina marca hoje.",
+      "step2": "As linhas são agrupadas por iniciativa, então cada iniciativa se lê como uma fase. As issues sem iniciativa aparecem primeiro. Clique na seta de um grupo para recolhê-lo.",
+      "step3": "Setas ligam uma issue que bloqueia outra à issue bloqueada. Uma barra desenhada com listras vermelhas começa antes de o trabalho de que depende terminar: mova-a para mais tarde ou corrija as datas.",
+      "step4": "Um losango é um marco, uma issue que é um único ponto no tempo, como uma aprovação. Seu rótulo fica ao lado dele.",
+      "step5": "Arraste uma barra para mover uma issue e arraste qualquer ponta para mudar a data de início ou de vencimento. As mudanças são salvas na hora."
+    },
+    "initiatives": {
+      "title": "Iniciativas e ciclos",
+      "intro": "As iniciativas agrupam issues em metas ou fases maiores. Os ciclos limitam o trabalho a um período fixo.",
+      "step1": "Abra Iniciativas para ver todas elas em abas: Ativas, Planejadas, Propostas, Concluídas e Todas. Cada linha mostra o responsável, a data-alvo, o progresso e a saúde.",
+      "step2": "Pressione Nova iniciativa e dê a ela um nome, um responsável e uma data-alvo. Adicione issues a ela pela propriedade Iniciativa da issue.",
+      "step3": "O progresso conta as issues concluídas em relação ao total. A saúde mostra se a iniciativa está no caminho certo.",
+      "step4": "Os ciclos são períodos curtos, como duas semanas, com um conjunto de issues a concluir. Abra Ciclos na barra lateral para criar um e adicionar issues a ele.",
+      "step5": "As issues ainda abertas quando um ciclo termina passam para o próximo ciclo, então nada se perde."
+    },
+    "dashboards": {
+      "title": "Dashboards",
+      "intro": "Os dashboards transformam o projeto em números fáceis de ler numa reunião ou no começo de um turno.",
+      "step1": "O dashboard Visão geral mostra tiles de issues Abertas, Em andamento, no Backlog e Não atribuídas, depois gráficos como Vazão, Distribuição, Pulso, Issues recentes e o feed de Atividade.",
+      "step2": "Veja primeiro as Não atribuídas: elas contam as issues abertas que ninguém assumiu. Abertas conta tudo o que não está concluído nem cancelado.",
+      "step3": "Pressione Editar layout para adicionar, remover, redimensionar e mover widgets. Pressione Novo dashboard para criar outro, por exemplo um por serviço.",
+      "step4": "O widget Distribuição pode contar issues por estado, prioridade, responsável, etiqueta ou grupo.",
+      "step5": "Os dashboards se atualizam conforme o time trabalha, então não há nada para recarregar."
+    },
+    "agents": {
+      "title": "Agentes de IA",
+      "intro": "Um agente de IA é um colega de time que trabalha nas issues por você: ele lê a issue, faz a tarefa e escreve o resultado de volta como um comentário. Ele tem um identificador como @planner ou @reviewer.",
+      "step1": "Mencione um agente com @ em um comentário para perguntar algo a ele, ou escolha-o em Delegado em uma issue para passar o trabalho. Os agentes também rodam em agendas, listadas em Agendamentos.",
+      "step2": "Algumas ações de agentes precisam da aprovação de uma pessoa antes. Os pedidos de aprovação aparecem na issue e na sua caixa de entrada. Toda ação que um agente executa é registrada no seu log de ações.",
+      "step3": "Cada agente tem um modelo, um conjunto de ferramentas e orçamentos opcionais que limitam quanto ele pode gastar. Uma execução para quando o orçamento é atingido.",
+      "step4": "Os gerentes do time criam e editam agentes em Gerenciar times, Time de IA, Agentes de IA. As Integrações ali conectam o agente a um provedor de modelo e a outros serviços.",
+      "step5": "Trate um agente como um novo colega: faça um pedido claro, confira o resultado e deixe as decisões sensíveis com uma pessoa."
+    },
+    "groups": {
+      "title": "Grupos",
+      "intro": "Um grupo é um conjunto nomeado de membros do projeto, como Farmácia, Enfermagem, Laboratório, Instalações ou Recepção. Atribua uma issue ao grupo quando o time, e não uma pessoa, for o responsável.",
+      "step1": "Abra Configurações do projeto e depois Grupos. Pressione Adicionar grupo, escolha um nome e uma cor e selecione os membros. Só membros do projeto podem entrar em um grupo.",
+      "step2": "Use o ícone de lápis para renomear um grupo ou mudar seus membros, e o ícone de lixeira para excluí-lo. Excluir um grupo o remove de suas issues.",
+      "step3": "Os grupos aparecem no seletor de responsável abaixo dos membros, como um chip nos cartões, como filtro e como agrupamento no quadro.",
+      "step4": "Todos os membros de um grupo são notificados quando uma issue é atribuída a ele, exceto quem fez a mudança.",
+      "step5": "A coluna Issues mostra quantas issues cada grupo tem, o que ajuda a identificar um time sobrecarregado."
+    },
+    "settings": {
+      "title": "Configurações do projeto",
+      "intro": "As configurações do projeto moldam como seu time trabalha. Abra-as pela barra lateral. Você precisa de direitos de gerente no projeto para alterá-las.",
+      "step1": "Estados são as colunas do quadro, em categorias de Backlog a Concluído e Cancelado. Adicione, renomeie, mude a cor e arraste estados para reordená-los. Tipos de issue, como Incidente ou Solicitação, e etiquetas são gerenciados do mesmo jeito.",
+      "step2": "Campos personalizados adicionam propriedades suas às issues: texto, número, caixa de seleção, lista de opções ou membro. Um campo pode valer para todas as issues ou para apenas um tipo de issue.",
+      "step3": "Modelos de issue são predefinições para uma nova issue com título, descrição e propriedades já preenchidos. Servem para trabalhos repetidos, como relatórios de incidente e solicitações de suprimentos.",
+      "step4": "Ações são mudanças de um clique ou automáticas em uma issue, por exemplo definir o estado e o responsável juntos. Webhooks enviam eventos a outro sistema quando as issues mudam.",
+      "step5": "Configuração liga e desliga recursos do projeto, e Geral guarda seu nome e sua chave."
+    },
+    "import": {
+      "title": "Importar e exportar",
+      "intro": "Traga trabalho existente de outra ferramenta ou leve uma cópia do projeto para fora. Abra Configurações do projeto e depois Importar/Exportar.",
+      "step1": "Escolha uma aba de origem: Plane, Linear, Jira, Trello, Procore ou MS Project. Cada aba pede o endereço e um token ou um arquivo, e tem uma etapa Testar conexão.",
+      "step2": "Para o MS Project, envie o projeto salvo como XML. As tarefas viram issues e os vínculos entre tarefas viram dependências.",
+      "step3": "As importações rodam em segundo plano e aparecem em Importações. Uma importação pode ser pausada, retomada ou cancelada enquanto roda.",
+      "step4": "A aba Exportar baixa o projeto como um arquivo JSON com suas issues, comentários e etiquetas. Guarde uma cópia antes de uma grande mudança.",
+      "step5": "Importe primeiro para um projeto de teste, confira o resultado e só então repita no projeto real."
+    },
+    "members": {
+      "title": "Membros, funções e notificações",
+      "intro": "Membros são as pessoas e os agentes de IA com acesso a um projeto. A função deles decide o que podem alterar.",
+      "step1": "Abra Membros na barra lateral para ver todos, com abas para Pessoas e Agentes de IA. Adicionar membro convida uma pessoa ou adiciona um agente.",
+      "step2": "O menu de função define o que um membro pode fazer. Uma função diz, para cada tipo de item, se quem a tem pode criar, editar, ler e excluir. As funções são definidas pelos gerentes do time em Gerenciar times, Funções de projeto.",
+      "step3": "Abra Notificações para escolher quais eventos chegam a você e por onde: atribuído a uma issue, mencionado, novo comentário em uma issue que você acompanha e mudança de estado em uma issue que você acompanha.",
+      "step4": "Marque E-mail, Telegram ou ambos para cada evento e pressione Salvar.",
+      "step5": "Peça a um dono do projeto ou gerente do time se precisar de outra função."
+    },
+    "mcp": {
+      "title": "Conectando clientes de IA",
+      "intro": "O servidor MCP permite que um cliente de IA, como Claude ou ChatGPT, leia e atualize issues em seu nome. Abra Servidor MCP na barra lateral.",
+      "step1": "A página mostra o endpoint MCP, que é o endereço da sua instância seguido de /mcp, e o endereço de descoberta do OAuth. Use os botões de copiar.",
+      "step2": "Com OAuth, adicione um app MCP no seu cliente, cole o endpoint, escolha OAuth, depois entre e aprove o acesso. O cliente nunca recebe uma chave de API.",
+      "step3": "Para o Claude Code, execute este comando, trocando ORIGIN pelo endereço da sua instância: claude mcp add --transport http plan ORIGIN/mcp",
+      "step4": "Com uma chave de API, crie uma chave na sua conta, abra a aba de chave de API e entregue a chave ao cliente como mostrado ali. O cliente vê apenas o que essa chave permite.",
+      "step5": "Você pode revogar um app conectado ou uma chave de API a qualquer momento na sua conta."
+    },
+    "account": {
+      "title": "Conta e segurança",
+      "intro": "As configurações da sua conta ficam sob o seu avatar, no canto superior direito da tela.",
+      "step1": "Perfil guarda seu nome, nome de usuário, avatar, idioma e fuso horário.",
+      "step2": "As chaves de acesso permitem entrar sem senha. Adicione uma em cada dispositivo que você usa e remova uma se um dispositivo for perdido.",
+      "step3": "As chaves de API dão a scripts e clientes de IA acesso como se fossem você. Dê a cada chave um nome claro e exclua as que não usa mais.",
+      "step4": "Apps conectados lista os apps que você aprovou por OAuth, como um cliente de IA. Revogue qualquer um que você não reconheça.",
+      "step5": "Saia pelo menu do avatar quando usar um computador compartilhado."
+    },
+    "help": {
+      "title": "Ajuda e notas de administração",
+      "intro": "Comece pelo seu time: um gerente de projeto ou um colega pode responder à maioria das dúvidas sobre como sua clínica usa a ferramenta.",
+      "step1": "Se algo não funcionar como descrito aqui, avise o dono do projeto ou quem administra esta instância e diga em qual página você estava.",
+      "step2": "O link Docs da API na parte de baixo da barra lateral abre a referência técnica para desenvolvedores.",
+      "step3": "O dono da instância tem o Modo god, uma área separada para configurações de toda a instância, como métodos de login, e-mail e cadastro.",
+      "step4": "O dono da instância também é avisado quando há uma nova versão disponível. O link Histórico de versões na coluna da esquerda deste manual lista as notas de versão e verifica se há atualizações.",
+      "step5": "Faça um backup antes de atualizar. A instância faz um backup do banco de dados automaticamente antes de cada atualização."
+    }
+  }
+}

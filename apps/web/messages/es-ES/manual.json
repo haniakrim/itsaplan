@@ -1,0 +1,161 @@
+{
+  "eyebrow": "One Health",
+  "title": "Manual de usuario",
+  "open": "Abrir el manual de usuario",
+  "releaseHistory": "Historial de versiones",
+  "images": {
+    "sign-in": "La página de inicio de sesión con correo o nombre de usuario, contraseña y el botón de passkey",
+    "board": "El tablero de elementos de trabajo con una columna por estado y una tarjeta por cada ticket",
+    "issue-detail": "Un ticket abierto en el panel lateral con su descripción y sus propiedades",
+    "assign": "El selector de asignatario con la lista de personas y grupos",
+    "project-plan": "La cronología del plan del proyecto con fases, flechas de dependencia, un rombo de hito y barras en rojo para lo que va tarde",
+    "initiatives": "La lista de iniciativas con propietario, fecha objetivo, progreso y salud",
+    "dashboards": "Un panel con tarjetas de cifras y widgets de rendimiento, desglose, pulso y actividad",
+    "ai-agents": "La lista de agentes de IA de un equipo con alias, modelos y disparadores",
+    "groups": "La página Grupos de los ajustes del proyecto con Farmacia, Enfermería, Laboratorio, Instalaciones y Recepción",
+    "states": "La página Estados de los ajustes del proyecto con los estados agrupados por categoría",
+    "templates": "La página Plantillas de ticket de los ajustes del proyecto",
+    "custom-fields": "La página Campos personalizados de los ajustes del proyecto con campos globales y campos por tipo de ticket",
+    "import-export": "La página Importar/Exportar con una pestaña de origen para cada herramienta",
+    "members": "La página Miembros del proyecto con los roles de personas y agentes de IA",
+    "notifications": "La página Notificaciones con casillas de correo y Telegram para cada evento",
+    "mcp": "La página Servidor MCP con el endpoint y las pestañas de OAuth y clave de API"
+  },
+  "sections": {
+    "start": {
+      "title": "Primeros pasos",
+      "intro": "Inicia sesión una vez y todo lo demás queda a un clic. Necesitas una cuenta en esta instancia, creada con una invitación o registrándote.",
+      "step1": "Inicia sesión con tu correo o nombre de usuario y contraseña, o pulsa Iniciar sesión con passkey para usar tu huella, tu cara o el PIN del dispositivo. Puedes añadir un passkey más tarde en tu cuenta.",
+      "step2": "La barra lateral de la izquierda lista Bandeja de entrada, Paneles, Elementos de trabajo, Iniciativas, Ciclos, Documentos y Notas, y después Equipo de IA y Configuración. El selector de proyectos de arriba cambia de equipo y de proyecto. El botón de panel de la barra superior contrae la barra lateral.",
+      "step3": "Pulsa ⌘K (Ctrl+K en Windows y Linux) para abrir la paleta de comandos. Escribe para saltar a un ticket, una página o un ajuste, o para ejecutar una acción como crear un ticket.",
+      "step4": "La barra superior también incluye el botón más para crear un ticket, el selector de idioma y el interruptor de tema claro u oscuro. Tus elecciones se guardan en tu cuenta.",
+      "step5": "Abre este manual otra vez cuando quieras desde el nombre del producto, al final de la barra lateral."
+    },
+    "board": {
+      "title": "Tablero de elementos de trabajo",
+      "intro": "Elementos de trabajo es donde el equipo sigue tareas, solicitudes, incidentes y todo lo que necesita un responsable. La vista por defecto es un tablero.",
+      "step1": "Cada columna es un estado, como Backlog, Por hacer, En curso o Hecho. Arrastra una tarjeta a otra columna para cambiar su estado. El número junto al nombre de la columna cuenta sus tickets.",
+      "step2": "Una tarjeta muestra la clave, el título, la prioridad, la estimación, la fecha de vencimiento, las etiquetas y el asignatario. Haz clic en una tarjeta para abrir el ticket. El botón más del encabezado de una columna crea un ticket en ese estado.",
+      "step3": "Para crear un ticket, pulsa el botón más de la barra superior o usa la paleta de comandos. Elige una plantilla, como Informe de incidente o Solicitud de suministros, para empezar con la descripción y las propiedades ya rellenas.",
+      "step4": "Usa el botón de filtro, a la derecha de las pestañas, para acotar el tablero por estado, asignatario, etiqueta, prioridad y más. El botón de visualización cambia la disposición, la agrupación y las propiedades que muestran las tarjetas.",
+      "step5": "Guarda un conjunto de filtros y opciones de visualización como una vista con Nueva vista. Las vistas son pestañas junto a Todo, como Plan del proyecto, y cada una conserva sus propios ajustes."
+    },
+    "issue": {
+      "title": "Detalle del ticket",
+      "intro": "Haz clic en cualquier tarjeta para abrir el ticket en un panel lateral. Usa el botón de ampliar para abrirlo a todo el ancho.",
+      "step1": "El título y la descripción se editan en el sitio. Escribe qué pasó, qué se hizo y qué viene después. Se admiten listas de comprobación y formato.",
+      "step2": "La lista de Propiedades incluye estado, prioridad, tipo, asignatario, delegado, seguidores, iniciativa, ciclo, fechas de inicio y vencimiento, y etiquetas. Haz clic en un valor para cambiarlo.",
+      "step3": "Los campos personalizados aparecen debajo de las propiedades, por ejemplo Sede, Impacto en el paciente o Incidente de seguridad del paciente. Rellénalos como cualquier otra propiedad.",
+      "step4": "Añade subtareas para dividir el trabajo y vínculos para relacionar tickets: bloquea, está bloqueado por, se relaciona con o duplica. Un vínculo de bloqueo también dibuja una flecha de dependencia en el plan del proyecto.",
+      "step5": "Escribe comentarios al final, responde en hilos, adjunta archivos y menciona con @ a una persona o a un agente de IA. Pulsa Seguir para seguir un ticket y recibir avisos de comentarios y cambios de estado."
+    },
+    "assign": {
+      "title": "Asignar el trabajo",
+      "intro": "Cada ticket puede tener una persona, un grupo y un delegado. Asigna pronto para que nada se quede sin responsable.",
+      "step1": "Haz clic en el valor de Asignatario en el panel del ticket y elige una persona o un grupo. Los miembros aparecen primero y los grupos debajo. Todos los miembros de un grupo reciben el aviso.",
+      "step2": "Delegado pasa el trabajo a un agente de IA mientras tú sigues siendo el responsable. Elige un agente en Delegado o menciónalo con @ en un comentario. El agente informa en el ticket.",
+      "step3": "Para asignar muchos tickets a la vez, selecciona tarjetas o filas y usa la barra de acciones masivas que aparece abajo para definir el asignatario, el estado, las etiquetas o la prioridad.",
+      "step4": "Una acción del proyecto puede asignar automáticamente cuando un ticket pasa a un estado, por ejemplo al grupo Farmacia cuando entra en Esperando suministros. Configúrala en los ajustes del proyecto, en Acciones.",
+      "step5": "Para ver tu propio trabajo, añade el filtro Asignado a con el valor Yo, o Yo o mis grupos para incluir los tickets de los grupos a los que perteneces. Guárdalo como vista para tener una lista diaria de tareas."
+    },
+    "plan": {
+      "title": "Plan del proyecto y Gantt",
+      "intro": "La vista Plan del proyecto coloca los tickets en una cronología para que el equipo vea la secuencia, los solapes y los retrasos. Ábrela desde las pestañas sobre el tablero.",
+      "step1": "Los tickets son filas y el tiempo corre a lo ancho. Una barra abarca desde la fecha de inicio hasta la de vencimiento, así que define ambas en un ticket para verlo dibujado. La línea vertical fina marca hoy.",
+      "step2": "Las filas se agrupan por iniciativa, de modo que cada iniciativa se lee como una fase. Los tickets sin iniciativa aparecen primero. Haz clic en la flecha de un grupo para plegarlo.",
+      "step3": "Las flechas unen un ticket que bloquea a otro con el ticket que bloquea. Una barra con rayas rojas empieza antes de que termine el trabajo del que depende: muévela más tarde o corrige las fechas.",
+      "step4": "Un rombo es un hito, un ticket que es un único punto en el tiempo, como una aprobación. Su etiqueta aparece a su lado.",
+      "step5": "Arrastra una barra para mover un ticket, y arrastra cualquiera de sus extremos para cambiar la fecha de inicio o de vencimiento. Los cambios se guardan al instante."
+    },
+    "initiatives": {
+      "title": "Iniciativas y ciclos",
+      "intro": "Las iniciativas agrupan tickets en objetivos o fases más grandes. Los ciclos acotan el trabajo en un periodo fijo.",
+      "step1": "Abre Iniciativas para verlas todas en pestañas: Activas, Planificadas, Propuestas, Completadas y Todas. Cada fila muestra el propietario, la fecha objetivo, el progreso y la salud.",
+      "step2": "Pulsa Nueva iniciativa y dale un nombre, un propietario y una fecha objetivo. Añade tickets desde la propiedad Iniciativa del ticket.",
+      "step3": "El progreso cuenta los tickets terminados frente al total. La salud muestra si la iniciativa va según lo previsto.",
+      "step4": "Los ciclos son periodos cortos, por ejemplo de dos semanas, con un conjunto de tickets por terminar. Abre Ciclos en la barra lateral para crear uno y añadirle tickets.",
+      "step5": "Los tickets que siguen abiertos cuando termina un ciclo pasan al siguiente, así que no se pierde nada."
+    },
+    "dashboards": {
+      "title": "Paneles",
+      "intro": "Los paneles convierten el proyecto en cifras fáciles de revisar en una reunión o al empezar un turno.",
+      "step1": "El panel Resumen muestra tarjetas de tickets Abiertos, En curso, en Backlog y Sin asignar, y después gráficos como Rendimiento, Desglose, Pulso, Tickets recientes y el feed de Actividad.",
+      "step2": "Mira primero Sin asignar: cuenta los tickets abiertos que no tienen responsable. Abiertos cuenta todo lo que no está hecho ni cancelado.",
+      "step3": "Pulsa Editar diseño para añadir, quitar, redimensionar y mover widgets. Pulsa Nuevo panel para crear otro, por ejemplo uno por servicio.",
+      "step4": "El widget Desglose puede contar tickets por estado, prioridad, asignatario, etiqueta o grupo.",
+      "step5": "Los paneles se actualizan mientras el equipo trabaja, así que no hay nada que refrescar."
+    },
+    "agents": {
+      "title": "Agentes de IA",
+      "intro": "Un agente de IA es un compañero que trabaja en tickets por ti: lee el ticket, hace la tarea y escribe el resultado como comentario. Tiene un alias como @planner o @reviewer.",
+      "step1": "Menciona a un agente con @ en un comentario para pedirle algo, o elígelo en Delegado de un ticket para pasarle el trabajo. Los agentes también se ejecutan según programaciones, que se listan en Programaciones.",
+      "step2": "Algunas acciones de los agentes necesitan que una persona las apruebe antes. Las solicitudes de aprobación aparecen en el ticket y en tu bandeja de entrada. Cada acción de un agente queda registrada en su registro de acciones.",
+      "step3": "Cada agente tiene un modelo, un conjunto de herramientas y presupuestos opcionales que limitan cuánto puede gastar. Una ejecución se detiene cuando se alcanza el presupuesto.",
+      "step4": "Los gestores del equipo crean y editan agentes en Gestionar equipos, Equipo de IA, Agentes de IA. Las integraciones de allí conectan el agente con un proveedor de modelos y con otros servicios.",
+      "step5": "Trata a un agente como a un compañero nuevo: dale una petición clara, revisa su resultado y deja las decisiones delicadas en manos de una persona."
+    },
+    "groups": {
+      "title": "Grupos",
+      "intro": "Un grupo es un conjunto con nombre de miembros del proyecto, como Farmacia, Enfermería, Laboratorio, Instalaciones o Recepción. Asigna un ticket al grupo cuando el equipo, y no una sola persona, es el responsable.",
+      "step1": "Abre los ajustes del proyecto y después Grupos. Pulsa Añadir grupo, elige un nombre y un color, y escoge a sus miembros. Solo los miembros del proyecto pueden unirse a un grupo.",
+      "step2": "Usa el icono del lápiz para renombrar un grupo o cambiar sus miembros, y el icono de la papelera para eliminarlo. Eliminar un grupo lo quita de sus tickets.",
+      "step3": "Los grupos aparecen en el selector de asignatario debajo de los miembros, como una etiqueta en las tarjetas, como filtro y como agrupación en el tablero.",
+      "step4": "Todos los miembros de un grupo reciben un aviso cuando se le asigna un ticket, salvo la persona que hizo el cambio.",
+      "step5": "La columna Tickets muestra cuántos tickets tiene cada grupo, lo que ayuda a detectar un equipo sobrecargado."
+    },
+    "settings": {
+      "title": "Ajustes del proyecto",
+      "intro": "Los ajustes del proyecto definen cómo trabaja tu equipo. Ábrelos desde la barra lateral. Necesitas permisos de gestor en el proyecto para cambiarlos.",
+      "step1": "Los estados son las columnas del tablero, en categorías que van de Backlog a Completado y Cancelado. Añade, renombra y cambia el color de los estados, y arrástralos para reordenarlos. Los tipos de ticket, como Incidente o Solicitud, y las etiquetas se gestionan igual.",
+      "step2": "Los campos personalizados añaden tus propias propiedades a los tickets: texto, número, casilla, selección o miembro. Un campo puede aplicarse a todos los tickets o solo a un tipo de ticket.",
+      "step3": "Las plantillas de ticket son predefinidos para un ticket nuevo con su título, descripción y propiedades ya rellenos. Sirven para trabajo repetido, como informes de incidente y solicitudes de suministros.",
+      "step4": "Las acciones son cambios de un clic o automáticos en un ticket, por ejemplo definir el estado y el asignatario a la vez. Los webhooks envían eventos a otro sistema cuando los tickets cambian.",
+      "step5": "Configuración activa y desactiva funciones del proyecto, y General guarda su nombre y su clave."
+    },
+    "import": {
+      "title": "Importar y exportar",
+      "intro": "Trae trabajo existente de otra herramienta, o saca una copia del proyecto. Abre los ajustes del proyecto y después Importar/Exportar.",
+      "step1": "Elige una pestaña de origen: Plane, Linear, Jira, Trello, Procore o MS Project. Cada pestaña pide la dirección y un token o un archivo, e incluye un paso de Probar conexión.",
+      "step2": "Para MS Project, sube el proyecto guardado como XML. Las tareas se convierten en tickets y los vínculos entre tareas, en dependencias.",
+      "step3": "Las importaciones se ejecutan en segundo plano y se listan en Trabajos de importación. Un trabajo se puede pausar, reanudar o cancelar mientras se ejecuta.",
+      "step4": "La pestaña Exportar descarga el proyecto como un archivo JSON con sus tickets, comentarios y etiquetas. Guarda una copia antes de un cambio grande.",
+      "step5": "Importa primero en un proyecto de prueba, revisa el resultado y después repite en el real."
+    },
+    "members": {
+      "title": "Miembros, roles y notificaciones",
+      "intro": "Los miembros son las personas y los agentes de IA con acceso a un proyecto. Su rol decide lo que pueden cambiar.",
+      "step1": "Abre Miembros en la barra lateral para ver a todo el mundo, con pestañas para Personas y Agentes de IA. Añadir miembro invita a una persona o añade un agente.",
+      "step2": "El desplegable de rol define lo que puede hacer un miembro. Un rol indica, para cada tipo de elemento, si quien lo tiene puede crear, editar, leer y eliminar. Los roles los definen los gestores del equipo en Gestionar equipos, Roles del proyecto.",
+      "step3": "Abre Notificaciones para elegir qué eventos te llegan y por dónde: asignado a un ticket, mencionado, comentario nuevo en un ticket que sigues y cambio de estado en un ticket que sigues.",
+      "step4": "Marca Correo, Telegram o ambos para cada evento y pulsa Guardar.",
+      "step5": "Pide a un propietario del proyecto o a un gestor del equipo que te dé otro rol si lo necesitas."
+    },
+    "mcp": {
+      "title": "Conectar clientes de IA",
+      "intro": "El servidor MCP permite que un cliente de IA como Claude o ChatGPT lea y actualice tickets en tu nombre. Abre Servidor MCP en la barra lateral.",
+      "step1": "La página muestra el endpoint MCP, que es la dirección de tu instancia seguida de /mcp, y la dirección de descubrimiento de OAuth. Usa los botones de copiar.",
+      "step2": "Con OAuth, añade una app MCP en tu cliente, pega el endpoint, elige OAuth, inicia sesión y aprueba el acceso. El cliente nunca recibe una clave de API.",
+      "step3": "Para Claude Code, ejecuta este comando y sustituye ORIGIN por la dirección de tu instancia: claude mcp add --transport http plan ORIGIN/mcp",
+      "step4": "Con una clave de API, crea una clave en tu cuenta, abre la pestaña de clave de API y entrega la clave al cliente tal como se muestra allí. El cliente solo ve lo que esa clave permite.",
+      "step5": "Puedes revocar una app conectada o una clave de API en cualquier momento desde tu cuenta."
+    },
+    "account": {
+      "title": "Cuenta y seguridad",
+      "intro": "Los ajustes de tu cuenta están bajo tu avatar, arriba a la derecha de la pantalla.",
+      "step1": "Perfil guarda tu nombre, nombre de usuario, avatar, idioma y zona horaria.",
+      "step2": "Los passkeys permiten iniciar sesión sin contraseña. Añade uno en cada dispositivo que uses y quita el de un dispositivo perdido.",
+      "step3": "Las claves de API dan acceso a scripts y clientes de IA como si fueras tú. Ponle a cada clave un nombre claro y elimina las que ya no uses.",
+      "step4": "Aplicaciones conectadas lista las apps que aprobaste mediante OAuth, como un cliente de IA. Revoca las que no reconozcas.",
+      "step5": "Cierra sesión desde el menú del avatar cuando uses un ordenador compartido."
+    },
+    "help": {
+      "title": "Ayuda y notas de administración",
+      "intro": "Empieza por tu equipo: un gestor de proyecto o un compañero puede resolver la mayoría de las dudas sobre cómo usa tu clínica la herramienta.",
+      "step1": "Si algo no funciona como se describe aquí, avisa al propietario de tu proyecto o a quien administra esta instancia, e indica en qué página estabas.",
+      "step2": "El enlace Documentación de la API, al final de la barra lateral, abre la referencia técnica para desarrolladores.",
+      "step3": "El propietario de la instancia tiene el Modo dios, un área aparte para los ajustes de toda la instancia, como los métodos de inicio de sesión, el correo y el registro.",
+      "step4": "Al propietario de la instancia también se le avisa cuando hay una versión nueva. El enlace Historial de versiones de la columna izquierda de este manual lista las notas de versión y busca actualizaciones.",
+      "step5": "Haz una copia de seguridad antes de actualizar. La instancia hace una copia de la base de datos automáticamente antes de cada actualización."
+    }
+  }
+}

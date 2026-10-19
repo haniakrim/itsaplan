@@ -1,0 +1,161 @@
+{
+  "eyebrow": "One Health",
+  "title": "Panduan pengguna",
+  "open": "Buka panduan pengguna",
+  "releaseHistory": "Riwayat rilis",
+  "images": {
+    "sign-in": "Halaman masuk dengan email atau nama pengguna, kata sandi, dan tombol passkey",
+    "board": "Papan item pekerjaan dengan satu kolom per status dan satu kartu untuk setiap issue",
+    "issue-detail": "Sebuah issue terbuka di panel samping beserta deskripsi dan propertinya",
+    "assign": "Pemilih penerima tugas yang menampilkan orang dan grup",
+    "project-plan": "Linimasa rencana proyek dengan fase, panah dependensi, belah ketupat milestone, dan batang terlambat berwarna merah",
+    "initiatives": "Daftar inisiatif dengan pemilik, tanggal target, kemajuan, dan kesehatan",
+    "dashboards": "Dasbor dengan kartu statistik serta widget throughput, rincian, pulse, dan aktivitas",
+    "ai-agents": "Daftar agen AI sebuah tim dengan handle, model, dan pemicu",
+    "groups": "Halaman Grup di pengaturan proyek yang menampilkan Farmasi, Keperawatan, Laboratorium, Fasilitas, dan Resepsionis",
+    "states": "Halaman Status di pengaturan proyek dengan status yang dikelompokkan menurut kategori",
+    "templates": "Halaman Templat issue di pengaturan proyek",
+    "custom-fields": "Halaman Bidang kustom di pengaturan proyek dengan bidang global dan bidang per tipe issue",
+    "import-export": "Halaman Impor/Ekspor dengan tab sumber untuk setiap alat",
+    "members": "Halaman Anggota proyek dengan peran untuk orang dan agen AI",
+    "notifications": "Halaman Notifikasi dengan kotak centang email dan Telegram untuk setiap peristiwa",
+    "mcp": "Halaman Server MCP dengan endpoint serta tab OAuth dan kunci API"
+  },
+  "sections": {
+    "start": {
+      "title": "Memulai",
+      "intro": "Masuk sekali, lalu semua yang ada di bawah ini hanya sejauh satu klik. Anda memerlukan akun di instance ini, yang dibuat lewat undangan atau pendaftaran.",
+      "step1": "Masuk dengan email atau nama pengguna dan kata sandi, atau tekan Masuk dengan passkey untuk memakai sidik jari, wajah, atau PIN perangkat. Anda dapat menambahkan passkey nanti di akun Anda.",
+      "step2": "Bilah sisi di kiri berisi Kotak masuk, Dasbor, Item pekerjaan, Inisiatif, Cycle, Dokumen dan Catatan, lalu Tim AI dan Konfigurasi. Pemilih proyek di bagian atas mengganti tim dan proyek. Tombol panel di bilah atas melipat bilah sisi.",
+      "step3": "Tekan ⌘K (Ctrl+K di Windows dan Linux) untuk membuka palet perintah. Ketik untuk melompat ke sebuah issue, halaman, atau pengaturan, atau untuk menjalankan tindakan seperti membuat issue.",
+      "step4": "Bilah atas juga berisi tombol plus untuk membuat issue, pengganti bahasa, dan tombol tema terang atau gelap. Pilihan Anda disimpan bersama akun Anda.",
+      "step5": "Buka panduan ini kapan saja dari nama produk di bagian bawah bilah sisi."
+    },
+    "board": {
+      "title": "Papan item pekerjaan",
+      "intro": "Item pekerjaan adalah tempat tim melacak tugas, permintaan, insiden, dan hal lain yang membutuhkan penanggung jawab. Tampilan bawaannya adalah papan.",
+      "step1": "Setiap kolom adalah sebuah status, seperti Backlog, Todo, Sedang dikerjakan, atau Selesai. Angka di samping nama kolom menunjukkan jumlah issue-nya. Seret kartu ke kolom lain untuk mengubah statusnya.",
+      "step2": "Kartu menampilkan kunci, judul, prioritas, estimasi, tanggal jatuh tempo, label, dan penerima tugas. Klik kartu untuk membuka issue. Tombol plus di header kolom membuat issue dengan status tersebut.",
+      "step3": "Untuk membuat issue, tekan tombol plus di bilah atas atau gunakan palet perintah. Pilih templat, seperti Laporan insiden atau Permintaan persediaan, untuk memulai dari deskripsi dan properti yang sudah terisi.",
+      "step4": "Gunakan tombol filter di sebelah kanan tab untuk mempersempit papan berdasarkan status, penerima tugas, label, prioritas, dan lainnya. Tombol tampilan mengubah tata letak, pengelompokan, dan properti yang ditampilkan kartu.",
+      "step5": "Simpan sekumpulan filter dan opsi tampilan sebagai tampilan dengan Tampilan baru. Tampilan menjadi tab di sebelah Semua, seperti Rencana proyek, dan masing-masing menyimpan pengaturannya sendiri."
+    },
+    "issue": {
+      "title": "Detail issue",
+      "intro": "Klik kartu mana pun untuk membuka issue di panel samping. Gunakan tombol perluas untuk membukanya selebar layar.",
+      "step1": "Judul dan deskripsi dapat diubah langsung di tempat. Tulis apa yang terjadi, apa yang sudah dilakukan, dan apa langkah berikutnya. Daftar periksa dan pemformatan didukung.",
+      "step2": "Daftar Properti berisi status, prioritas, tipe, penerima tugas, delegasi, pengikut, inisiatif, cycle, tanggal mulai dan jatuh tempo, serta label. Klik sebuah nilai untuk mengubahnya.",
+      "step3": "Bidang kustom muncul di bawah properti, misalnya Lokasi, Dampak pada Pasien, atau Insiden Keselamatan Pasien. Isi seperti properti lainnya.",
+      "step4": "Tambahkan subtugas untuk membagi pekerjaan, dan tautan untuk menghubungkan issue: memblokir, diblokir oleh, terkait dengan, atau duplikat dari. Tautan pemblokir juga menggambar panah dependensi di rencana proyek.",
+      "step5": "Tulis komentar di bagian bawah, balas dalam utas, lampirkan file, dan @sebut seseorang atau agen AI. Tekan Ikuti untuk mengikuti sebuah issue dan mendapat notifikasi tentang komentar dan perubahan status."
+    },
+    "assign": {
+      "title": "Menugaskan pekerjaan",
+      "intro": "Setiap issue dapat memiliki seseorang, sebuah grup, dan seorang delegasi. Tugaskan sejak awal agar tidak ada yang tanpa penanggung jawab.",
+      "step1": "Klik nilai Penerima tugas di panel issue lalu pilih seseorang atau sebuah grup. Anggota ditampilkan lebih dulu, grup di bawahnya. Semua orang dalam grup akan diberi notifikasi.",
+      "step2": "Delegasi menyerahkan pekerjaan kepada agen AI sementara Anda tetap menjadi pemiliknya. Pilih agen di bawah Delegasi, atau @sebut di komentar. Agen melaporkan hasilnya di issue tersebut.",
+      "step3": "Untuk menugaskan banyak issue sekaligus, pilih kartu atau baris lalu gunakan bilah massal yang muncul di bagian bawah untuk mengatur penerima tugas, status, label, atau prioritas.",
+      "step4": "Tindakan proyek dapat menugaskan secara otomatis saat issue masuk ke suatu status, misalnya ke grup Farmasi saat masuk ke Menunggu Persediaan. Atur di Pengaturan proyek pada bagian Tindakan.",
+      "step5": "Untuk melihat pekerjaan Anda sendiri, tambahkan filter Ditugaskan ke dengan nilai Saya, atau Saya atau grup saya untuk menyertakan issue dari grup tempat Anda tergabung. Simpan sebagai tampilan untuk daftar tugas harian."
+    },
+    "plan": {
+      "title": "Rencana proyek dan Gantt",
+      "intro": "Tampilan Rencana proyek menata issue pada linimasa agar tim dapat melihat urutan, tumpang tindih, dan keterlambatan. Buka dari tab di atas papan.",
+      "step1": "Issue adalah baris dan waktu berjalan ke samping. Sebuah batang membentang dari tanggal mulai hingga tanggal jatuh tempo, jadi atur keduanya pada issue agar tergambar. Garis vertikal tipis menandai hari ini.",
+      "step2": "Baris dikelompokkan menurut inisiatif, sehingga setiap inisiatif terbaca sebagai satu fase. Issue tanpa inisiatif ditampilkan lebih dulu. Klik panah pada grup untuk melipatnya.",
+      "step3": "Panah menghubungkan issue yang memblokir issue lain dengan issue yang diblokirnya. Batang bergaris merah dimulai sebelum pekerjaan yang menjadi dependensinya selesai: geser lebih akhir atau perbaiki tanggalnya.",
+      "step4": "Belah ketupat adalah milestone, yaitu issue yang berupa satu titik waktu seperti persetujuan. Labelnya berada di sampingnya.",
+      "step5": "Seret batang untuk memindahkan issue, dan seret salah satu ujungnya untuk mengubah tanggal mulai atau jatuh tempo. Perubahan langsung disimpan."
+    },
+    "initiatives": {
+      "title": "Inisiatif dan cycle",
+      "intro": "Inisiatif mengelompokkan issue menjadi tujuan atau fase yang lebih besar. Cycle membatasi pekerjaan dalam periode waktu tetap.",
+      "step1": "Buka Inisiatif untuk melihat semuanya di tab: Aktif, Terencana, Diusulkan, Selesai, dan Semua. Setiap baris menampilkan pemilik, tanggal target, kemajuan, dan kesehatan.",
+      "step2": "Tekan Inisiatif baru, lalu beri nama, pemilik, dan tanggal target. Tambahkan issue ke dalamnya dari properti Inisiatif pada issue.",
+      "step3": "Kemajuan menghitung issue yang selesai terhadap totalnya. Kesehatan menunjukkan apakah inisiatif berjalan sesuai rencana.",
+      "step4": "Cycle adalah periode singkat, misalnya dua minggu, dengan sekumpulan issue yang harus diselesaikan. Buka Cycle di bilah sisi untuk membuatnya dan menambahkan issue.",
+      "step5": "Issue yang masih terbuka saat cycle berakhir dipindahkan ke cycle berikutnya, sehingga tidak ada yang hilang."
+    },
+    "dashboards": {
+      "title": "Dasbor",
+      "intro": "Dasbor mengubah proyek menjadi angka yang mudah dipindai dalam rapat atau di awal shift.",
+      "step1": "Dasbor Ringkasan menampilkan kartu untuk issue Terbuka, Sedang berjalan, Backlog, dan Belum ditugaskan, lalu bagan seperti Throughput, Rincian, Pulse, Issue terbaru, dan umpan Aktivitas.",
+      "step2": "Periksa Belum ditugaskan lebih dulu: angka ini menghitung issue terbuka yang tidak dimiliki siapa pun. Terbuka menghitung semua yang belum selesai atau dibatalkan.",
+      "step3": "Tekan Ubah tata letak untuk menambah, menghapus, mengubah ukuran, dan memindahkan widget. Tekan Dasbor baru untuk membuat yang lain, misalnya satu per layanan.",
+      "step4": "Widget Rincian dapat menghitung issue menurut status, prioritas, penerima tugas, label, atau grup.",
+      "step5": "Dasbor diperbarui seiring tim bekerja, jadi tidak perlu dimuat ulang."
+    },
+    "agents": {
+      "title": "Agen AI",
+      "intro": "Agen AI adalah rekan tim yang mengerjakan issue untuk Anda: ia membaca issue, mengerjakan tugasnya, dan menulis hasilnya kembali sebagai komentar. Ia memiliki handle seperti @planner atau @reviewer.",
+      "step1": "Sebut agen dengan @ di komentar untuk menanyakan sesuatu, atau pilih di bawah Delegasi pada sebuah issue untuk menyerahkan pekerjaan. Agen juga berjalan sesuai jadwal, yang tercantum di bawah Jadwal.",
+      "step2": "Beberapa tindakan agen perlu disetujui seseorang terlebih dahulu. Permintaan persetujuan muncul di issue dan di kotak masuk Anda. Setiap tindakan yang dilakukan agen dicatat dalam log tindakannya.",
+      "step3": "Setiap agen memiliki model, sekumpulan alat, dan anggaran opsional yang membatasi pengeluarannya. Sebuah proses berhenti saat anggaran tercapai.",
+      "step4": "Manajer tim membuat dan mengubah agen di Kelola tim, Tim AI, Agen AI. Integrasi di sana menghubungkan agen ke penyedia model dan layanan lain.",
+      "step5": "Perlakukan agen seperti rekan kerja baru: beri permintaan yang jelas, periksa hasilnya, dan serahkan keputusan sensitif kepada manusia."
+    },
+    "groups": {
+      "title": "Grup",
+      "intro": "Grup adalah kumpulan anggota proyek yang diberi nama, seperti Farmasi, Keperawatan, Laboratorium, Fasilitas, atau Resepsionis. Tugaskan issue ke grup saat tim, bukan satu orang, yang bertanggung jawab.",
+      "step1": "Buka Pengaturan proyek, lalu Grup. Tekan Tambah grup, pilih nama dan warna, lalu pilih anggotanya. Hanya anggota proyek yang dapat bergabung dengan grup.",
+      "step2": "Gunakan ikon pensil untuk mengganti nama grup atau mengubah anggotanya, dan ikon tempat sampah untuk menghapusnya. Menghapus grup akan melepaskannya dari issue-nya.",
+      "step3": "Grup muncul di pemilih penerima tugas di bawah anggota, sebagai chip pada kartu, sebagai filter, dan sebagai pengelompokan di papan.",
+      "step4": "Setiap anggota grup diberi notifikasi saat sebuah issue ditugaskan ke grup tersebut, kecuali orang yang membuat perubahan.",
+      "step5": "Kolom Issue menunjukkan jumlah issue di setiap grup, yang membantu mengenali tim yang kelebihan beban."
+    },
+    "settings": {
+      "title": "Pengaturan proyek",
+      "intro": "Pengaturan proyek menentukan cara kerja tim Anda. Buka dari bilah sisi. Anda memerlukan hak manajer di proyek untuk mengubahnya.",
+      "step1": "Status adalah kolom papan, dalam kategori mulai dari Backlog hingga Selesai dan Dibatalkan. Tambah, ganti nama, ubah warna, dan seret status untuk mengurutkannya. Tipe issue, seperti Insiden atau Permintaan, dan label dikelola dengan cara yang sama.",
+      "step2": "Bidang kustom menambahkan properti Anda sendiri ke issue: teks, angka, kotak centang, pilihan, atau anggota. Bidang dapat berlaku untuk setiap issue atau hanya untuk satu tipe issue.",
+      "step3": "Templat issue adalah preset untuk issue baru dengan judul, deskripsi, dan properti yang sudah terisi. Cocok untuk pekerjaan berulang seperti laporan insiden dan permintaan persediaan.",
+      "step4": "Tindakan adalah perubahan sekali klik atau otomatis pada sebuah issue, misalnya mengatur status dan penerima tugas sekaligus. Webhook mengirim peristiwa ke sistem lain saat issue berubah.",
+      "step5": "Konfigurasi mengaktifkan dan menonaktifkan fitur untuk proyek, dan Umum berisi nama dan kuncinya."
+    },
+    "import": {
+      "title": "Impor dan ekspor",
+      "intro": "Bawa pekerjaan yang ada dari alat lain, atau ambil salinan proyek. Buka Pengaturan proyek, lalu Impor/Ekspor.",
+      "step1": "Pilih tab sumber: Plane, Linear, Jira, Trello, Procore, atau MS Project. Setiap tab meminta alamat dan token atau file, serta memiliki langkah Uji koneksi.",
+      "step2": "Untuk MS Project, unggah proyek yang disimpan sebagai XML. Tugas menjadi issue, dan tautan tugas menjadi dependensi.",
+      "step3": "Impor berjalan di latar belakang dan tercantum di bawah Pekerjaan impor. Pekerjaan dapat dijeda, dilanjutkan, atau dibatalkan selama berjalan.",
+      "step4": "Tab Ekspor mengunduh proyek sebagai file JSON beserta issue, komentar, dan labelnya. Simpan salinan sebelum perubahan besar.",
+      "step5": "Impor ke proyek uji terlebih dahulu, periksa hasilnya, lalu ulangi di proyek yang sebenarnya."
+    },
+    "members": {
+      "title": "Anggota, peran, dan notifikasi",
+      "intro": "Anggota adalah orang dan agen AI yang memiliki akses ke sebuah proyek. Peran mereka menentukan apa yang dapat mereka ubah.",
+      "step1": "Buka Anggota di bilah sisi untuk melihat semua orang, dengan tab Orang dan Agen AI. Tambah anggota mengundang seseorang atau menambahkan agen.",
+      "step2": "Menu peran mengatur apa yang dapat dilakukan anggota. Sebuah peran menyatakan, untuk setiap jenis item, apakah pemegangnya dapat membuat, mengubah, membaca, dan menghapus. Peran ditentukan oleh manajer tim di Kelola tim, Peran proyek.",
+      "step3": "Buka Notifikasi untuk memilih peristiwa apa yang sampai kepada Anda dan ke mana: ditugaskan ke sebuah issue, disebutkan, komentar baru pada issue yang Anda ikuti, dan perubahan status pada issue yang Anda ikuti.",
+      "step4": "Centang Email, Telegram, atau keduanya untuk setiap peristiwa, lalu tekan Simpan.",
+      "step5": "Tanyakan kepada pemilik proyek atau manajer tim jika Anda memerlukan peran yang berbeda."
+    },
+    "mcp": {
+      "title": "Menghubungkan klien AI",
+      "intro": "Server MCP memungkinkan klien AI seperti Claude atau ChatGPT membaca dan memperbarui issue atas nama Anda. Buka Server MCP di bilah sisi.",
+      "step1": "Halaman ini menampilkan endpoint MCP, yaitu alamat instance Anda diikuti /mcp, dan alamat penemuan OAuth. Gunakan tombol salin.",
+      "step2": "Dengan OAuth, tambahkan aplikasi MCP di klien Anda, tempel endpoint, pilih OAuth, lalu masuk dan setujui akses. Klien tidak pernah menerima kunci API.",
+      "step3": "Untuk Claude Code, jalankan perintah ini dan ganti ORIGIN dengan alamat instance Anda: claude mcp add --transport http plan ORIGIN/mcp",
+      "step4": "Dengan kunci API, buat kunci di akun Anda, buka tab Kunci API, dan berikan kunci kepada klien seperti yang ditunjukkan di sana. Klien hanya melihat apa yang diizinkan oleh kunci tersebut.",
+      "step5": "Anda dapat mencabut aplikasi yang terhubung atau kunci API kapan saja di akun Anda."
+    },
+    "account": {
+      "title": "Akun dan keamanan",
+      "intro": "Pengaturan akun Anda ada di bawah avatar di kanan atas layar.",
+      "step1": "Profil berisi nama, nama pengguna, avatar, bahasa, dan zona waktu Anda.",
+      "step2": "Passkey memungkinkan Anda masuk tanpa kata sandi. Tambahkan satu di setiap perangkat yang Anda pakai, dan hapus jika sebuah perangkat hilang.",
+      "step3": "Kunci API memberi skrip dan klien AI akses sebagai Anda. Beri setiap kunci nama yang jelas, dan hapus yang tidak lagi Anda gunakan.",
+      "step4": "Aplikasi terhubung mencantumkan aplikasi yang Anda setujui lewat OAuth, seperti klien AI. Cabut yang tidak Anda kenali.",
+      "step5": "Keluar dari menu avatar saat Anda memakai komputer bersama."
+    },
+    "help": {
+      "title": "Mendapatkan bantuan dan catatan admin",
+      "intro": "Mulailah dari tim Anda: manajer proyek atau rekan kerja dapat menjawab sebagian besar pertanyaan tentang cara klinik Anda memakai alat ini.",
+      "step1": "Jika ada yang tidak berfungsi seperti yang dijelaskan di sini, beri tahu pemilik proyek atau orang yang mengelola instance ini, dan sebutkan halaman yang sedang Anda buka.",
+      "step2": "Tautan Dokumentasi API di bagian bawah bilah sisi membuka referensi teknis untuk pengembang.",
+      "step3": "Pemilik instance memiliki Mode God, area terpisah untuk pengaturan seluruh instance seperti metode masuk, email, dan pendaftaran.",
+      "step4": "Pemilik instance juga diberi tahu saat versi baru tersedia. Tautan Riwayat rilis di kolom kiri panduan ini mencantumkan catatan rilis dan memeriksa pembaruan.",
+      "step5": "Buat cadangan sebelum memperbarui. Instance membuat cadangan basis data secara otomatis sebelum setiap peningkatan versi."
+    }
+  }
+}

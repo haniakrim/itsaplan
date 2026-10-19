@@ -1,0 +1,161 @@
+{
+  "eyebrow": "One Health",
+  "title": "User manual",
+  "open": "Open the user manual",
+  "releaseHistory": "Release history",
+  "images": {
+    "sign-in": "The sign-in page with email or username, password, and the passkey button",
+    "board": "The work items board with one column per state and a card for each issue",
+    "issue-detail": "An issue open in the side panel with its description and properties",
+    "assign": "The assignee picker listing people and groups",
+    "project-plan": "The project plan timeline with phases, dependency arrows, a milestone diamond, and late bars in red",
+    "initiatives": "The initiatives list with owner, target date, progress, and health",
+    "dashboards": "A dashboard with stat tiles, throughput, breakdown, pulse, and activity widgets",
+    "ai-agents": "The AI agents list of a team with handles, models, and triggers",
+    "groups": "The project settings Groups page listing Pharmacy, Nursing, Laboratory, Facilities, and Reception",
+    "states": "The project settings States page with states grouped by category",
+    "templates": "The project settings Issue templates page",
+    "custom-fields": "The project settings Custom fields page with global fields and fields per issue type",
+    "import-export": "The Import and Export page with a source tab for each tool",
+    "members": "The project Members page with roles for people and AI agents",
+    "notifications": "The Notifications page with email and Telegram checkboxes per event",
+    "mcp": "The MCP Server page with the endpoint and the OAuth and API key tabs"
+  },
+  "sections": {
+    "start": {
+      "title": "Getting started",
+      "intro": "Sign in once and everything below is a click away. You need an account on this instance, created by an invite or by sign-up.",
+      "step1": "Sign in with your email or username and password, or press Sign in with passkey to use your fingerprint, face, or device PIN. You can add a passkey later under your account.",
+      "step2": "The sidebar on the left lists Inbox, Dashboards, Work items, Initiatives, Cycles, Docs and Notes, then AI Team and Configuration. The project switcher at the top changes team and project. The panel button in the top bar collapses the sidebar.",
+      "step3": "Press ⌘K (Ctrl+K on Windows and Linux) to open the command palette. Type to jump to an issue, a page, or a setting, or to run an action such as creating an issue.",
+      "step4": "The top bar also holds the plus button to create an issue, the language switcher, and the light or dark theme toggle. Your choices are saved with your account.",
+      "step5": "Open this manual again at any time from the product name at the bottom of the sidebar."
+    },
+    "board": {
+      "title": "Work items board",
+      "intro": "Work items is where the team tracks tasks, requests, incidents, and anything else that needs an owner. The default view is a board.",
+      "step1": "Each column is a state, such as Backlog, Todo, In Progress, or Done. Drag a card to another column to change its state. The number next to the column name counts its issues.",
+      "step2": "A card shows the key, title, priority, estimate, due date, labels, and the assignee. Click a card to open the issue. The plus button in a column header creates an issue in that state.",
+      "step3": "To create an issue, press the plus button in the top bar, or use the command palette. Pick a template, such as Incident report or Supply request, to start from a filled-in description and properties.",
+      "step4": "Use the filter button at the right of the tabs to narrow the board by state, assignee, label, priority, and more. The display button changes the layout, grouping, and which properties cards show.",
+      "step5": "Save a set of filters and display options as a view with New view. Views are tabs next to All, such as Project plan, and each keeps its own settings."
+    },
+    "issue": {
+      "title": "Issue details",
+      "intro": "Click any card to open the issue in a side panel. Use the expand button to open it full width.",
+      "step1": "The title and description are editable in place. Write what happened, what was done, and what comes next. Checklists and formatting are supported.",
+      "step2": "The Properties list holds state, priority, type, assignee, delegate, watchers, initiative, cycle, start and due dates, and labels. Click a value to change it.",
+      "step3": "Custom fields appear below the properties, for example Site, Patient Impact, or Patient Safety Incident. Fill them in like any other property.",
+      "step4": "Add subtasks to split the work, and links to relate issues: blocks, is blocked by, relates to, or duplicates. A blocking link also draws a dependency arrow in the project plan.",
+      "step5": "Write comments at the bottom, reply in threads, attach files, and @mention a person or an AI agent. Press Watch to follow an issue and get notified about comments and state changes."
+    },
+    "assign": {
+      "title": "Assigning work",
+      "intro": "Every issue can have a person, a group, and a delegate. Assign early so nothing sits without an owner.",
+      "step1": "Click the Assignee value in the issue panel and pick a person or a group. Members are listed first, groups below them. Everyone in a group is notified.",
+      "step2": "Delegate hands the work to an AI agent while you stay the owner. Pick an agent under Delegate, or @mention it in a comment. The agent reports back on the issue.",
+      "step3": "To assign many issues at once, select cards or rows and use the bulk bar that appears at the bottom to set the assignee, state, labels, or priority.",
+      "step4": "A project action can assign automatically when an issue moves into a state, for example to the Pharmacy group when it enters Waiting on Supplies. Set it up in Project settings under Actions.",
+      "step5": "To see your own work, add the filter Assigned to with the value Me, or Me or my groups to include issues of the groups you belong to. Save it as a view for a daily to-do list."
+    },
+    "plan": {
+      "title": "Project plan and Gantt",
+      "intro": "The Project plan view lays issues out on a timeline so the team can see sequence, overlap, and delays. Open it from the tabs above the board.",
+      "step1": "Issues are rows and time runs across. A bar spans the start date and the due date, so set both on an issue to see it drawn. The thin vertical line marks today.",
+      "step2": "Rows are grouped by initiative, so each initiative reads as a phase. Issues without an initiative are listed first. Click the arrow on a group to fold it.",
+      "step3": "Arrows connect an issue that blocks another to the issue it blocks. A bar drawn in red stripes starts before the work it depends on has finished: move it later or fix the dates.",
+      "step4": "A diamond is a milestone, an issue that is a single point in time such as an approval. Its label sits beside it.",
+      "step5": "Drag a bar to move an issue, and drag either end to change its start or due date. Changes are saved straight away."
+    },
+    "initiatives": {
+      "title": "Initiatives and cycles",
+      "intro": "Initiatives group issues into larger goals or phases. Cycles time-box the work into a fixed period.",
+      "step1": "Open Initiatives to see all of them in tabs: Active, Planned, Proposed, Completed, and All. Each row shows the owner, target date, progress, and health.",
+      "step2": "Press New initiative, then give it a name, owner, and target date. Add issues to it from the Initiative property on the issue.",
+      "step3": "Progress counts finished issues against the total. Health shows whether the initiative is on track.",
+      "step4": "Cycles are short periods, such as two weeks, with a set of issues to finish. Open Cycles in the sidebar to create one and add issues to it.",
+      "step5": "Issues still open when a cycle ends move to the next cycle, so nothing is lost."
+    },
+    "dashboards": {
+      "title": "Dashboards",
+      "intro": "Dashboards turn the project into numbers that are easy to scan in a meeting or at the start of a shift.",
+      "step1": "The Overview dashboard shows tiles for Open, In progress, Backlog, and Unassigned issues, then charts such as Throughput, Breakdown, Pulse, Recent issues, and the Activity feed.",
+      "step2": "Check Unassigned first: it counts open issues nobody owns. Open counts everything not done or canceled.",
+      "step3": "Press Edit layout to add, remove, resize, and move widgets. Press New dashboard to make another one, for example one per service.",
+      "step4": "The Breakdown widget can count issues by state, priority, assignee, label, or group.",
+      "step5": "Dashboards update as the team works, so there is nothing to refresh."
+    },
+    "agents": {
+      "title": "AI agents",
+      "intro": "An AI agent is a teammate that works on issues for you: it reads the issue, does the task, and writes the result back as a comment. It has a handle such as @planner or @reviewer.",
+      "step1": "Mention an agent with @ in a comment to ask it something, or pick it under Delegate on an issue to hand the work over. Agents also run on schedules, listed under Schedules.",
+      "step2": "Some agent actions need a person to approve them first. Approval requests appear on the issue and in your inbox. Every action an agent takes is written to its action log.",
+      "step3": "Each agent has a model, a set of tools, and optional budgets that limit how much it can spend. A run stops when the budget is reached.",
+      "step4": "Team managers create and edit agents under Manage teams, AI Team, AI Agents. Integrations there connect the agent to a model provider and to other services.",
+      "step5": "Treat an agent like a new colleague: give it a clear request, check its result, and keep sensitive decisions with a person."
+    },
+    "groups": {
+      "title": "Groups",
+      "intro": "A group is a named set of project members, such as Pharmacy, Nursing, Laboratory, Facilities, or Reception. Assign an issue to the group when the team, not one person, owns it.",
+      "step1": "Open Project settings, then Groups. Press Add group, choose a name and a color, and pick its members. Only members of the project can join a group.",
+      "step2": "Use the pencil icon to rename a group or change its members, and the bin icon to delete it. Deleting a group clears it from its issues.",
+      "step3": "Groups appear in the assignee picker below the members, as a chip on cards, as a filter, and as a grouping on the board.",
+      "step4": "Every member of a group is notified when an issue is assigned to it, except the person who made the change.",
+      "step5": "The Issues column shows how many issues each group holds, which helps spot an overloaded team."
+    },
+    "settings": {
+      "title": "Project settings",
+      "intro": "Project settings shape how your team works. Open it from the sidebar. You need manager rights in the project to change it.",
+      "step1": "States are the columns of the board, in categories from Backlog to Completed and Canceled. Add, rename, recolor, and drag states to reorder them. Issue types, such as Incident or Request, and labels are managed the same way.",
+      "step2": "Custom fields add your own properties to issues: text, number, checkbox, select, or member. A field can apply to every issue or to one issue type only.",
+      "step3": "Issue templates are presets for a new issue with its title, description, and properties already filled in. They suit repeated work such as incident reports and supply requests.",
+      "step4": "Actions are one-click or automatic changes on an issue, for example set the state and the assignee together. Webhooks send events to another system when issues change.",
+      "step5": "Configuration turns features on and off for the project, and General holds its name and key."
+    },
+    "import": {
+      "title": "Import and export",
+      "intro": "Bring existing work in from another tool, or take a copy of the project out. Open Project settings, then Import/Export.",
+      "step1": "Choose a source tab: Plane, Linear, Jira, Trello, Procore, or MS Project. Each tab asks for the address and a token or a file, and has a Test connection step.",
+      "step2": "For MS Project, upload the project saved as XML. Tasks become issues, and task links become dependencies.",
+      "step3": "Imports run in the background and are listed under Import jobs. A job can be paused, resumed, or canceled while it runs.",
+      "step4": "The Export tab downloads the project as a JSON file with its issues, comments, and labels. Keep a copy before a big change.",
+      "step5": "Import into a test project first, check the result, and then repeat in the real one."
+    },
+    "members": {
+      "title": "Members, roles and notifications",
+      "intro": "Members are the people and AI agents with access to a project. Their role decides what they can change.",
+      "step1": "Open Members in the sidebar to see everyone, with tabs for People and AI agents. Add member invites a person or adds an agent.",
+      "step2": "The role dropdown sets what a member can do. A role says, for each kind of item, whether its holder can create, edit, read, and delete. Roles are defined by the team managers under Manage teams, Project roles.",
+      "step3": "Open Notifications to choose which events reach you and where: assigned to an issue, mentioned, new comment on an issue you watch, and state change on an issue you watch.",
+      "step4": "Tick Email, Telegram, or both for each event, then press Save.",
+      "step5": "Ask a project owner or team manager if you need a different role."
+    },
+    "mcp": {
+      "title": "Connecting AI clients",
+      "intro": "The MCP server lets an AI client such as Claude or ChatGPT read and update issues on your behalf. Open MCP Server in the sidebar.",
+      "step1": "The page shows the MCP endpoint, which is your instance address followed by /mcp, and the OAuth discovery address. Use the copy buttons.",
+      "step2": "With OAuth, add an MCP app in your client, paste the endpoint, choose OAuth, then sign in and approve access. The client never receives an API key.",
+      "step3": "For Claude Code, run this command, replacing ORIGIN with your instance address: claude mcp add --transport http plan ORIGIN/mcp",
+      "step4": "With an API key, create a key under your account, open the API key tab, and give the client the key as shown there. The client sees only what that key allows.",
+      "step5": "You can revoke a connected app or an API key at any time under your account."
+    },
+    "account": {
+      "title": "Account and security",
+      "intro": "Your account settings are under your avatar at the top right of the screen.",
+      "step1": "Profile holds your name, username, avatar, language, and time zone.",
+      "step2": "Passkeys let you sign in without a password. Add one on each device you use, and remove one if a device is lost.",
+      "step3": "API keys give scripts and AI clients access as you. Give each key a clear name, and delete the ones you no longer use.",
+      "step4": "Connected apps lists the apps you approved through OAuth, such as an AI client. Revoke any you do not recognize.",
+      "step5": "Sign out from the avatar menu when you use a shared computer."
+    },
+    "help": {
+      "title": "Getting help and admin notes",
+      "intro": "Start with your team: a project manager or a colleague can answer most questions about how your clinic uses the tool.",
+      "step1": "If something does not work as described here, tell your project owner or the person who runs this instance, and say which page you were on.",
+      "step2": "The API docs link at the bottom of the sidebar opens the technical reference for developers.",
+      "step3": "The instance owner has God mode, a separate area for instance-wide settings such as sign-in methods, email, and registration.",
+      "step4": "The instance owner is also told when a new version is available. The Release history link in the left column of this manual lists the release notes and checks for updates.",
+      "step5": "Back up before updating. The instance takes a database backup automatically before each upgrade."
+    }
+  }
+}

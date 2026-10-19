@@ -1,9 +1,10 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { cn } from '@/lib/utils';
 
 export interface TakeoverSection {
@@ -32,6 +33,8 @@ export default function TakeoverScreen({
   aside,
   actionLabel,
   onAction,
+  activeId,
+  onEscape,
 }: {
   eyebrow: string;
   title: string;
@@ -42,12 +45,25 @@ export default function TakeoverScreen({
   aside?: ReactNode;
   actionLabel: string;
   onAction: () => void;
+  // The section the reader is on, marked in the index.
+  activeId?: string;
+  // Closes the screen on Escape; a screen with none can only be left by its action.
+  onEscape?: () => void;
 }) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(rootRef, onEscape);
   if (typeof document === 'undefined') return null;
   // Portaled to the body: an opener inside a stacking context, like the sidebar
   // footer, would otherwise put the screen under page content of the same z-index.
   return createPortal(
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-background">
+    <div
+      ref={rootRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+      tabIndex={-1}
+      className="fixed inset-0 z-50 overflow-y-auto bg-background outline-none"
+    >
       <div className="grid min-h-full w-full lg:grid-cols-[20rem_minmax(0,1fr)] xl:grid-cols-[24rem_minmax(0,1fr)]">
         <aside className="flex flex-col gap-10 bg-muted/40 px-6 py-10 lg:sticky lg:top-0 lg:h-dvh lg:px-10 lg:py-14">
           <div>
@@ -60,17 +76,20 @@ export default function TakeoverScreen({
           </div>
 
           {sections.length > 1 && (
-            <nav className="hidden lg:block">
+            <nav className="hidden min-h-0 overflow-y-auto lg:block">
               <ol className="space-y-2 text-sm">
                 {sections.map((section, index) => (
                   <li key={section.id}>
                     <a
                       href={`#${section.id}`}
+                      aria-current={section.id === activeId ? 'location' : undefined}
                       className={cn(
                         'flex gap-3 transition-colors',
                         section.tone === 'current'
                           ? 'text-emerald-600 dark:text-emerald-400'
-                          : 'text-muted-foreground hover:text-foreground',
+                          : section.id === activeId
+                            ? 'font-medium text-foreground'
+                            : 'text-muted-foreground hover:text-foreground',
                       )}
                     >
                       <span className="tabular-nums">{String(index + 1).padStart(2, '0')}</span>

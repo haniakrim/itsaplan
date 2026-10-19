@@ -1,19 +1,24 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import AppLogo from '@/components/common/AppLogo';
+import UserManual from '@/features/user-manual/UserManual';
+import ReleaseCheck from '@/features/whats-new/components/ReleaseCheck';
 import ReleaseHistory from '@/features/whats-new/components/ReleaseHistory';
 import { useSession } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 import { useAppVersionQuery, useUpdateStatusQuery } from '@/services/updates.service';
 
 // The product mark at the bottom of both sidebars, with the running version under
-// it. Collapses to the mark alone when the sidebar is in icon mode.
+// it. Collapses to the mark alone when the sidebar is in icon mode. It opens the
+// user manual for everyone.
 //
-// The instance owner also sees whether a newer release is published and opens the
-// release notes from here — they are the one who upgrades the instance, so the
-// check is theirs alone (GET /god/updates). Everyone else sees the version only.
+// The instance owner also sees whether a newer release is published and reaches the
+// release notes from the manual — they are the one who upgrades the instance, so
+// the check is theirs alone (GET /god/updates).
 export default function SidebarBrandFooter() {
+  const t = useTranslations('manual');
   const { data: session } = useSession();
   // The session store can already be filled by the time React hydrates, while the
   // server rendered without it. Reading it only after mount keeps the server and
@@ -24,7 +29,7 @@ export default function SidebarBrandFooter() {
 
   const { data: appVersion } = useAppVersionQuery();
   const { data: status } = useUpdateStatusQuery(isGod);
-  const [showUpdates, setShowUpdates] = useState(false);
+  const [view, setView] = useState<'manual' | 'releases' | null>(null);
 
   const version = appVersion?.version ?? status?.currentVersion;
   // The version to offer, or null when the running one is the newest known.
@@ -61,20 +66,36 @@ export default function SidebarBrandFooter() {
     </>
   );
 
-  // Without the owner's release data there is nothing to open, so the footer stays
-  // the plain mark it is for everyone else.
-  if (!status) return <div className={layout}>{content}</div>;
-
   return (
     <>
       <button
         type="button"
+        aria-label={t('open')}
         className={cn(layout, 'rounded-md hover:bg-sidebar-accent')}
-        onClick={() => setShowUpdates(true)}
+        onClick={() => setView('manual')}
       >
         {content}
       </button>
-      {showUpdates && <ReleaseHistory status={status} onClose={() => setShowUpdates(false)} />}
+      {view === 'manual' && (
+        <UserManual
+          onClose={() => setView(null)}
+          aside={status && <ReleaseCheck status={status} />}
+          navFooter={
+            status && (
+              <button
+                type="button"
+                onClick={() => setView('releases')}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                {t('releaseHistory')}
+              </button>
+            )
+          }
+        />
+      )}
+      {view === 'releases' && status && (
+        <ReleaseHistory status={status} onClose={() => setView('manual')} />
+      )}
     </>
   );
 }

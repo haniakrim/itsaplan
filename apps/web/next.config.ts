@@ -57,7 +57,8 @@ const nextConfig: NextConfig = {
   // Every local image is served by app/media. Next 16 refuses a query string on
   // a local image unless its path is listed here; the attachments panel stamps a
   // replaced attachment's URL with one so the optimizer refetches it.
-  images: { localPatterns: [{ pathname: '/media/**' }] },
+  // The user manual's screenshots live in public/manual.
+  images: { localPatterns: [{ pathname: '/media/**' }, { pathname: '/manual/**' }] },
   ...(cloudUiEntry ? { turbopack: { resolveAlias: { '@/cloud': cloudUiEntry } } } : {}),
 };
 
